@@ -21,6 +21,8 @@ typedef struct cub3d
     int p_x;
     int p_y;
     int i;
+    char *space;
+    char *wall;
 } t_cub3d;
 
 #endif
