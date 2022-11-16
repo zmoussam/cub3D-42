@@ -14,7 +14,7 @@
 #define ESC 53
 #define M_L 123
 #define M_R 124
-#define RETAION (5 * M_PI)/180
+#define RETAION (5 * M_PI) / 180
 typedef struct cub3d
 {
     char **map;

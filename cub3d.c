@@ -36,20 +36,21 @@ void ft_mov(t_cub3d *cub3d)
     int y = cub3d->p_y - 8;
     while (y < cub3d->p_y + 8)
     {
-        int x = cub3d->p_x -8;
+        int x = cub3d->p_x - 8;
         while (x < cub3d->p_x + 8)
-            mlx_pixel_put(cub3d->mlx, cub3d->window, x++, y, 0xf0ffffff/10);
+            mlx_pixel_put(cub3d->mlx, cub3d->window, x++, y, 0xf0ffffff / 10);
         y++;
     }
-    draw_line(cub3d, cub3d->p_x, cub3d->p_y, cub3d->p_x + cos(cub3d->angle)*50, cub3d->p_y + sin(cub3d->angle)*50, 0xf0ffffff/2);
+    draw_line(cub3d, cub3d->p_x, cub3d->p_y, cub3d->p_x + cos(cub3d->angle) * 50,
+              cub3d->p_y + sin(cub3d->angle) * 50, 0xf0ffffff / 4);
 }
 
-void    add_image(t_cub3d *cub3d)
+void add_image(t_cub3d *cub3d)
 {
-    int	width;
-	int	height;
-    cub3d->space = mlx_xpm_file_to_image(cub3d->mlx,"image/space.xpm",&width, &height);
-    cub3d->wall = mlx_xpm_file_to_image(cub3d->mlx,"image/wall.xpm",&width, &height);
+    int width;
+    int height;
+    cub3d->space = mlx_xpm_file_to_image(cub3d->mlx, "image/space.xpm", &width, &height);
+    cub3d->wall = mlx_xpm_file_to_image(cub3d->mlx, "image/wall.xpm", &width, &height);
     int i = 0;
     while (cub3d->map[i])
     {
@@ -57,9 +58,9 @@ void    add_image(t_cub3d *cub3d)
         while (cub3d->map[i][j])
         {
             if (cub3d->map[i][j] == '0')
-                    mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->space, j*64,i*64);
+                mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->space, j * 64, i * 64);
             else if (cub3d->map[i][j] == '1')
-                    mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->wall, j*64,i*64);
+                mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->wall, j * 64, i * 64);
             j++;
         }
         i++;
@@ -68,34 +69,49 @@ void    add_image(t_cub3d *cub3d)
 
 int movemment(int key, t_cub3d *cub3d)
 {
-    printf ("%d\n", key);
+    printf("%d\n", key);
     if (key == M_L)
-        cub3d->angle-=RETAION;
+    {
+        cub3d->angle -= RETAION;
+    }
     if (key == M_R)
-        cub3d->angle+=RETAION;
+    {
+        cub3d->angle += RETAION;
+    }
     if (key == W)
     {
-        if (cub3d->map[(cub3d->p_y - 32)/64][cub3d->p_x/64] == '1');
+        if (cub3d->map[(cub3d->p_y - 32) / 64][cub3d->p_x / 64] == '1')
+            ;
         else
-            cub3d->p_y-=16;
+        {
+
+            cub3d->p_y -= 16 * sin(cub3d->angle);
+            cub3d->p_x -= 16 * cos(cub3d->angle);
+        }
     }
     if (key == S)
     {
-        if (cub3d->map[(cub3d->p_y + 32)/64][(cub3d->p_x)/64] == '1');
+        if (cub3d->map[(cub3d->p_y + 16) / 64][(cub3d->p_x) / 64] == '1')
+            ;
         else
-            cub3d->p_y+=16;
+        {
+            cub3d->p_y += 16 * sin(cub3d->angle);
+            cub3d->p_x += 16 * cos(cub3d->angle);
+        }
     }
     if (key == A)
     {
-        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 32)/64] == '1');
+        if (cub3d->map[(cub3d->p_y) / 64][(cub3d->p_x - 32) / 64] == '1')
+            ;
         else
-            cub3d->p_x-=16;
+            cub3d->p_x -= 16;
     }
     if (key == D)
     {
-        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 32)/64] == '1');
+        if (cub3d->map[(cub3d->p_y) / 64][(cub3d->p_x + 16) / 64] == '1')
+            ;
         else
-            cub3d->p_x+=16;
+            cub3d->p_x += 16;
     }
     if (key == ESC)
         exit(0);
@@ -109,12 +125,12 @@ int main()
 {
     t_cub3d *cub3d;
     cub3d = malloc(sizeof(t_cub3d));
-    cub3d->p_x = 5*BLOCK;
-    cub3d->p_y = 3*BLOCK;
-    cub3d->angle  = M_PI_2;
+    cub3d->p_x = 5 * BLOCK;
+    cub3d->p_y = 3 * BLOCK;
+    cub3d->angle = M_PI_2;
     init_maps(cub3d);
     cub3d->mlx = mlx_init();
-    cub3d->window = mlx_new_window(cub3d->mlx, WIDTH, HIGHT, "./a.out");
+    cub3d->window = mlx_new_window(cub3d->mlx, WIDTH, HIGHT, "CUB3D");
     add_image(cub3d);
     ft_mov(cub3d);
     mlx_hook(cub3d->window, 2, 1L << 1, movemment, cub3d);
