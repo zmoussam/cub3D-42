@@ -2,34 +2,47 @@
 
 void init_maps(t_cub3d *cub3d)
 {
-    cub3d->map = malloc(sizeof(char *) * 13);
-    cub3d->map[0] = ft_strdup("111111111111111111111111111111");
-    cub3d->map[1] = ft_strdup("100100001000000000000000000001");
-    cub3d->map[2] = ft_strdup("101000001000000000000000000001");
-    cub3d->map[3] = ft_strdup("100100001010000000000000000001");
-    cub3d->map[4] = ft_strdup("101000001010000000000000000001");
-    cub3d->map[5] = ft_strdup("100000000000000000000000000001");
-    cub3d->map[6] = ft_strdup("100000000000000000011111100001");
-    cub3d->map[7] = ft_strdup("100000000000000000000000100001");
-    cub3d->map[8] = ft_strdup("100000000000000000000000100001");
-    cub3d->map[9] = ft_strdup("100000000000000000001111100001");
-    cub3d->map[10] = ft_strdup("100000000000000000000000000001");
-    cub3d->map[11] = ft_strdup("111111111111111111111111111111");
-    cub3d->map[12] = NULL;
+    cub3d->map = malloc(sizeof(char *) * 9);
+    cub3d->map[0] = ft_strdup("11111111111111");
+    cub3d->map[1] = ft_strdup("10000100100001");
+    cub3d->map[2] = ft_strdup("10000000000001");
+    cub3d->map[3] = ft_strdup("10000010000011");
+    cub3d->map[4] = ft_strdup("10001001000001");
+    cub3d->map[5] = ft_strdup("10001000100011");
+    cub3d->map[6] = ft_strdup("10001000100001");
+    cub3d->map[7] = ft_strdup("11111111111111");
+    cub3d->map[8] = NULL;
 }
 
-void ft_mov(t_cub3d *cub3d)
+void draw_line(t_cub3d *cub, int beginX, int beginY, int endX, int endY, int color)
 {
-    int i = cub3d->p_x - 16;
-    while (i < cub3d->p_x + 16)
+    double deltaX = endX - beginX;                            // 10
+    double deltaY = endY - beginY;                            // 5
+    int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY)); // 11.1
+    deltaX /= pixels;                                         // 0
+    deltaY /= pixels;                                         // 0
+    double pixelX = beginX;                                   // 10
+    double pixelY = beginY;                                   // 5
+    while (pixels)
     {
-        int j = cub3d->p_y - 16;
-        while (j < cub3d->p_y + 16)
-            mlx_pixel_put(cub3d->mlx, cub3d->window, i, j++, 0xf0ffffff/10);
-        i++;
+        mlx_pixel_put(cub->mlx, cub->window, pixelX, pixelY, color);
+        pixelX += deltaX;
+        pixelY += deltaY;
+        --pixels;
     }
 }
-
+void ft_mov(t_cub3d *cub3d)
+{
+    int y = cub3d->p_y - 8;
+    while (y < cub3d->p_y + 8)
+    {
+        int x = cub3d->p_x -8;
+        while (x < cub3d->p_x + 8)
+            mlx_pixel_put(cub3d->mlx, cub3d->window, x++, y, 0xf0ffffff/10);
+        y++;
+    }
+    draw_line(cub3d, cub3d->p_x, cub3d->p_y, cub3d->p_x + cos(cub3d->angle)*50, cub3d->p_y + sin(cub3d->angle)*50, 0xf0ffffff/2);
+}
 
 void    add_image(t_cub3d *cub3d)
 {
@@ -55,28 +68,32 @@ void    add_image(t_cub3d *cub3d)
 
 int movemment(int key, t_cub3d *cub3d)
 {
-    printf("%d\n",key);
+    printf ("%d\n", key);
+    if (key == M_L)
+        cub3d->angle-=RETAION;
+    if (key == M_R)
+        cub3d->angle+=RETAION;
     if (key == W)
     {
-        if (cub3d->map[(cub3d->p_y -16)/64][cub3d->p_x/64] == '1');
+        if (cub3d->map[(cub3d->p_y - 32)/64][cub3d->p_x/64] == '1');
         else
             cub3d->p_y-=16;
     }
     if (key == S)
     {
-        if (cub3d->map[(cub3d->p_y +16 )/64][cub3d->p_x/64] == '1');
+        if (cub3d->map[(cub3d->p_y + 32)/64][(cub3d->p_x)/64] == '1');
         else
             cub3d->p_y+=16;
     }
     if (key == A)
     {
-        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 16)/64] == '1');
+        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 32)/64] == '1');
         else
             cub3d->p_x-=16;
     }
     if (key == D)
     {
-        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 16)/64] == '1');
+        if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 32)/64] == '1');
         else
             cub3d->p_x+=16;
     }
@@ -90,15 +107,16 @@ int movemment(int key, t_cub3d *cub3d)
 
 int main()
 {
-    int p_x = 300;
-    int p_y = 300;
     t_cub3d *cub3d;
     cub3d = malloc(sizeof(t_cub3d));
-    cub3d->p_x = p_x;
-    cub3d->p_y = p_y;
+    cub3d->p_x = 5*BLOCK;
+    cub3d->p_y = 3*BLOCK;
+    cub3d->angle  = M_PI_2;
     init_maps(cub3d);
     cub3d->mlx = mlx_init();
     cub3d->window = mlx_new_window(cub3d->mlx, WIDTH, HIGHT, "./a.out");
+    add_image(cub3d);
+    ft_mov(cub3d);
     mlx_hook(cub3d->window, 2, 1L << 1, movemment, cub3d);
     mlx_loop(cub3d->mlx);
     return (0);
