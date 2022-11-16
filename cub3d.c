@@ -35,8 +35,8 @@ void    add_image(t_cub3d *cub3d)
 {
     int	width;
 	int	height;
-    cub3d->space = mlx_xpm_file_to_image(cub3d->mlx,"space.xpm",&width, &height);
-    cub3d->wall = mlx_xpm_file_to_image(cub3d->mlx,"wall.xpm",&width, &height);
+    cub3d->space = mlx_xpm_file_to_image(cub3d->mlx,"image/space.xpm",&width, &height);
+    cub3d->wall = mlx_xpm_file_to_image(cub3d->mlx,"image/wall.xpm",&width, &height);
     int i = 0;
     while (cub3d->map[i])
     {
