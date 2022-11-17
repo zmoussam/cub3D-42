@@ -69,49 +69,39 @@ void add_image(t_cub3d *cub3d)
 
 int movemment(int key, t_cub3d *cub3d)
 {
-    printf("%d\n", key);
     if (key == M_L)
-    {
         cub3d->angle -= RETAION;
-    }
     if (key == M_R)
-    {
         cub3d->angle += RETAION;
-    }
     if (key == W)
     {
-        if (cub3d->map[(cub3d->p_y - 32) / 64][cub3d->p_x / 64] == '1')
-            ;
-        else
-        {
-
-            cub3d->p_y -= 16 * sin(cub3d->angle);
-            cub3d->p_x -= 16 * cos(cub3d->angle);
-        }
+        // if (cub3d->map[(cub3d->p_y + 16)/64][cub3d->p_x/64] == '1');
+        // else
+        // {
+            cub3d->p_y += 8*cos(RETAION);
+            cub3d->p_x += 8*sin(RETAION);
+        // }
     }
     if (key == S)
     {
-        if (cub3d->map[(cub3d->p_y + 16) / 64][(cub3d->p_x) / 64] == '1')
-            ;
-        else
-        {
-            cub3d->p_y += 16 * sin(cub3d->angle);
-            cub3d->p_x += 16 * cos(cub3d->angle);
-        }
+        // if (cub3d->map[(cub3d->p_y - 16)/64][(cub3d->p_x)/64] == '1');
+        // else
+        // {
+            cub3d->p_y -= 8*cos(RETAION);
+            cub3d->p_x -= 8*sin(RETAION);
+        // }
     }
     if (key == A)
     {
-        if (cub3d->map[(cub3d->p_y) / 64][(cub3d->p_x - 32) / 64] == '1')
-            ;
-        else
-            cub3d->p_x -= 16;
+        // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 16)/64] == '1');
+        // else
+            cub3d->p_x -= 8;
     }
     if (key == D)
     {
-        if (cub3d->map[(cub3d->p_y) / 64][(cub3d->p_x + 16) / 64] == '1')
-            ;
-        else
-            cub3d->p_x += 16;
+        // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 16)/64] == '1');
+        // else
+            cub3d->p_x += 8;
     }
     if (key == ESC)
         exit(0);
