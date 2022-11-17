@@ -78,8 +78,8 @@ int movemment(int key, t_cub3d *cub3d)
         // if (cub3d->map[(cub3d->p_y + 16)/64][cub3d->p_x/64] == '1');
         // else
         // {
-            cub3d->p_y += 8*cos(RETAION);
-            cub3d->p_x += 8*sin(RETAION);
+            cub3d->p_y +=  round(8*sin(cub3d->angle));
+            cub3d->p_x +=  round(8*cos(cub3d->angle));
         // }
     }
     if (key == S)
@@ -87,21 +87,24 @@ int movemment(int key, t_cub3d *cub3d)
         // if (cub3d->map[(cub3d->p_y - 16)/64][(cub3d->p_x)/64] == '1');
         // else
         // {
-            cub3d->p_y -= 8*cos(RETAION);
-            cub3d->p_x -= 8*sin(RETAION);
+             cub3d->p_y -= round(8*sin(cub3d->angle));
+            cub3d->p_x -=  round(8*cos(cub3d->angle));
+            // cub3d->p_x -= 8;
         // }
     }
     if (key == A)
     {
         // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 16)/64] == '1');
         // else
-            cub3d->p_x -= 8;
+            cub3d->p_x -=  round(8*cos(cub3d->angle));
+            cub3d->p_y -= round(8*sin(cub3d->angle));
     }
     if (key == D)
     {
         // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 16)/64] == '1');
         // else
-            cub3d->p_x += 8;
+            cub3d->p_y += round(8*sin(cub3d->angle));
+            cub3d->p_x +=  round(8*cos(cub3d->angle));
     }
     if (key == ESC)
         exit(0);
