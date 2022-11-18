@@ -33,11 +33,11 @@ void draw_line(t_cub3d *cub, int beginX, int beginY, int endX, int endY, int col
 }
 void ft_mov(t_cub3d *cub3d)
 {
-    int y = cub3d->p_y - 8;
-    while (y < cub3d->p_y + 8)
+    int y = cub3d->p_y - 2;
+    while (y < cub3d->p_y + 2)
     {
-        int x = cub3d->p_x - 8;
-        while (x < cub3d->p_x + 8)
+        int x = cub3d->p_x - 2;
+        while (x < cub3d->p_x + 2)
             mlx_pixel_put(cub3d->mlx, cub3d->window, x++, y, 0xf0ffffff / 10);
         y++;
     }
@@ -57,9 +57,9 @@ void add_image(t_cub3d *cub3d)
         int j = 0;
         while (cub3d->map[i][j])
         {
-            if (cub3d->map[i][j] == '0')
-                mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->space, j * 64, i * 64);
-            else if (cub3d->map[i][j] == '1')
+            // if (cub3d->map[i][j] == '0')
+            //     mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->space, j * 64, i * 64);
+            if (cub3d->map[i][j] == '1')
                 mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->wall, j * 64, i * 64);
             j++;
         }
@@ -75,37 +75,45 @@ int movemment(int key, t_cub3d *cub3d)
         cub3d->angle += RETAION;
     if (key == W)
     {
-        // if (cub3d->map[(cub3d->p_y + 16)/64][cub3d->p_x/64] == '1');
+        // if (cub3d->map[(cub3d->p_y - 16)/64][(cub3d->p_x - 16)/64] == '1')
+        //     ;
         // else
         // {
-            cub3d->p_y +=  round(8*sin(cub3d->angle));
-            cub3d->p_x +=  round(8*cos(cub3d->angle));
+            cub3d->p_y += round(8 * sin(cub3d->angle));
+            cub3d->p_x += round(8 * cos(cub3d->angle));
         // }
     }
     if (key == S)
     {
-        // if (cub3d->map[(cub3d->p_y - 16)/64][(cub3d->p_x)/64] == '1');
+        // if (cub3d->map[(cub3d->p_y + 16)/64][(cub3d->p_x + 16)/64] == '1')
+        //     ;
         // else
         // {
-             cub3d->p_y -= round(8*sin(cub3d->angle));
-            cub3d->p_x -=  round(8*cos(cub3d->angle));
-            // cub3d->p_x -= 8;
+            cub3d->p_y -= round(8 * sin(cub3d->angle));
+            cub3d->p_x -= round(8 * cos(cub3d->angle));
         // }
     }
     if (key == A)
     {
-        // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x - 16)/64] == '1');
+        // if (cub3d->map[(cub3d->p_y + 16)/64][(cub3d->p_x + 16)/64] == '1')
+        //     ;
         // else
-            cub3d->p_x -=  round(8*cos(cub3d->angle));
-            cub3d->p_y -= round(8*sin(cub3d->angle));
+        // {
+            cub3d->p_x -= round(8 * cos(cub3d->angle + M_PI_2));
+            cub3d->p_y -= round(8 * sin(cub3d->angle + M_PI_2));
+        // }
     }
     if (key == D)
     {
-        // if (cub3d->map[(cub3d->p_y)/64][(cub3d->p_x + 16)/64] == '1');
+        // if (cub3d->map[(cub3d->p_y - 16)/64][(cub3d->p_x - 16)/64] == '1')
+        //     ;
         // else
-            cub3d->p_y += round(8*sin(cub3d->angle));
-            cub3d->p_x +=  round(8*cos(cub3d->angle));
+        // {
+            cub3d->p_y += round(8 * sin(cub3d->angle + M_PI_2));
+            cub3d->p_x += round(8 * cos(cub3d->angle + M_PI_2));
+        // }
     }
+
     if (key == ESC)
         exit(0);
     mlx_clear_window(cub3d->mlx, cub3d->window);
