@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:06:29 by zmoussam          #+#    #+#             */
-/*   Updated: 2022/11/19 03:40:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2022/11/19 03:48:21 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,11 +193,17 @@ int	get_map_height(int fd)
 	return (map_height);
 }
 
+int	get_map_head(void)
+{
+	int fd;
+
+	fd = 
+}
+
 int	get_map(int fd, t_info *infos, char *first_line)
 {
 	int		map_height;
 
-	
 	(void)infos;
 	if (!first_line)
 		return (printf("Error: map not found"), 0);
@@ -209,7 +215,7 @@ int	get_map(int fd, t_info *infos, char *first_line)
 	infos->map = (char **)malloc(sizeof(char *) * (map_height + 1));
 	if (!infos->map)
 		return (printf("Error: memory was not allocated!!\n"), 0);
-	
+	fd = get_map_head();
 	return (1);
 	
 }
