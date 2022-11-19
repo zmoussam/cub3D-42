@@ -6,12 +6,12 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 14:22:24 by zmoussam          #+#    #+#             */
-/*   Updated: 2022/11/19 01:17:18 by zmoussam         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:07:01 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../libft_zack/libft.h"
+#include "../../libft_zack/libft.h"
 
 char	*ft_strjoin2(char *s1, char const *s2)
 {

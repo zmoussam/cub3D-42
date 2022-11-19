@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 19:06:26 by zmoussam          #+#    #+#             */
-/*   Updated: 2022/11/18 22:59:07 by zmoussam         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:06:18 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define PARSING_H
 
 // #include "../cub3d.h"
-#include "../get_next_line/get_next_line.h"
+#include "./get_next_line/get_next_line.h"
  #include <fcntl.h>
 #include <stdio.h>
 #include <errno.h>
@@ -40,4 +40,24 @@ typedef enum map_token
     RGB_COLOR, 
     MAP,
 } t_map_token;
+
+char	*get_texture_path(char *line);
+void	get_direction(t_info *infos, char *line, int *count);
+int     parse_color(char **colors);
+int     check_if_empty(char *color);
+int     callcul_color(char *rgb_color);
+void	get_color(t_info *infos, char *line, int *count);
+int     is_valid_rgb(int color);
+void	check_extention(char *file_name);
+int     get_token(char *line);
+int     get_infos(t_info *infos, int fd);
+int     parsing(t_info *infos, char *file_name);
+void	_error(char *error_name);
+void    free_colors(char **colors);
+void	free_map_list(t_list *map, int height);
+int     check_wals(char *border, int index);
+int     get_map(int fd, t_info *infos, char *first_line);
+int     map_list_to_array(t_list *map, t_info *infos, int height);
+int     get_map_content(int fd, t_list **map);
+
 #endif
