@@ -13,10 +13,11 @@ all: $(OFILES) parsing.h
 %.o:%.c
 	$(CC) -c $(CFILES)
 
-clean: 
+clean:
 	rm -rf $(OFILES)
 
 fclean: clean
+	$(MAKE) fclean -C ../libft_zack
 	rm -rf $(NAME)
 re: fclean
 	all
