@@ -28,4 +28,11 @@ typedef struct cub3d
     double angle;
 } t_cub3d;
 
+int movement(int key, t_cub3d *cub3d);
+void add_image(t_cub3d *cub3d);
+void ft_mov(t_cub3d *cub3d);
+void init_maps(t_cub3d *cub3d);
+void draw_line(t_cub3d *cub, int beginX, int beginY, int endX, int endY, int color);
+void raycasting(t_cub3d *cub3d);
+
 #endif

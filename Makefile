@@ -1,5 +1,10 @@
 NAME = cub3d
-SRC = cub3d.c
+SRC = cub3d.c \
+		parsing.c \
+		movement/movement.c \
+		movement/movement_utils.c \
+		raycasting/raycasting.c
+
 OBJ = $(SRC:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
