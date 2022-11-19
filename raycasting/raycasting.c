@@ -15,6 +15,11 @@ void raycasting(t_cub3d *cub3d)
     }
     else
     {
-        
+        x0 = (cub3d->p_x / 64) * 64;
+        Dx = cub3d->p_x - x0 + cub3d->p_x;
+        printf("-> %f | %d\n", Dx, x0);
+        Dy = tan(cub3d->angle) * Dx + cub3d->p_y;
+        if (Dx < 1000 && Dy < 10000 && Dx > -1000 && Dy > -10000)
+            draw_line(cub3d, cub3d->p_x, cub3d->p_y, Dx, Dy, 0xf0ffffff / 6);
     }
 }
