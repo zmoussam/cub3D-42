@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:29:57 by zmoussam          #+#    #+#             */
-/*   Updated: 2022/11/19 18:11:15 by zmoussam         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:20:23 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,6 @@ int check_wals(char *border, int index)
 	return (1);
 }
 
-int	get_map(int fd, t_info *infos, char *first_line)
-{
-	t_list	*map;
-	int		map_height;
-	
-	(void)infos;
-	if (!first_line)
-		return (printf("Error: map not found"), 0);
-	if (!check_wals(first_line, 0))
-		return (printf("Error: invalide map's walls!!\n"), free(first_line), 0);
-	map = ft_lstnew(first_line);
-	if (!map)
-		return (free(first_line), printf("Error: memory was not allocated!!\n"), 0);
-	map_height = get_map_content(fd, &map);
-	map_list_to_array(map, infos, map_height);
-	close(fd);
-	return (1);
-}
 
 int	map_list_to_array(t_list *map, t_info *infos, int height)
 {
@@ -87,4 +69,25 @@ int	get_map_content(int fd, t_list **map)
 		line = get_next_line(fd);
 	}
 	return (map_height);
+}
+
+int	get_map(int fd, t_info *infos, char *first_line)
+{
+	t_list	*map;
+	int		map_height;
+	
+	(void)infos;
+	if (!first_line)
+		return (printf("Error: map not found"), 0);
+	if (!check_wals(first_line, 0))
+		return (printf("Error: invalide map's walls!!\n"), free(first_line), 0);
+	map = ft_lstnew(first_line);
+	if (!map)
+		return (free(first_line), printf("Error: memory was not allocated!!\n"), 0);
+	map_height = get_map_content(fd, &map);
+	map_list_to_array(map, infos, map_height);
+    // if (!parse_map(info->map, map_height));
+    //     return (free_info(info));
+	close(fd);
+	return (1);
 }
