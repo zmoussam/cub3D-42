@@ -41,35 +41,37 @@ int movement(int key, t_cub3d *cub3d)
     {
         cub3d->p_y += round(8 * sin(cub3d->angle));
         cub3d->p_x += round(8 * cos(cub3d->angle));
-        
 
-        printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
+        // printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
     }
     if (key == S)
     {
         cub3d->p_y -= round(8 * sin(cub3d->angle));
         cub3d->p_x -= round(8 * cos(cub3d->angle));
-        
-        printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
+
+        // printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
     }
     if (key == A)
     {
 
         cub3d->p_x -= round(8 * cos(cub3d->angle + M_PI_2));
         cub3d->p_y -= round(8 * sin(cub3d->angle + M_PI_2));
-       
 
-        printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
+        // printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
     }
     if (key == D)
     {
         cub3d->p_y += round(8 * sin(cub3d->angle + M_PI_2));
         cub3d->p_x += round(8 * cos(cub3d->angle + M_PI_2));
 
-        printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
+        // printf("maps[%d][%d]\n", cub3d->p_y, cub3d->p_x);
     }
     if (key == ESC)
         exit(0);
+    if (cub3d->angle > 2 * M_PI)
+        cub3d->angle -= 2 * M_PI;
+    else if (cub3d->angle < 0)
+        cub3d->angle += 2 * M_PI;
     mlx_clear_window(cub3d->mlx, cub3d->window);
     add_image(cub3d);
     ft_mov(cub3d);
