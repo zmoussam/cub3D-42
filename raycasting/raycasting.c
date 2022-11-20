@@ -34,7 +34,7 @@ void raycasting(t_cub3d *cub3d)
         // {
         //     if (cub3d->map[wall_y][wall_x] == '1')
         //     {
-        if (((x/64 > 0 && x/64 < 14) && (y/64 > 0 && y/64 < 8)))
+        if (((x / 64 > 0 && x / 64 < 14) && (y / 64 > 0 && y / 64 < 8)))
         {
             printf("maps[%d][%d] = %c\n", y / 64, x / 64, cub3d->map[y / 64][x / 64]);
             if (cub3d->map[y / 64][x / 64] == '1')

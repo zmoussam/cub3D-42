@@ -1,6 +1,15 @@
 NAME = cub3d
-SRC = cub3d.c \
-		parsing.c \
+
+SRC = 	cub3d.c \
+		parsing/parsing.c \
+		parsing/check_colors.c \
+		parsing/check_extention.c \
+		parsing/check_map.c \
+		parsing/check_texture.c \
+		parsing/collect_infos.c \
+		parsing/utils.c \
+		get_next_line/get_next_line.c \
+		get_next_line/get_next_line_utils.c \
 		movement/movement.c \
 		movement/movement_utils.c \
 		raycasting/raycasting.c
