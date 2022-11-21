@@ -19,6 +19,7 @@
 #define M_L 123
 #define M_R 124
 #define RETAION (5 * M_PI) / 180
+#define MAX_INT 2147483647
 typedef struct cub3d
 {
     char *mlx;

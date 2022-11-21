@@ -53,45 +53,56 @@ void raycasting(t_cub3d *cub3d)
     double y_h;
     double x_v;
     double y_v;
+    int flag_horizental = 0, flag_vertical = 0;
 
-    // if (cub3d->angle >= M_PI_2 && cub3d->angle <= 3 * M_PI_2)
-    // {
-    //     step_left = vertical_line_left(cub3d);
-    //     x_v = step_left.first_x + cub3d->p_x;
-    //     y_v = step_left.first_y + cub3d->p_y;
-    //     x_v--;
-    //     while ((x_v < WIDTH && y_v < HIGHT && x_v > 0 && y_v > 0))
-    //     {
-    //         if (cub3d->map[(int)(y_v / 64)][(int)(x_v / 64)] == '1')
-    //             break;
-    //         x_v -= 64;
-    //         y_v += tan(cub3d->angle) * -64;
-    //     }
-    // }
-    // else if (cub3d->angle >= 3 * M_PI_2 || cub3d->angle <= M_PI_2)
-    // {
-    //     step_right = vertical_line_right(cub3d);
-    //     x_v = step_right.first_x + cub3d->p_x;
-    //     y_v = step_right.first_y + cub3d->p_y;
-    //     while ((x_v < WIDTH && y_v < HIGHT && x_v > 0 && y_v > 0))
-    //     {
-    //         if (cub3d->map[(int)(y_v / 64)][(int)(x_v / 64)] == '1')
-    //             break;
-    //         x_v += 64;
-    //         y_v += tan(cub3d->angle) * 64;
-    //     }
-    // }
-    if (cub3d->angle <= 0 && cub3d->angle >= M_PI)
+    if (cub3d->angle >= M_PI_2 && cub3d->angle <= 3 * M_PI_2)
+    {
+        step_left = vertical_line_left(cub3d);
+        x_v = step_left.first_x + cub3d->p_x;
+        y_v = step_left.first_y + cub3d->p_y;
+        x_v--;
+        while ((x_v < WIDTH && y_v < HIGHT && x_v > 0 && y_v > 0))
+        {
+            if (cub3d->map[(int)(y_v / 64)][(int)(x_v / 64)] == '1')
+            {
+                flag_vertical = 1;
+                break;
+            }
+            x_v -= 64;
+            y_v += tan(cub3d->angle) * -64;
+        }
+    }
+    else if (cub3d->angle >= 3 * M_PI_2 || cub3d->angle <= M_PI_2)
+    {
+        step_right = vertical_line_right(cub3d);
+        x_v = step_right.first_x + cub3d->p_x;
+        y_v = step_right.first_y + cub3d->p_y;
+        while ((x_v < WIDTH && y_v < HIGHT && x_v > 0 && y_v > 0))
+        {
+            if (cub3d->map[(int)(y_v / 64)][(int)(x_v / 64)] == '1')
+            {
+                flag_vertical = 1;
+                break;
+            }
+            x_v += 64;
+            y_v += tan(cub3d->angle) * 64;
+        }
+    }
+    if (cub3d->angle <= 2 * M_PI && cub3d->angle >= M_PI)
     {
         step_up = horizental_line_up(cub3d);
         x_h = step_up.first_x + cub3d->p_x;
         y_h = step_up.first_y + cub3d->p_y;
+        y_h--;
         while ((x_h < WIDTH && y_h < HIGHT && x_h > 0 && y_h > 0))
         {
             if (cub3d->map[(int)(y_h / 64)][(int)(x_h / 64)] == '1')
+            {
+                flag_horizental = 1;
                 break;
+            }
             y_h -= 64;
-            x_h += tan(cub3d->angle) * -64;
+            x_h += -64 / tan(cub3d->angle);
         }
     }
     else if (cub3d->angle <= M_PI && cub3d->angle >= 0)
@@ -102,23 +113,36 @@ void raycasting(t_cub3d *cub3d)
         while ((x_h < WIDTH && y_h < HIGHT && x_h > 0 && y_h > 0))
         {
             if (cub3d->map[(int)(y_h / 64)][(int)(x_h / 64)] == '1')
+            {
+                flag_horizental = 1;
                 break;
+            }
             y_h += 64;
-            x_h += tan(cub3d->angle) * 64;
+            x_h += 64 / tan(cub3d->angle);
         }
     }
-    int x, y;
-    // if (x_h > x_v && y_h > y_v)
-    // {
-    x = x_h;
-    y = y_h;
-    // }
-    // else
-    // {
-    //     x = x_h;
-    //     y = y_h;
-    // }
-    printf("%d | %d\n", x, y);
-    if ((x < WIDTH && y < HIGHT && x > 0 && y > 0))
-        draw_line(cub3d, cub3d->p_x, cub3d->p_y, x, y, 0xf0ffffff / 6);
+    double z_h, z_v;
+    if (flag_vertical)
+        z_v = sqrt(x_v * x_v + y_v * y_v);
+    else
+        z_v = MAX_INT;
+    if (flag_horizental)
+        z_h = sqrt(x_h * x_h + y_h * y_h);
+    else
+        z_h = MAX_INT;
+    if (z_h > z_v)
+    {
+        if ((x_v <= WIDTH && y_v <= HIGHT && x_v >= 0 && y_v >= 0))
+            draw_line(cub3d, cub3d->p_x, cub3d->p_y, x_v, y_v, 0xf0ffffff / 6);
+    }
+    else
+    {
+        if ((x_h <= WIDTH && y_h <= HIGHT && x_h >= 0 && y_h >= 0))
+            draw_line(cub3d, cub3d->p_x, cub3d->p_y, x_h, y_h, 0xf0ffffff / 6);
+    }
+    // if (y_v < 0)
+    //     y_v = 0;
+    // if (y_v > HIGHT)
+    //     y_v = HIGHT;
+    printf("%f | %f\n", z_v, z_h);
 }
