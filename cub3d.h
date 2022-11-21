@@ -47,6 +47,17 @@ typedef enum map_token
     MAP,
 } t_map_token;
 
+typedef struct ray
+{
+    double first_x;
+    double first_y;
+    double second_x;
+    double second_y;
+    double horizental_x;
+    double horizental_y;
+    double vertical_x;
+    double vertical_y;
+}t_ray;
 //            < - - - - parsing - - - - >
 
 char *get_texture_path(char *line);

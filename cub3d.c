@@ -19,14 +19,6 @@ int main(int ac, char **av)
   cub3d->ceilling = -1;
   if (!parsing(cub3d, av[1]))
     exit(1);
-  printf("NO = %s\n", cub3d->no);
-  printf("SO = %s\n", cub3d->so);
-  printf("EA = %s\n", cub3d->ea);
-  printf("we = %s\n", cub3d->we);
-  printf("floor = %d\n", cub3d->floor);
-  printf("ceilling = %d\n", cub3d->ceilling);
-  while (cub3d->map[i])
-    printf("%s", cub3d->map[i++]);
   cub3d->p_x = 5 * BLOCK;
   cub3d->p_y = 3 * BLOCK;
   cub3d->angle = M_PI_2;
