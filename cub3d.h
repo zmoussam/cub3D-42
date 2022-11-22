@@ -19,6 +19,7 @@
 #define M_L 123
 #define M_R 124
 #define RETAION (5 * M_PI) / 180
+#define RET (1 * M_PI) / 180
 #define MAX_INT 2147483647
 
 typedef struct ray
@@ -48,6 +49,7 @@ typedef struct cub3d
     int floor;
     int ceilling;
     char **map;
+    double rotation;
     t_ray ray_vertical;
     t_ray ray_horizental;
 } t_cub3d;
