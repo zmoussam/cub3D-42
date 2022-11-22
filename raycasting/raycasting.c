@@ -9,6 +9,8 @@ void vertical_line_left(t_cub3d *cub3d)
     cub3d->ray_vertical.first_y = tan(cub3d->rotation) * cub3d->ray_vertical.first_x;
 }
 
+/*- - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
 void vertical_line_right(t_cub3d *cub3d)
 {
     int x0;
@@ -28,6 +30,8 @@ void horizental_line_up(t_cub3d *cub3d)
     cub3d->ray_horizental.first_y = (cub3d->p_y - y0) * -1;
     cub3d->ray_horizental.first_x = cub3d->ray_horizental.first_y / tan(cub3d->rotation);
 }
+
+/*- - -  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 void horizental_line_down(t_cub3d *cub3d)
 {
@@ -123,6 +127,7 @@ int raycasting_horizental(t_cub3d *cub3d)
     }
     return (flag_horizental);
 }
+
 void initialisation(t_cub3d *cub3d)
 {
     cub3d->ray_horizental.first_y = 0;
@@ -142,7 +147,11 @@ void raycasting(t_cub3d *cub3d)
 {
     initialisation(cub3d);
     double angle = cub3d->angle - ((30 * M_PI) / 180);
-    while (angle <= cub3d->angle + ((30 * M_PI) / 180) && angle >= 0 && angle <= 2* M_PI)
+    if (angle < 0)
+        angle = 0;
+    if (angle > 2 * M_PI)
+        angle = 0;
+    while ((angle <= cub3d->angle + ((30 * M_PI) / 180)))
     {
         double z_h, z_v;
         cub3d->rotation = angle;
@@ -167,6 +176,6 @@ void raycasting(t_cub3d *cub3d)
             if ((cub3d->ray_horizental.x <= WIDTH && cub3d->ray_horizental.y <= HIGHT && cub3d->ray_horizental.x >= 0 && cub3d->ray_horizental.y >= 0))
                 draw_line(cub3d, cub3d->p_x, cub3d->p_y, cub3d->ray_horizental.x, cub3d->ray_horizental.y, 0xf0ff00ff / 4);
         }
-        angle +=0.004;
+        angle += 0.004;
     }
 }
