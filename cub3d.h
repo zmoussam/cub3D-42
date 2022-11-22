@@ -20,6 +20,17 @@
 #define M_R 124
 #define RETAION (5 * M_PI) / 180
 #define MAX_INT 2147483647
+
+typedef struct ray
+{
+    double first_x;
+    double first_y;
+    double x;
+    double y;
+    int flag_vertical;
+    int flag_horizental;
+} t_ray;
+
 typedef struct cub3d
 {
     char *mlx;
@@ -37,6 +48,8 @@ typedef struct cub3d
     int floor;
     int ceilling;
     char **map;
+    t_ray ray_vertical;
+    t_ray ray_horizental;
 } t_cub3d;
 
 typedef enum map_token
@@ -48,17 +61,6 @@ typedef enum map_token
     MAP,
 } t_map_token;
 
-typedef struct ray
-{
-    double first_x;
-    double first_y;
-    double second_x;
-    double second_y;
-    double horizental_x;
-    double horizental_y;
-    double vertical_x;
-    double vertical_y;
-}t_ray;
 //            < - - - - parsing - - - - >
 
 char *get_texture_path(char *line);
