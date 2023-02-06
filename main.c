@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 19:06:29 by zmoussam          #+#    #+#             */
-/*   Updated: 2022/11/19 17:51:32 by zmoussam         ###   ########.fr       */
+/*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
+/*   Updated: 2023/02/06 15:58:15 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "cub3d.h"
 
 int main(int ac, char **argv)
 {
