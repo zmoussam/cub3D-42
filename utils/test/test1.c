@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:55:37 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/07 23:19:54 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/08 00:50:18 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,26 @@ int worldMap[mapWidth][mapHeight]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
-  {1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
   {1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1},
-  {1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
-  {1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1},
   {1,0,1,0,1,0,1,0,1,0,1,1,1,1,0,1,0,1,0,1,0,1,0,1},
-  {1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1},
   {1,0,1,0,1,0,1,0,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1},
-  {1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1},
-  {1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1},
+  {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1},
-  {1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1},
-  {1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
+  {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
@@ -101,7 +101,9 @@ void put_player(t_player_data *player)
     {
         j = player->y;
         while(j < player->radius + player->y)
-        {
+        { 
+          //  if (worldMap[(int)(player->radius + player->y / 30)][(int)(i / 30)] == 1)
+          //             break;
            my_mlx_pixel_put(player->img, i, j, 0x00FF0000);
            j++;
         }
@@ -127,35 +129,41 @@ void put_map(t_player_data *player)
     i++;
   }
 }
-// void drawLine(t_player_data *player, int x1, int y1, int x2, int y2)
-// {
-//     int dx, dy, p;
-//     int x, y;
+void drawline(t_player_data *player, double x, double y)
+{
+    int dx;
+    int dy;
+    int steps;
+    int i;
+
+    double xx;
+    double yy;
+    double xinc;
+    double yinc;
     
-//     dx = x2 - x1;
-//     dy = y2 - y1;
+    dx = x - (player->x + (player->radius / 2));
+    dy = y - (player->y + (player->radius / 2));
+
+    if(abs(dx) > abs(dy))
+      steps = abs(dx);
+    else
+      steps = abs(dy);
+
+    xinc = dx / (float)steps;
+    yinc = dy / (float)steps;
+
+    xx = player->x + (player->radius / 2);
+    yy = player->y + (player->radius / 2);
     
-//     x = x1;
-//     y = y1;
-    
-//     p = 2 * dy - dx;
-    
-//     while (x < x2)
-//     {
-//         if (p >= 0)
-//         {
-//             my_mlx_pixel_put(player->img, x, y, 0x00FF0000);
-//             y = y + 1;
-//             p = p + 2 * dy - 2 * dx;
-//         }
-//         else
-//         {
-//             my_mlx_pixel_put(player->img, x, y, 0x00FF0000);
-//             p = p + 2 * dy;
-//         }
-//         x = x + 1;
-//     }
-// }
+    for (i = 0; i <= steps; i++)
+    {
+      if (worldMap[(int)(yy / 30)][(int)(xx / 30)] == 1)
+          break;
+        my_mlx_pixel_put(player->img, xx, yy, 0x00FF0000);
+        xx = xx + xinc;
+        yy = yy + yinc;
+    }
+}
 
 int key_hook(int keycode, t_player_data *player)
 {
@@ -167,7 +175,7 @@ int key_hook(int keycode, t_player_data *player)
   }
   if (keycode == 2)
   {
-      player->turndirection = 1;   
+      player->turndirection = +1;   
   }
   if (keycode == 1)
   {
@@ -175,7 +183,7 @@ int key_hook(int keycode, t_player_data *player)
   }
   if (keycode == 13)
   {
-      player->walkdirection = 1;
+      player->walkdirection = +1;
   }
   player->rotationangle += player->turndirection * player->rotationspeed;
   movestep = player->walkdirection * player->movespeed;
@@ -185,6 +193,7 @@ int key_hook(int keycode, t_player_data *player)
   
   put_map(player);
   put_player(player);
+  drawline(player, player->x + (cos(player->rotationangle) * 50) + (player->radius / 2), player->y + (sin(player->rotationangle) * 50) + (player->radius / 2));
 	mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
   if (keycode == 0)
   {
@@ -216,7 +225,7 @@ int	main(void)
   player.x = 360;
   player.y = 360;
   player.radius = 15;
-  player.movespeed = 10;
+  player.movespeed = 15;
   player.rotationangle = PI / 2;
   player.rotationspeed = 10 * (PI / 180);
   player.turndirection = 0;
@@ -231,6 +240,7 @@ int	main(void)
   player.mlx_win = mlx_win;
   put_map(&player);
   put_player(&player);
+  drawline(&player, player.x + (cos(player.rotationangle) * 50) + (player.radius / 2), player.y + (sin(player.rotationangle) * 50)+ (player.radius / 2));
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
   mlx_hook(mlx_win, 2, 1L << 0, key_hook , &player);
 	mlx_loop(mlx);
