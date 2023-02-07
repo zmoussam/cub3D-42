@@ -50,7 +50,7 @@ class Player {
         this.rotationAngle += this.turnDirection * this.rotationSpeed;
 
         var moveStep = this.walkDirection * this.moveSpeed;
-
+ 
         this.x = this.x + Math.cos(this.rotationAngle) * moveStep;
         this.y = this.y + Math.sin(this.rotationAngle) * moveStep;
     }
@@ -62,8 +62,8 @@ class Player {
         line(
             this.x,
             this.y,
-            this.x + Math.cos(this.rotationAngle) * 30,
-            this.y + Math.sin(this.rotationAngle) * 30
+            this.x + Math.cos(this.rotationAngle) * 100,
+            this.y + Math.sin(this.rotationAngle) * 100
         );
     }
 }
