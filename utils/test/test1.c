@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:55:37 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/11 20:45:59 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:51:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,9 +272,9 @@ int	main(void)
   player.x = 248;
   player.y = 248;
   player.radius = 14;
-  player.movespeed = 8;
+  player.movespeed = 5;
   player.rotationangle = PI / 2;
-  player.rotationspeed = 30 * (PI / 180);
+  player.rotationspeed = 10 * (PI / 180);
   player.turndirection = 0;
   player.walkdirection = 0;
 	mlx = mlx_init();
@@ -291,7 +291,7 @@ int	main(void)
 	draw_view_angle(&player);
   mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
   mlx_hook(mlx_win, 2, 1L << 0, presskey , &player);
+  mlx_hook(mlx_win, 3, 1L << 0, releaskey , &player);
   mlx_loop_hook(mlx, &key_hook, &player);
-  mlx_hook(mlx_win, 2, 1L << 0, releaskey , &player);
 	mlx_loop(mlx);
 }
