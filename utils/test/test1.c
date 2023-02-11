@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:55:37 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/08 21:47:51 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/11 20:45:59 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 void put_player(t_player_data *player)
 {
+  
     int i = player->x; 
     int j = player->y;
     while(i < player->radius + player->x)
@@ -114,7 +115,7 @@ void put_map(t_player_data *player)
     while(j < 510)
     {
         if (i % 30 == 0 || j % 30 == 0) 
-          my_mlx_pixel_put(player->img, j, i, 0x00FFFFFF);
+          my_mlx_pixel_put(player->img, j, i, 0x00000000);
         else if (worldMap[(int)(i / 30)][(int)(j / 30)] == 1)
 	        my_mlx_pixel_put(player->img, j, i, 0x00000000);
         else 
@@ -198,10 +199,8 @@ void draw_view_angle(t_player_data *player)
     } 
 }
 
-int key_hook(int keycode, t_player_data *player)
+int presskey(int keycode, t_player_data *player)
 {
-  int movestep;
-  
   if (keycode == 0)
       player->turndirection = -1;
   if (keycode == 2)
@@ -210,20 +209,11 @@ int key_hook(int keycode, t_player_data *player)
     player->walkdirection = -1;  
   if (keycode == 13)
       player->walkdirection = +1;
-  player->rotationangle += player->turndirection * player->rotationspeed;
-  movestep = player->walkdirection * player->movespeed;
-  if (!check_wals(player->x + (cos(player->rotationangle) * movestep), player->y + (sin(player->rotationangle) * movestep), player->radius))
-  {
-    player->x += cos(player->rotationangle) * movestep; 
-    player->y += sin(player->rotationangle) * movestep;
-    
-  }
-  
-  put_map(player);
-	draw_view_angle(player);
-  put_player(player);
-  // drawline(player, player->x + (cos(player->rotationangle) * 50) + (player->radius / 2), player->y + (sin(player->rotationangle) * 50) + (player->radius / 2));
-  mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
+    return 0;
+}
+
+int releaskey(int keycode, t_player_data *player)
+{
   if (keycode == 0)
       player->turndirection = 0;
   if (keycode == 2)
@@ -232,6 +222,41 @@ int key_hook(int keycode, t_player_data *player)
     player->walkdirection = 0;  
   if (keycode == 13)
       player->walkdirection = 0;
+  return 0;
+}
+int key_hook(t_player_data *player)
+{
+  int movestep;
+  
+  // if (keycode == 0)
+  //     player->turndirection = -1;
+  // if (keycode == 2)
+  //     player->turndirection = +1;   
+  // if (keycode == 1)
+  //   player->walkdirection = -1;  
+  // if (keycode == 13)
+  //     player->walkdirection = +1;
+  player->rotationangle += player->turndirection * player->rotationspeed;
+  movestep = player->walkdirection * player->movespeed;
+  if (!check_wals(player->x + (cos(player->rotationangle) * movestep), player->y + (sin(player->rotationangle) * movestep), player->radius))
+  {
+    player->x += cos(player->rotationangle) * movestep; 
+    player->y += sin(player->rotationangle) * movestep;
+    
+  }
+  put_map(player);
+	draw_view_angle(player);
+  put_player(player);
+  drawline(player, player->x + (cos(player->rotationangle) * 50) + (player->radius / 2), player->y + (sin(player->rotationangle) * 50) + (player->radius / 2));
+  mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
+  // if (keycode == 0)
+  //     player->turndirection = 0;
+  // if (keycode == 2)
+  //     player->turndirection = 0;   
+  // if (keycode == 1)
+  //   player->walkdirection = 0;  
+  // if (keycode == 13)
+  //     player->walkdirection = 0;
   
   return 1;
 }
@@ -265,6 +290,8 @@ int	main(void)
   // drawline(&player, player.x + (cos(player.rotationangle) * 50) + (player.radius / 2), player.y + (sin(player.rotationangle) * 50)+ (player.radius / 2));
 	draw_view_angle(&player);
   mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-  mlx_hook(mlx_win, 2, 1L << 0, key_hook , &player);
+  mlx_hook(mlx_win, 2, 1L << 0, presskey , &player);
+  mlx_loop_hook(mlx, &key_hook, &player);
+  mlx_hook(mlx_win, 2, 1L << 0, releaskey , &player);
 	mlx_loop(mlx);
 }
