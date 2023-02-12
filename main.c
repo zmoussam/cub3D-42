@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/12 15:49:24 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/12 20:22:16 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(void)
 	t_data	img;
   t_player_data player;
 
-  player.radius = 14;
+  player.radius = 2;
   player.x = SCREENWIDTH / 2 - (player.radius / 2); 
   player.y = SCREENHEIGHT / 2 - (player.radius / 2);
   player.movespeed = 2;

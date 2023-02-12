@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/12 14:48:31 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/12 22:50:44 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +95,26 @@ void drawline(t_player_data *player, double x, double y)
         yy = yy + yinc;
     }
 }
-void draw_view_angle(t_player_data *player)
+void draw_view_angle(t_player_data *player) 
 {
     double negatif_angle;
     double positif_angle;
-
+    
+    double angle_of_ray;
+    
+    angle_of_ray = (60 * (PI / (180 * SCREENWIDTH)));
+    printf("%lf , %d \n", angle_of_ray, SCREENWIDTH);
     negatif_angle = player->viewangle - VIEW_ANGLE;
     positif_angle = player->viewangle + VIEW_ANGLE;
     while(negatif_angle < player->viewangle)
     {
         drawline(player, player->x + (cos(negatif_angle) * SCREENWIDTH) + (player->radius / 2), \
         player->y + (sin(negatif_angle) * SCREENHEIGHT) + (player->radius / 2));
-        negatif_angle += 1 * PI / 180;
+        negatif_angle += angle_of_ray;
     }
     while(positif_angle >= player->viewangle)
     {    drawline(player, player->x + (cos(positif_angle) * SCREENWIDTH) + (player->radius / 2), \
         player->y + (sin(positif_angle) * SCREENHEIGHT) + (player->radius / 2));
-        positif_angle -= 1 * PI / 180;
+        positif_angle -= angle_of_ray;
     } 
 }

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/12 16:00:52 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/12 21:08:10 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define SCREENWIDTH MAPWIDTH * TITE_SIZE
 #define SCREENHEIGHT MAPHEIGHT * TITE_SIZE
 #define PI 3.14159265
-#define VIEW_ANGLE 30 * PI / 180;
+#define VIEW_ANGLE 30 * PI / 180
 #include<mlx.h>
 #include <math.h>
 #include<stdlib.h>
