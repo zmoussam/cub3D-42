@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:55:37 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/11 22:54:07 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/11 23:00:50 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,8 +179,7 @@ void draw_view_angle(t_player_data *player)
         negatif_angle += 1 * PI / 180;
     }
     while(positif_angle >= player->rotationangle)
-    {
-        drawline(player, player->x + (cos(positif_angle) * 510) + (player->radius / 2), \
+    {    drawline(player, player->x + (cos(positif_angle) * 510) + (player->radius / 2), \
         player->y + (sin(positif_angle) * 510) + (player->radius / 2));
         positif_angle -= 1 * PI / 180;
     } 
