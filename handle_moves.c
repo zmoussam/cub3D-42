@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/13 18:52:22 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/13 23:35:06 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int moveplayer(t_player_data *player)
     if (!check_wals(player->x + (cos(player->viewangle) * movestep), player->y +\
     (sin(player->viewangle) * movestep), player->radius))
     {
-      player->x += cos(player->viewangle) * movestep; 
-      player->y += sin(player->viewangle) * movestep;
+      player->x += round(cos(player->viewangle) * movestep); 
+      player->y += round(sin(player->viewangle) * movestep);
     }
   }
   else if (player->movesleft_or_right != 0)
@@ -102,8 +102,8 @@ int moveplayer(t_player_data *player)
      if (!check_wals(player->x + (cos(player->viewangle + left_or_right_angle) * movestep), player->y +\
      (sin(player->viewangle + left_or_right_angle) * movestep), player->radius))
      {
-        player->x += cos(player->viewangle + left_or_right_angle) * movestep; 
-        player->y += sin(player->viewangle + left_or_right_angle) * movestep;
+        player->x += round(cos(player->viewangle + left_or_right_angle) * movestep); 
+        player->y += round(sin(player->viewangle + left_or_right_angle) * movestep);
      }
   }
   put_map(player);

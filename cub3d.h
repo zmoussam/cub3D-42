@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/13 20:27:20 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/13 23:36:12 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <math.h>
 #include<stdlib.h>
 #include<stdio.h>
+#include<stdbool.h>
 
 typedef struct	s_img_data {
 	void	*img;
@@ -64,6 +65,7 @@ typedef struct s_cordinates{
 
 typedef struct s_ray{
     double angle;
+    double distancetowall;
     int isfacingdown;
     int isfacingup;
     int isfacingleft;
@@ -76,7 +78,7 @@ extern int worldMap[MAPWIDTH][MAPHEIGHT];
 int     releaskey(int keycode, t_player_data *player);
 int     presskey(int keycode, t_player_data *player);
 int     moveplayer(t_player_data *player);
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void    my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
 void    put_player(t_player_data *player);
 void    put_map(t_player_data *player);
 void    drawline(t_player_data *player, double x, double y);
