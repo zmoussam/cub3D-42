@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/12 20:28:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:52:22 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_wals(double x, double y, int radius)
         j = y;
         while(j < radius + y)
         { 
-           if (worldMap[(int)(j / TITE_SIZE)][(int)(i / TITE_SIZE)] == 1)
+           if (worldMap[(int)(j / TILE_SIZE)][(int)(i / TILE_SIZE)] == 1)
                 return 1;
            j++;
         }
