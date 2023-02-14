@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/14 21:31:54 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/14 22:07:42 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void drawline(t_player_data *player, double x, double y)
     i = 0;
     while (i <= steps)
     {
-        my_mlx_pixel_put(player->img, round(xx), round(yy), 0x00FF0000);
+        my_mlx_pixel_put(player->img, round(xx), round(yy), 0x00FF4F37);
         xx = xx + xinc;
         yy = yy + yinc;
         i++;
@@ -195,19 +195,21 @@ double find_horzintersection(t_player_data *player, t_ray *ray)
     t_cordinates nexthorzinter;
     ray->horzwallhit.x = 0;
     ray->horzwallhit.y = 0;
+    short check_isfacingup;
     bool gethorzwall;
      
     gethorzwall = false;
+    check_isfacingup = 0;
     intercept = find_horzintercept(player, ray);
     step = find_horzstep(ray);
     nexthorzinter.x = intercept.x;
     nexthorzinter.y = intercept.y;
     if (ray->isfacingup == -1)
-      nexthorzinter.y--;
+       check_isfacingup = 1;
     while(nexthorzinter.x >= 0 && nexthorzinter.x <= SCREENWIDTH && \
     nexthorzinter.y >= 0 && nexthorzinter.y <= SCREENHEIGHT)
     {
-      if(haswallat(nexthorzinter.x, nexthorzinter.y))
+      if(haswallat(nexthorzinter.x, nexthorzinter.y - check_isfacingup))
       {
           gethorzwall = true;
           ray->horzwallhit.x = nexthorzinter.x;
@@ -228,9 +230,11 @@ double find_vertintersection(t_player_data *player, t_ray *ray)
     t_cordinates intercept;
     t_cordinates step;
     t_cordinates nextvertinter;
+    short check_isfacingleft;
     int getvertwall;
      
     getvertwall = false;
+    check_isfacingleft = 0;
     ray->vertwallhit.x = 0;
     ray->vertwallhit.y = 0;
     intercept = find_vertintercept(player, ray);
@@ -238,11 +242,11 @@ double find_vertintersection(t_player_data *player, t_ray *ray)
     nextvertinter.x = intercept.x;
     nextvertinter.y = intercept.y;
     if (ray->isfacingleft == -1)
-       nextvertinter.x--;
+        check_isfacingleft = 1;
     while (nextvertinter.x >= 0 &&  nextvertinter.x <= SCREENWIDTH && \
     nextvertinter.y >= 0 && nextvertinter.y <= SCREENHEIGHT)
     {
-      if (haswallat( nextvertinter.x,  nextvertinter.y))
+      if (haswallat(nextvertinter.x - check_isfacingleft, nextvertinter.y))
       {
           getvertwall = true;
           ray->vertwallhit.x =  nextvertinter.x;
@@ -314,6 +318,6 @@ void draw_view_angle(t_player_data *player)
       vert_hitdistance = find_vertintersection(player, &ray);
       wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
       drawline(player, wallhit.x, wallhit.y);
-      ray_angle += 0.01;
+      ray_angle += angle_inc;
     }
 }
