@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/13 23:36:12 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:30:10 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdbool.h>
+#include<limits.h>
 
 typedef struct	s_img_data {
 	void	*img;
@@ -33,10 +34,15 @@ typedef struct	s_img_data {
 	int		line_length;
 	int		endian;
 }				t_img_data;
-typedef struct s_player_data
-{
+
+typedef struct s_cordinates{
     double x;
     double y;
+} t_cordinates;
+
+typedef struct s_player_data
+{
+    t_cordinates position;
     int radius;
     int movespeed;
     double viewangle;
@@ -58,10 +64,6 @@ typedef enum keys{
     TURN_RIGHT = 124,
 } t_keys;
 
-typedef struct s_cordinates{
-    double x;
-    double y;
-} t_cordinates;
 
 typedef struct s_ray{
     double angle;
@@ -70,7 +72,9 @@ typedef struct s_ray{
     int isfacingup;
     int isfacingleft;
     int isfacingright;
-    t_cordinates wallhit;
+    t_cordinates horzwallhit;
+    t_cordinates vertwallhit;
+    bool wallhitisvert;
 }t_ray;
 
 extern int worldMap[MAPWIDTH][MAPHEIGHT];

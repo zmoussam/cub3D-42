@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/13 23:35:06 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:25:10 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,32 +78,32 @@ int moveplayer(t_player_data *player)
   {
     movestep = player->movespeed;
     tmpangle = player->walkdirection * (player->viewangle + (player->movesleft_or_right * PI / 4));
-    if (!check_wals(player->x + (cos(tmpangle) * movestep), player->y +\
+    if (!check_wals(player->position.x + (cos(tmpangle) * movestep), player->position.y +\
     (sin(tmpangle) * movestep), player->radius))
     {
-      player->x += cos(tmpangle) * movestep; 
-      player->y += sin(tmpangle) * movestep;
+      player->position.x += cos(tmpangle) * movestep; 
+      player->position.y += sin(tmpangle) * movestep;
     }
   }
   else if (player->walkdirection != 0)
   {
     movestep = player->walkdirection * player->movespeed;
-    if (!check_wals(player->x + (cos(player->viewangle) * movestep), player->y +\
+    if (!check_wals(player->position.x + (cos(player->viewangle) * movestep), player->position.y +\
     (sin(player->viewangle) * movestep), player->radius))
     {
-      player->x += round(cos(player->viewangle) * movestep); 
-      player->y += round(sin(player->viewangle) * movestep);
+      player->position.x += round(cos(player->viewangle) * movestep); 
+      player->position.y += round(sin(player->viewangle) * movestep);
     }
   }
   else if (player->movesleft_or_right != 0)
   {
     movestep = player->movespeed;
     left_or_right_angle = player->movesleft_or_right * PI / 2;
-     if (!check_wals(player->x + (cos(player->viewangle + left_or_right_angle) * movestep), player->y +\
+     if (!check_wals(player->position.x + (cos(player->viewangle + left_or_right_angle) * movestep), player->position.y +\
      (sin(player->viewangle + left_or_right_angle) * movestep), player->radius))
      {
-        player->x += round(cos(player->viewangle + left_or_right_angle) * movestep); 
-        player->y += round(sin(player->viewangle + left_or_right_angle) * movestep);
+        player->position.x += round(cos(player->viewangle + left_or_right_angle) * movestep); 
+        player->position.y += round(sin(player->viewangle + left_or_right_angle) * movestep);
      }
   }
   put_map(player);

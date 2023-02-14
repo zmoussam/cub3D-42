@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/14 00:58:25 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/14 21:31:54 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,26 @@ void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
 void put_player(t_player_data *player)
 {
   
-    int i = player->x; 
-    int j = player->y;
-    while(i < player->radius + player->x)
+  int i;
+  int j;
+  double dist;
+
+  i = 0;
+  j = 0;
+  
+  while(i < SCREENWIDTH)
+  {
+    j = 0;
+    while(j < SCREENHEIGHT)
     {
-        j = player->y;
-        while(j < player->radius + player->y)
-        { 
-           if (worldMap[(int)(j / TILE_SIZE)][(int)(i / TILE_SIZE)] == 1)
-                break;
-           my_mlx_pixel_put(player->img, i, j, 0x00203107);
-           j++;
-        }
-        i++;
+      dist = sqrt((i - player->position.x)*(i - player->position.x) +\
+      (j - player->position.y)*(j - player->position.y));
+      if(dist <= player->radius)
+        my_mlx_pixel_put(player->img, i, j, 0x00203107);
+      j++;
     }
+    i++;
+  }
 }
 
 void put_map(t_player_data *player)
@@ -72,8 +78,8 @@ void drawline(t_player_data *player, double x, double y)
     double xinc;
     double yinc;
     
-    dx = x - (player->x + (player->radius / 2));
-    dy = y - (player->y + (player->radius / 2));
+    dx = x - player->position.x;
+    dy = y - player->position.y;
 
     if(abs(dx) > abs(dy))
       steps = abs(dx);
@@ -83,47 +89,24 @@ void drawline(t_player_data *player, double x, double y)
     xinc = dx / (float)steps;
     yinc = dy / (float)steps;
 
-    xx = player->x + (player->radius / 2);
-    yy = player->y + (player->radius / 2);
+    xx = player->position.x;
+    yy = player->position.y;
     i = 0;
     while (i <= steps)
     {
-      // if (worldMap[(int)(yy / TILE_SIZE)][(int)(xx / TILE_SIZE)] == 1)
-      //     break;
         my_mlx_pixel_put(player->img, round(xx), round(yy), 0x00FF0000);
         xx = xx + xinc;
         yy = yy + yinc;
         i++;
     }
 }
-/*
-    ///////////////////////////////////
-    /////HORIZONTAL INTERSECTION
-    ///////////////////////////////////
-    
-    yintercept = Ay = [Py / TITL_SIZE] * TITL_SIZE
-
-    xintercept = Ax = Px + ((py - Ay) / tan(a))
-
-    ystep = TITL_SIZE
-
-    xstep = ystep / tan(a)
-
-    ///////////////////////////////////
-    //////VERTICAL INTERSECTION
-    ///////////////////////////////////
-
-    xstep = TITL_SIZE
-    ystep = tan(a) * xstep
-     
-*/
 
 t_cordinates find_vertintercept(t_player_data *player, t_ray *ray)
 {
   t_cordinates intercept;
 
-  intercept.x = floor(player->x / TILE_SIZE) * TILE_SIZE + (ray->isfacingright * TILE_SIZE);
-  intercept.y = player->y + (intercept.x - player->x) * tan(ray->angle);
+  intercept.x = floor(player->position.x / TILE_SIZE) * TILE_SIZE + (ray->isfacingright * TILE_SIZE);
+  intercept.y = player->position.y + (intercept.x - player->position.x) * tan(ray->angle);
 
   return (intercept);
 }
@@ -131,8 +114,8 @@ t_cordinates find_horzintercept(t_player_data *player, t_ray *ray)
 {
   t_cordinates intercept;
 
-  intercept.y = floor(player->y / TILE_SIZE) * TILE_SIZE + (ray->isfacingdown * TILE_SIZE);
-  intercept.x = player->x + (intercept.y - player->y) / tan(ray->angle);
+  intercept.y = floor(player->position.y / TILE_SIZE) * TILE_SIZE + (ray->isfacingdown * TILE_SIZE);
+  intercept.x = player->position.x + (intercept.y - player->position.y) / tan(ray->angle);
 
   return (intercept);
 }
@@ -197,55 +180,99 @@ int haswallat(double x, double y)
     else 
       return 0;
 }
-t_cordinates find_horzintersection(t_player_data *player, t_ray *ray)
+double get_distance(t_player_data *player, double x, double y, bool check)
 {
-    // t_cordinates horzintersection;
+  if (!check)
+    return (INT_MAX);
+  else 
+    return (sqrt(((x - player->position.x) * (x - player->position.x)) + \
+    ((y - player->position.y) * (y - player->position.y))));
+}
+double find_horzintersection(t_player_data *player, t_ray *ray)
+{
     t_cordinates intercept;
     t_cordinates step;
-    double nexthorzx;
-    double nexthorzy;
-    int gethorzwall;
+    t_cordinates nexthorzinter;
+    ray->horzwallhit.x = 0;
+    ray->horzwallhit.y = 0;
+    bool gethorzwall;
      
-    gethorzwall = 0;
+    gethorzwall = false;
     intercept = find_horzintercept(player, ray);
     step = find_horzstep(ray);
-    nexthorzx = intercept.x;
-    nexthorzy = intercept.y;
+    nexthorzinter.x = intercept.x;
+    nexthorzinter.y = intercept.y;
     if (ray->isfacingup == -1)
-      nexthorzy--;
-        while(nexthorzx >= 0 && nexthorzx <= SCREENWIDTH && nexthorzy >= 0 && nexthorzy <= SCREENHEIGHT)
+      nexthorzinter.y--;
+    while(nexthorzinter.x >= 0 && nexthorzinter.x <= SCREENWIDTH && \
+    nexthorzinter.y >= 0 && nexthorzinter.y <= SCREENHEIGHT)
     {
-      if(haswallat(nexthorzx, nexthorzy))
+      if(haswallat(nexthorzinter.x, nexthorzinter.y))
       {
-          gethorzwall = 1;
-          ray->wallhit.x = round(nexthorzx);
-          ray->wallhit.y = round(nexthorzy);
-          drawline(player, ray->wallhit.x, ray->wallhit.y);
+          gethorzwall = true;
+          ray->horzwallhit.x = nexthorzinter.x;
+          ray->horzwallhit.y = nexthorzinter.y;
           break;
       }
       else
       {
-          nexthorzx += step.x;
-          nexthorzy += step.y;
+          nexthorzinter.x += step.x;
+          nexthorzinter.y += step.y;
       } 
     }
-    return (ray->wallhit);
+    return (get_distance(player, ray->horzwallhit.x, ray->horzwallhit.y, gethorzwall));
 }
 
-// t_cordinates find_vertical_intersection(double px, double py)
-// {
-    
-// }
+double find_vertintersection(t_player_data *player, t_ray *ray)
+{
+    t_cordinates intercept;
+    t_cordinates step;
+    t_cordinates nextvertinter;
+    int getvertwall;
+     
+    getvertwall = false;
+    ray->vertwallhit.x = 0;
+    ray->vertwallhit.y = 0;
+    intercept = find_vertintercept(player, ray);
+    step = find_vertstep(ray);
+    nextvertinter.x = intercept.x;
+    nextvertinter.y = intercept.y;
+    if (ray->isfacingleft == -1)
+       nextvertinter.x--;
+    while (nextvertinter.x >= 0 &&  nextvertinter.x <= SCREENWIDTH && \
+    nextvertinter.y >= 0 && nextvertinter.y <= SCREENHEIGHT)
+    {
+      if (haswallat( nextvertinter.x,  nextvertinter.y))
+      {
+          getvertwall = true;
+          ray->vertwallhit.x =  nextvertinter.x;
+          ray->vertwallhit.y =  nextvertinter.y;
+          break;
+      }
+      else
+      {
+          nextvertinter.x += step.x;
+          nextvertinter.y += step.y;
+      } 
+    }
+    return (get_distance(player, ray->vertwallhit.x, ray->vertwallhit.y, getvertwall));
+}
 
-// double keep_small_distance()
-// {
-  
-// }
-
-// double get_distance()
-// {
-  
-// }
+t_cordinates get_smallwallhit(t_ray *ray, double horzdistance, double vertdistance)
+{
+    ray->wallhitisvert = false;
+    if (horzdistance <= vertdistance)
+    {
+      ray->distancetowall = horzdistance;
+      return (ray->horzwallhit);
+    }
+    else
+    {
+      ray->wallhitisvert = true;
+      ray->distancetowall = vertdistance;
+      return (ray->vertwallhit);
+    } 
+}
 
 double normangle(double angle)
 {
@@ -257,52 +284,36 @@ double normangle(double angle)
 void draw_view_angle(t_player_data *player) 
 {
     double ray_angle;
-    double angleinc;
-    double nextvertx;
-    double nextverty;
-    t_cordinates intercept;
-    t_cordinates step;
-    int getvertwall;
+    double angle_inc;
+    double horz_hitdistance;
+    double vert_hitdistance;
+    int view_angle_degree;
+
+    t_cordinates wallhit;
     t_ray ray;
     
-    angleinc = (60 * (PI / (180 * SCREENWIDTH)));
+    view_angle_degree = VIEW_ANGLE * 180 / PI;
+    angle_inc = view_angle_degree * (PI / (180 * SCREENWIDTH));
     ray_angle = player->viewangle - (VIEW_ANGLE / 2);
     
-    getvertwall = 0;
-    ray.angle = normangle(ray_angle);
-    get_ray_direction(&ray);
-    // find_horzintersection(player, &ray);
-    intercept = find_vertintercept(player, &ray);
-    step = find_vertstep(&ray);
-    nextvertx = intercept.x;
-    nextverty = intercept.y;
-    if (ray.isfacingleft == -1)
-      nextverty--;
-      
-    while(nextvertx >= 0 && nextvertx <= SCREENWIDTH && nextverty >= 0 && nextverty <= SCREENHEIGHT)
-    {
-      if(haswallat(nextvertx, nextverty))
-      {
-          getvertwall = 1;
-          ray.wallhit.x = round(nextvertx);
-          ray.wallhit.y = round(nextverty);
-          drawline(player, ray.wallhit.x, ray.wallhit.y);
-          break;
-      }
-      else
-      {
-          nextvertx += step.x;
-          nextverty += step.y;
-      } 
-    }
-    
+    // ray.angle = normangle(ray_angle);
+    // get_ray_direction(&ray);
+    // horz_hitdistance = find_horzintersection(player, &ray);
+    // vert_hitdistance = find_vertintersection(player, &ray);
+    // wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
+
+    // drawline(player, wallhit.x, wallhit.y);
+  
     // printf("up %d\n", ray.isfacingdown);
-    // drawline(player, player->x + (cos(ray.angle) * SCREENWIDTH) + (player->radius / 2), \
-    // player->y + (sin(ray.angle) * SCREENHEIGHT) + (player->radius / 2));
-    // while(ray_angle <= player->viewangle + (VIEW_ANGLE / 2))
-    // {
-    //     drawline(player, player->x + (cos(ray_angle) * SCREENWIDTH) + (player->radius / 2), \
-    //     player->y + (sin(ray_angle) * SCREENHEIGHT) + (player->radius / 2));
-    //     ray_angle += angleinc;
-    // }
+    printf("anglr inc = %lf\n", angle_inc);
+    while (ray_angle <= player->viewangle + (VIEW_ANGLE / 2))
+    {
+      ray.angle = normangle(ray_angle);
+      get_ray_direction(&ray);
+      horz_hitdistance = find_horzintersection(player, &ray);
+      vert_hitdistance = find_vertintersection(player, &ray);
+      wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
+      drawline(player, wallhit.x, wallhit.y);
+      ray_angle += 0.01;
+    }
 }
