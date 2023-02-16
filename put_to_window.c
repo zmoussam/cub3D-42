@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/14 22:07:42 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/16 23:04:55 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void put_player(t_player_data *player)
     j = 0;
     while(j < SCREENHEIGHT)
     {
-      dist = sqrt((i - player->position.x)*(i - player->position.x) +\
-      (j - player->position.y)*(j - player->position.y));
-      if(dist <= player->radius)
+      dist = sqrt((i - (player->position.x ))*(i - (player->position.x )) +\
+      (j - (player->position.y ))*(j - (player->position.y )));
+      if(dist <= player->radius )
         my_mlx_pixel_put(player->img, i, j, 0x00203107);
       j++;
     }
@@ -49,14 +49,14 @@ void put_map(t_player_data *player)
 {
   int i = 0; 
   int j = 0; 
-  while(i < SCREENWIDTH)
+  while(i <  SCREENWIDTH)
   {
     j = 0;
-    while(j < SCREENHEIGHT)
+    while(j <  SCREENHEIGHT)
     {
-        if (i % TILE_SIZE == 0 || j % TILE_SIZE == 0) 
+        if (fmod(i, ( TILE_SIZE)) == 0 || fmod(j, ( TILE_SIZE)) == 0) 
           my_mlx_pixel_put(player->img, j, i, 0x00421337);
-        else if (worldMap[(int)(i / TILE_SIZE)][(int)(j / TILE_SIZE)] == 1)
+        else if (worldMap[(int)(i / ( TILE_SIZE))][(int)(j / ( TILE_SIZE))] == 1)
 	        my_mlx_pixel_put(player->img, j, i, 0x00133742);
         else 
           my_mlx_pixel_put(player->img, j, i, 0x00909090);
@@ -78,8 +78,8 @@ void drawline(t_player_data *player, double x, double y)
     double xinc;
     double yinc;
     
-    dx = x - player->position.x;
-    dy = y - player->position.y;
+    dx = (x - player->position.x) ;
+    dy = (y - player->position.y) ;
 
     if(abs(dx) > abs(dy))
       steps = abs(dx);
@@ -89,8 +89,8 @@ void drawline(t_player_data *player, double x, double y)
     xinc = dx / (float)steps;
     yinc = dy / (float)steps;
 
-    xx = player->position.x;
-    yy = player->position.y;
+    xx = player->position.x ;
+    yy = player->position.y ;
     i = 0;
     while (i <= steps)
     {
@@ -285,6 +285,30 @@ double normangle(double angle)
       angle = angle + (2 * PI);
   return (angle);
 }
+void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
+{
+    while (sy < dy)
+    {
+      my_mlx_pixel_put(img, round(sx), round(sy), color);
+      sy++;
+    }
+}
+
+void projectionthreed(t_img_data *img, t_ray *ray, int i)
+{
+  double distance_projection_plane;
+
+  double wallstripheight;
+
+  distance_projection_plane = (SCREENWIDTH / 2) / tan(VIEW_ANGLE / 2);
+
+  wallstripheight = (TILE_SIZE / ray->distancetowall) * distance_projection_plane;
+  drawwallcolumn(img, i, 1, (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00000000);
+  drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2) - 1, wallstripheight, 0x00FFFFFF);
+  drawwallcolumn(img, i,  wallstripheight -1 , SCREENHEIGHT - 10, 0x00000000);
+  
+}
+
 void draw_view_angle(t_player_data *player) 
 {
     double ray_angle;
@@ -292,32 +316,25 @@ void draw_view_angle(t_player_data *player)
     double horz_hitdistance;
     double vert_hitdistance;
     int view_angle_degree;
+    int count;
 
     t_cordinates wallhit;
     t_ray ray;
     
     view_angle_degree = VIEW_ANGLE * 180 / PI;
     angle_inc = view_angle_degree * (PI / (180 * SCREENWIDTH));
-    ray_angle = player->viewangle - (VIEW_ANGLE / 2);
-    
-    // ray.angle = normangle(ray_angle);
-    // get_ray_direction(&ray);
-    // horz_hitdistance = find_horzintersection(player, &ray);
-    // vert_hitdistance = find_vertintersection(player, &ray);
-    // wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
-
-    // drawline(player, wallhit.x, wallhit.y);
-  
-    // printf("up %d\n", ray.isfacingdown);
-    printf("anglr inc = %lf\n", angle_inc);
-    while (ray_angle <= player->viewangle + (VIEW_ANGLE / 2))
-    {
+    ray_angle = player->viewangle;
+    count = 1;
+    // while (ray_angle <= player->viewangle + (VIEW_ANGLE / 2))
+    // {
       ray.angle = normangle(ray_angle);
       get_ray_direction(&ray);
       horz_hitdistance = find_horzintersection(player, &ray);
       vert_hitdistance = find_vertintersection(player, &ray);
       wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
       drawline(player, wallhit.x, wallhit.y);
+      // projectionthreed(player->img, &ray, count);
       ray_angle += angle_inc;
-    }
+      count++;
+    // }
 }

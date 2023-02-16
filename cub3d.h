@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/14 21:33:39 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/16 21:01:07 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 #define MAPWIDTH 17
 #define MAPHEIGHT 17
-#define TILE_SIZE 70
+#define TILE_SIZE 50
 #define SCREENWIDTH MAPWIDTH * TILE_SIZE
 #define SCREENHEIGHT MAPHEIGHT * TILE_SIZE
 #define PI 3.14159265
 #define VIEW_ANGLE 60 * PI / 180
+#define MINI_MAP_FACTOR 0.2
 #include<mlx.h>
 #include <math.h>
 #include<stdlib.h>
