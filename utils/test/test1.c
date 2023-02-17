@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 19:55:37 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/11 23:00:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/17 17:57:57 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,10 +223,10 @@ int key_hook(t_player_data *player)
       player->x += cos(player->rotationangle) * movestep; 
       player->y += sin(player->rotationangle) * movestep;
   }
-  put_map(player);
-  put_player(player);
-	draw_view_angle(player);
-  mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
+  // put_map(player);
+  // put_player(player);
+	// draw_view_angle(player);
+  // mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
   
   return 1;
 }

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/16 21:00:02 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:55:18 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int moveplayer(t_player_data *player)
     if (!check_wals(player->position.x + (cos(tmpangle) * movestep), player->position.y +\
     (sin(tmpangle) * movestep), player->radius))
     {
-      player->position.x += cos(tmpangle) * movestep; 
-      player->position.y += sin(tmpangle) * movestep;
+      player->position.x += round(cos(tmpangle) * movestep); 
+      player->position.y += round(sin(tmpangle) * movestep);
     }
   }
   else if (player->walkdirection != 0)
@@ -106,9 +106,10 @@ int moveplayer(t_player_data *player)
         player->position.y += round(sin(player->viewangle + left_or_right_angle) * movestep);
      }
   }
-  put_map(player);
+  mlx_clear_window(player->mlx, player->mlx_win);
   put_player(player);
   draw_view_angle(player);
+  put_map(player);
   mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
   return 1;
 }
