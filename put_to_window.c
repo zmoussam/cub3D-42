@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/17 19:01:18 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/17 22:34:03 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
 {
 	char	*dst;
-
-  if (data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8))) 
-  {
-    
-	  dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	  *(unsigned int*)dst = color;
-  }
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
 }
 
 void put_player(t_player_data *player)
@@ -40,7 +35,7 @@ void put_player(t_player_data *player)
     while(j < SCREENHEIGHT * MINI_MAP_FACTOR)
     {
       dist = sqrt((i - (player->position.x * MINI_MAP_FACTOR)) * (i - (player->position.x * MINI_MAP_FACTOR)) +\
-      (j - (player->position.y  * MINI_MAP_FACTOR))*(j - (player->position.y * MINI_MAP_FACTOR)));
+      (j - (player->position.y * MINI_MAP_FACTOR)) * (j - (player->position.y * MINI_MAP_FACTOR)));
       if(dist <= player->radius * MINI_MAP_FACTOR)
         my_mlx_pixel_put(player->img, i, j, 0x00203107);
       j++;
@@ -82,8 +77,8 @@ void drawline(t_player_data *player, double x, double y)
     double xinc;
     double yinc;
     
-    dx = (x - player->position.x)  * MINI_MAP_FACTOR;
-    dy = (y - player->position.y)  * MINI_MAP_FACTOR;
+    dx = (x - player->position.x) * MINI_MAP_FACTOR;
+    dy = (y - player->position.y) * MINI_MAP_FACTOR;
 
     if(abs(dx) > abs(dy))
       steps = abs(dx);
@@ -109,7 +104,7 @@ t_cordinates find_vertintercept(t_player_data *player, t_ray *ray)
 {
   t_cordinates intercept;
 
-  intercept.x = floor(player->position.x / TILE_SIZE) * TILE_SIZE + (ray->isfacingright * TILE_SIZE);
+  intercept.x = (floor(player->position.x / TILE_SIZE) * TILE_SIZE) + (ray->isfacingright * TILE_SIZE);
   intercept.y = player->position.y + (intercept.x - player->position.x) * tan(ray->angle);
 
   return (intercept);
@@ -118,7 +113,7 @@ t_cordinates find_horzintercept(t_player_data *player, t_ray *ray)
 {
   t_cordinates intercept;
 
-  intercept.y = floor(player->position.y / TILE_SIZE) * TILE_SIZE + (ray->isfacingdown * TILE_SIZE);
+  intercept.y = (floor(player->position.y / TILE_SIZE) * TILE_SIZE) + (ray->isfacingdown * TILE_SIZE);
   intercept.x = player->position.x + (intercept.y - player->position.y) / tan(ray->angle);
 
   return (intercept);
@@ -179,6 +174,8 @@ void  get_ray_direction(t_ray *ray)
 }
 int haswallat(double x, double y)
 {
+    if (x < 0 || x > SCREENWIDTH || y < 0 || y > SCREENHEIGHT)
+        return 1; 
     if(worldMap[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == 1)
       return 1;
     else 
@@ -189,6 +186,7 @@ double get_distance(t_player_data *player, double x, double y, bool check)
   if (!check)
     return (INT_MAX);
   else 
+  check = 0;
     return (sqrt(((x - player->position.x) * (x - player->position.x)) + \
     ((y - player->position.y) * (y - player->position.y))));
 }
@@ -266,20 +264,21 @@ double find_vertintersection(t_player_data *player, t_ray *ray)
     return (get_distance(player, ray->vertwallhit.x, ray->vertwallhit.y, getvertwall));
 }
 
-t_cordinates get_smallwallhit(t_ray *ray, double horzdistance, double vertdistance)
+t_cordinates get_smallwallhit(t_ray *ray, t_player_data *player, double horzdistance, double vertdistance)
 {
     ray->wallhitisvert = false;
     if (horzdistance <= vertdistance && horzdistance != 0)
     {
-      ray->distancetowall = horzdistance;
+      ray->distancetowall = horzdistance * cos(ray->angle - player->viewangle);
       return (ray->horzwallhit);
     }
-    else
+    else if (horzdistance > vertdistance && vertdistance != 0)
     {
       ray->wallhitisvert = true;
-      ray->distancetowall = vertdistance;
+      ray->distancetowall = vertdistance * cos(ray->angle - player->viewangle);
       return (ray->vertwallhit);
-    } 
+    }
+    return (ray->horzwallhit);
 }
 
 double normangle(double angle)
@@ -291,10 +290,19 @@ double normangle(double angle)
 }
 void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
 {
-    while (sy < dy)
+  int y;
+   y = sy;
+   if (y < 0)
+    y = 0;
+    if (dy >= SCREENHEIGHT)
+    dy = SCREENHEIGHT;
+    while (y < dy && dy <= SCREENHEIGHT && y >= 0)
     {
-      my_mlx_pixel_put(img, sx, sy, color);
-      sy++;
+      if (fmod(sx , 2) == 0)
+       my_mlx_pixel_put(img, sx, y, color);
+      else
+      my_mlx_pixel_put(img, sx, y, 0x00000000);
+      y++;
     }
 }
 
@@ -304,10 +312,10 @@ void projectionthreed(t_img_data *img, t_ray *ray, int i)
 
   double wallstripheight;
 
-  distance_projection_plane = (SCREENWIDTH / 2) / tan(VIEW_ANGLE / 2) + 20;
+  distance_projection_plane = (SCREENWIDTH / 2) / (tan(VIEW_ANGLE / 2));
   wallstripheight = (TILE_SIZE / ray->distancetowall) * distance_projection_plane;
-  drawwallcolumn(img, i, 0, SCREENHEIGHT - 1, 0x00808080);
-  drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight - 1, 0x00FFFFFF);
+  drawwallcolumn(img, i, 0, SCREENHEIGHT, 0x00808080);
+  drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00FFFFFF);
 }
 
 void draw_view_angle(t_player_data *player) 
@@ -332,10 +340,11 @@ void draw_view_angle(t_player_data *player)
       get_ray_direction(&ray);
       horz_hitdistance = find_horzintersection(player, &ray);
       vert_hitdistance = find_vertintersection(player, &ray);
-      wallhit = get_smallwallhit(&ray, horz_hitdistance, vert_hitdistance);
+      wallhit = get_smallwallhit(&ray, player, horz_hitdistance, vert_hitdistance);
+      // drawline(player, wallhit.x, wallhit.y);
       projectionthreed(player->img, &ray, count);
-      drawline(player, wallhit.x, wallhit.y);
       ray_angle += angle_inc;
       count++;
     }
+    // printf("count = %d\n", count);
 }

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/17 18:55:18 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/17 21:59:20 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int moveplayer(t_player_data *player)
     if (!check_wals(player->position.x + (cos(tmpangle) * movestep), player->position.y +\
     (sin(tmpangle) * movestep), player->radius))
     {
-      player->position.x += round(cos(tmpangle) * movestep); 
-      player->position.y += round(sin(tmpangle) * movestep);
+      player->position.x += cos(tmpangle) * movestep; 
+      player->position.y += sin(tmpangle) * movestep;
     }
   }
   else if (player->walkdirection != 0)
@@ -91,8 +91,8 @@ int moveplayer(t_player_data *player)
     if (!check_wals(player->position.x + (cos(player->viewangle) * movestep), player->position.y +\
     (sin(player->viewangle) * movestep), player->radius))
     {
-      player->position.x += round(cos(player->viewangle) * movestep); 
-      player->position.y += round(sin(player->viewangle) * movestep);
+      player->position.x += (cos(player->viewangle) * movestep); 
+      player->position.y += (sin(player->viewangle) * movestep);
     }
   }
   else if (player->movesleft_or_right != 0)
@@ -102,14 +102,14 @@ int moveplayer(t_player_data *player)
      if (!check_wals(player->position.x + (cos(player->viewangle + left_or_right_angle) * movestep), player->position.y +\
      (sin(player->viewangle + left_or_right_angle) * movestep), player->radius))
      {
-        player->position.x += round(cos(player->viewangle + left_or_right_angle) * movestep); 
-        player->position.y += round(sin(player->viewangle + left_or_right_angle) * movestep);
+        player->position.x += (cos(player->viewangle + left_or_right_angle) * movestep); 
+        player->position.y += (sin(player->viewangle + left_or_right_angle) * movestep);
      }
   }
   mlx_clear_window(player->mlx, player->mlx_win);
-  put_player(player);
   draw_view_angle(player);
   put_map(player);
+  put_player(player);
   mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
   return 1;
 }

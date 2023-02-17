@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/17 18:05:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/17 22:35:32 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(void)
   player.radius = 5;
   player.position.x = (SCREENWIDTH / 2); 
   player.position.y = (SCREENHEIGHT / 2);
-  player.movespeed = 4;
+  player.movespeed = 2;
   player.viewangle = PI / 2;
   player.movesleft_or_right = 0;
   player.rotationspeed = 5 * (PI / 180);
