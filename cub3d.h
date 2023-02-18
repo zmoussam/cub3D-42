@@ -6,18 +6,18 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/17 21:51:43 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/18 20:49:03 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D__
 #define __CUB3D__
 
-#define MAPWIDTH 17
+#define MAPWIDTH 22
 #define MAPHEIGHT 17
-#define TILE_SIZE 50
-#define SCREENWIDTH MAPWIDTH * TILE_SIZE
-#define SCREENHEIGHT MAPHEIGHT * TILE_SIZE
+#define TILE_SIZE 30
+#define SCREENWIDTH 1500
+#define SCREENHEIGHT 940
 #define PI 3.14159265
 #define VIEW_ANGLE 60 * PI / 180
 #define MINI_MAP_FACTOR 0.2
@@ -78,7 +78,7 @@ typedef struct s_ray{
     bool wallhitisvert;
 }t_ray;
 
-extern int worldMap[MAPWIDTH][MAPHEIGHT];
+extern int worldMap[MAPHEIGHT][MAPWIDTH];
 
 int     releaskey(int keycode, t_player_data *player);
 int     presskey(int keycode, t_player_data *player);
