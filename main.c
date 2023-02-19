@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/18 20:37:22 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 17:23:57 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	main(void)
   player.radius = 5;
   player.position.x = 75; 
   player.position.y = 75;
-  player.movespeed = (TILE_SIZE * 2) / 50 ;
+  player.movespeed = (TILE_SIZE * 2) / 50;
   player.viewangle = PI / 2;
   player.movesleft_or_right = 0;
-  player.rotationspeed = 5 * (PI / 180);
+  player.rotationspeed = 3 * (PI / 180);
   player.turndirection = 0;
   player.walkdirection = 0;
 	mlx = mlx_init();

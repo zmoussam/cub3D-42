@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/18 20:43:29 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 19:00:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
     dy = SCREENHEIGHT;
   while (sy < dy && dy <= SCREENHEIGHT && sy >= 0)
   {
-    my_mlx_pixel_put(img, sx, sy, color );
+     my_mlx_pixel_put(img, sx, sy, color);
     sy++;
   }
 }
@@ -306,11 +306,13 @@ void projectionthreed(t_img_data *img, t_ray *ray, int i)
 
   distance_projection_plane = (SCREENWIDTH / 2) / (tan(VIEW_ANGLE / 2));
   wallstripheight = (TILE_SIZE / ray->distancetowall) * distance_projection_plane;
-  drawwallcolumn(img, i, 0, SCREENHEIGHT, 0x00808080);
+  drawwallcolumn(img, i, 0, (SCREENHEIGHT / 2) - (wallstripheight / 2 ), 0x00002A41);
   if (ray->wallhitisvert)
-  drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00FFFFFF);
+    drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00FFFFFF);
   else
-  drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00F0F0F0);
+    drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00D8D8D8);
+  drawwallcolumn(img, i, wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), SCREENHEIGHT, 0x00909490);
+  
 }
 
 void draw_view_angle(t_player_data *player) 

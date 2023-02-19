@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/18 20:49:03 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:44:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define MAPWIDTH 22
 #define MAPHEIGHT 17
-#define TILE_SIZE 30
+#define TILE_SIZE 50
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define PI 3.14159265
@@ -45,7 +45,7 @@ typedef struct s_player_data
 {
     t_cordinates position;
     int radius;
-    int movespeed;
+    double movespeed;
     double viewangle;
     double rotationspeed;
     int movesleft_or_right;
