@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/18 19:12:23 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:28:43 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,19 @@ int moveplayer(t_player_data *player)
   int movestep;
   double left_or_right_angle;
   double tmpangle;
+  //  void *start_game;
+  // int x = 1500;
+  // int y = 940;
+  // int i = 0;
   
+  // start_game = mlx_xpm_file_to_image(player->mlx, "./assets/start_game.xpm", &x, &y);
+  //   mlx_put_image_to_window(player->mlx, player->mlx_win, start_game, 0, 0);
+  // while(i < 999)
+  // {
+  //   // printf("i = %d\n", i);
+  //   i++;
+  //   // mlx_loop(playermlx);
+  // }
   left_or_right_angle = 0;
   player->viewangle += player->turndirection * player->rotationspeed;
   

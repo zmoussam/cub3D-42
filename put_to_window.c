@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 19:00:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 21:44:50 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void put_map(t_player_data *player)
     while(j <  MAPWIDTH * TILE_SIZE * MINI_MAP_FACTOR)
     {
         if (fmod(i, (TILE_SIZE * MINI_MAP_FACTOR)) == 0 || fmod(j, (TILE_SIZE * MINI_MAP_FACTOR)) == 0) 
-          my_mlx_pixel_put(player->img, j, i, 0x00000000);
+           my_mlx_pixel_put(player->img, j, i, 0x00000000);
         if (worldMap[(int)(i / (TILE_SIZE * MINI_MAP_FACTOR))][(int)(j / (TILE_SIZE * MINI_MAP_FACTOR))] == 1)
 	        my_mlx_pixel_put(player->img, j, i, 0x00000000);
         else 

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 17:23:57 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/19 22:07:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int worldMap[MAPHEIGHT][MAPWIDTH]=
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,1,1,1,1},
+  {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,1},
   {1,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
@@ -57,10 +57,6 @@ int	main(void)
   player.img = &img;
   player.mlx = mlx;
   player.mlx_win = mlx_win;
-  put_map(&player);
-  put_player(&player);
-	draw_view_angle(&player);
-  mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
   mlx_hook(mlx_win, 2, 1L << 0, presskey , &player);
   mlx_hook(mlx_win, 3, 1L << 0, releaskey , &player);
   mlx_loop_hook(mlx, &moveplayer, &player);
