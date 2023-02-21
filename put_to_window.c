@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 21:44:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:35:34 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
+
+// int get_color(t_ray *ray, void *taxture_add)
+// {
+  
+// }
+/*
+  intersection position (x, y)
+  intersection with horizontal wall
+  position = decimal_part(x / GRID_SIZE)
+  0 <= POSITION <= 1
+  textureX = Position * texture_width
+  0 <= texturex <= texture_with
+  loop thru texturY, when drawing the wall 
+*/
 void  get_ray_direction(t_ray *ray)
 {
     if (ray->angle > 0 && ray->angle < PI)
@@ -74,7 +88,7 @@ void put_map(t_player_data *player)
 {
   int i = 0; 
   int j = 0; 
-  while(i <  MAPHEIGHT * TILE_SIZE * MINI_MAP_FACTOR)
+  while(i < MAPHEIGHT * TILE_SIZE * MINI_MAP_FACTOR)
   {
     j = 0;
     while(j <  MAPWIDTH * TILE_SIZE * MINI_MAP_FACTOR)
@@ -178,7 +192,7 @@ t_cordinates find_vertstep(t_ray *ray)
 
 int haswallat(double x, double y)
 {
-    if (x < 0 || x > SCREENWIDTH || y < 0 || y > SCREENHEIGHT)
+    if (x < 0 || x > MAPWIDTH * TILE_SIZE || y < 0 || y > MAPWIDTH * TILE_SIZE)
         return 1; 
     if(worldMap[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == 1)
       return 1;
@@ -287,31 +301,56 @@ void get_smallwallhit(t_ray *ray, t_player_data *player, double horzdistance, do
 
 void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
 {
-  if (sy < 0)
-    sy = 0;
-  if (dy >= SCREENHEIGHT)
-    dy = SCREENHEIGHT;
   while (sy < dy && dy <= SCREENHEIGHT && sy >= 0)
   {
-     my_mlx_pixel_put(img, sx, sy, color);
+    my_mlx_pixel_put(img, sx, sy, color);
     sy++;
   }
 }
+void draw_wall(t_player_data *player, t_ray *ray, double walltop, double wallbottom, double wallstripheit, double xr)
+{
+  int *color;
+  color = NULL;
+  t_cordinates ofsset;
+  int y = walltop;
+  
+  if (ray->wallhitisvert)
+    ofsset.x = fmod(ray->vertwallhit.y, TILE_SIZE);
+  else
+    ofsset.x = fmod(ray->horzwallhit.x, TILE_SIZE);
+  while(y < wallbottom)
+  {
+    ofsset.y = (y - walltop) * ((double)player->texture->_heigth / wallstripheit);
+    printf("hi\n");
+    color = (int*)&player->texture->texture.addr[(int)((player->texture->_width * ofsset.y) + ofsset.x)];
+    my_mlx_pixel_put(player->mlx, xr, y, *color);
+    y++;
+  }
+}
 
-void projectionthreed(t_img_data *img, t_ray *ray, int i)
+void projectionthreed(t_player_data *player, t_img_data *img, t_ray *ray, int i)
 {
   double distance_projection_plane;
-
   double wallstripheight;
-
+  double walltop;
+  double wallbottom;
   distance_projection_plane = (SCREENWIDTH / 2) / (tan(VIEW_ANGLE / 2));
   wallstripheight = (TILE_SIZE / ray->distancetowall) * distance_projection_plane;
-  drawwallcolumn(img, i, 0, (SCREENHEIGHT / 2) - (wallstripheight / 2 ), 0x00002A41);
-  if (ray->wallhitisvert)
-    drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00FFFFFF);
-  else
-    drawwallcolumn(img, i, (SCREENHEIGHT / 2) - (wallstripheight / 2), wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), 0x00D8D8D8);
-  drawwallcolumn(img, i, wallstripheight + (SCREENHEIGHT / 2) - (wallstripheight / 2), SCREENHEIGHT, 0x00909490);
+  
+  walltop = (SCREENHEIGHT / 2) - (wallstripheight / 2);
+  if (walltop < 0)
+    walltop = 0;
+    
+  wallbottom = (SCREENHEIGHT / 2) + (wallstripheight / 2);
+  if (wallbottom > SCREENHEIGHT)
+    wallbottom = SCREENHEIGHT;
+  drawwallcolumn(img, i, 0, walltop, 0x00002A41);
+  draw_wall(player, ray, walltop, wallbottom , wallstripheight, i);
+  // if (ray->wallhitisvert)
+  //   drawwallcolumn(img, i, walltop, wallbottom, texture->texture.addr[300]);
+  // else
+  //   drawwallcolumn(img, i, walltop, wallbottom, texture->texture.addr[2]);
+  drawwallcolumn(img, i, wallbottom, SCREENHEIGHT, 0x00909490);
   
 }
 
@@ -336,7 +375,7 @@ void draw_view_angle(t_player_data *player)
       horz_hitdistance = find_horzintersection(player, &ray);
       vert_hitdistance = find_vertintersection(player, &ray);
       get_smallwallhit(&ray, player, horz_hitdistance, vert_hitdistance);
-      projectionthreed(player->img, &ray, count);
+      projectionthreed(player, player->img, &ray, count);
       ray_angle += angle_inc;
       count++;
     }

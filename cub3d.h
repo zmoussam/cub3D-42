@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 22:06:56 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:32:01 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #define MAPWIDTH 22
 #define MAPHEIGHT 17
-#define TILE_SIZE 50
+#define TILE_SIZE 40
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define PI 3.14159265
@@ -36,6 +36,13 @@ typedef struct	s_img_data {
 	int		endian;
 }				t_img_data;
 
+typedef struct s_texture_data {
+    t_img_data texture;
+    int _width;
+    int _heigth;
+}   t_texture_data;
+
+
 typedef struct s_cordinates{
     double x;
     double y;
@@ -52,6 +59,7 @@ typedef struct s_player_data
     int turndirection;
     int walkdirection;
     t_img_data *img;
+    t_texture_data *texture;
     void *mlx;
     void *mlx_win;
 } t_player_data;
@@ -89,5 +97,6 @@ void    put_map(t_player_data *player);
 void    drawline(t_player_data *player, double x, double y);
 void    draw_view_angle(t_player_data *player);
 int     check_wals(double x, double y, int radius);
+t_texture_data *get_texture_data(void* mlx, char *filename);
 
 #endif

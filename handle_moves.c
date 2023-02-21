@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 21:28:43 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:47:56 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int check_wals(double x, double y, int radius)
 {
     int i = x;
     int j = y;
-
+    
     while(i < radius + x)
     {
         j = y;

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/19 22:07:14 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:48:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	main(void)
   t_player_data player;
 
   player.radius = 5;
-  player.position.x = 75; 
-  player.position.y = 75;
+  player.position.x = TILE_SIZE + (TILE_SIZE / 2); 
+  player.position.y =  TILE_SIZE + (TILE_SIZE / 2) ;
   player.movespeed = (TILE_SIZE * 2) / 50;
   player.viewangle = PI / 2;
   player.movesleft_or_right = 0;
@@ -54,6 +54,7 @@ int	main(void)
 	img.img = mlx_new_image(mlx, SCREENWIDTH, SCREENHEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
+  player.texture = get_texture_data(mlx, "./assets/wall.xpm");
   player.img = &img;
   player.mlx = mlx;
   player.mlx_win = mlx_win;
