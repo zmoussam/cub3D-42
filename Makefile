@@ -6,13 +6,13 @@
 #    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:25:03 by zmoussam          #+#    #+#              #
-#    Updated: 2023/02/21 21:13:53 by zmoussam         ###   ########.fr        #
+#    Updated: 2023/02/24 21:40:45 by zmoussam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc 
 FLAGS = -Wall -Wextra -Werror 
-SRC = main.c handle_moves.c put_to_window.c rendering_wall.c
+SRC = main.c handleMoves.c 3Dprojection.c CollectData.c MiniMap.c RayCasting.c
 MFLAGS = -lmlx -framework OpenGL -framework AppKit
 NAME = cub3d
 
