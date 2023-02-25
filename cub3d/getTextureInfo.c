@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:02:59 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/25 19:12:20 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 00:55:33 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_texture *get_texture_data(void* mlx, t_map_info *map_file)
     texture_files[1] = map_file->no;
     texture_files[2] = map_file->we;
     texture_files[3] = map_file->ea;
+    printf("%s\n ", map_file->no);
     texture_files[4] = NULL;
     while(i < 4)
     {

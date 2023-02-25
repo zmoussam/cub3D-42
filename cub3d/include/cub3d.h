@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:13:02 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 00:57:24 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #define SCREENHEIGHT 17 * TILE_SIZE
 #define MINI_MAP_FACTOR 0.2
 #define VIEW_ANGLE 60 * M_PI / 180
+#define WALL_HEIGHT 30
 #include<mlx.h>
 #include<stdlib.h>
 #include<stdio.h>
@@ -87,7 +88,7 @@ typedef struct s_texture
 {
     t_img_data *info;
     int _width;
-    int _height;
+    int _heigth;
 }t_texture;
 
 typedef struct s_ray{
@@ -106,16 +107,20 @@ typedef struct s_collect_data
     t_player *player;
     t_mlx *mlx;
     t_map_info *map_info;
+    t_texture *texture;
     
 } t_collect_data;
 
 void        init_player(t_player *player, char **map);
 void        init_map(t_map_info *map_file);
-t_texture   *get_texture_data(void* mlx, t_map_info *map_file);
 int         releaskey(int keycode, t_player *player);
 int         presskey(int keycode, t_player *player);
+void        my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
 int         moveplayer(t_collect_data *data);
 void        put_minimap(t_collect_data *data);
-void        my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
+t_texture   *get_texture_data(void* mlx, t_map_info *map_file);
+void        castingrays(t_collect_data *data);
+void        get_ray_direction(t_ray *ray);
+void        draw(t_collect_data *data, t_ray *ray, int i);
 
 #endif

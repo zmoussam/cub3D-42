@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:34:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 00:47:26 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ t_cordinates find_vertstep(t_ray *ray)
     return (step);
 }
 
-int haswallat(double x, double y , t_player *player)
+int haswallat(double x, double y , char **map)
 {
-    if (x < 0 || x > MAPWIDTH * TILE_SIZE || y < 0 || y > MAPWIDTH * TILE_SIZE)
+    if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
         return 1; 
-    return (player->map.map[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == '1');
+    return (map[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == '1');
 }
 double get_distance(t_player*player, double x, double y, bool check)
 {
@@ -109,7 +109,7 @@ double get_distance(t_player*player, double x, double y, bool check)
     return (sqrt(((x - player->position.x) * (x - player->position.x)) + \
     ((y - player->position.y) * (y - player->position.y))));
 }
-double find_horzintersection(t_player *player, t_ray *ray)
+double find_horzintersection(t_player *player, t_ray *ray, char **map)
 {
     t_cordinates intercept;
     t_cordinates step;
@@ -127,10 +127,10 @@ double find_horzintersection(t_player *player, t_ray *ray)
     nexthorzinter.y = intercept.y;
     if (ray->isfacingup == -1)
        check_isfacingup = 1;
-    while(nexthorzinter.x >= 0 && nexthorzinter.x <= MAPWIDTH * TILE_SIZE && \
-    nexthorzinter.y >= 0 && nexthorzinter.y <= MAPHEIGHT * TILE_SIZE)
+    while(nexthorzinter.x >= 0 && nexthorzinter.x <= 23 * TILE_SIZE && \
+    nexthorzinter.y >= 0 && nexthorzinter.y <= 17 * TILE_SIZE)
     {
-      if(haswallat(nexthorzinter.x, nexthorzinter.y - check_isfacingup, player))
+      if(haswallat(nexthorzinter.x, nexthorzinter.y - check_isfacingup, map))
       {
           gethorzwall = true;
           ray->horzwallhit.x = nexthorzinter.x;
@@ -146,7 +146,7 @@ double find_horzintersection(t_player *player, t_ray *ray)
     return (get_distance(player, ray->horzwallhit.x, ray->horzwallhit.y, gethorzwall));
 }
 
-double find_vertintersection(t_player *player, t_ray *ray)
+double find_vertintersection(t_player *player, t_ray *ray, char **map)
 {
     t_cordinates intercept;
     t_cordinates step;
@@ -164,10 +164,10 @@ double find_vertintersection(t_player *player, t_ray *ray)
     nextvertinter.y = intercept.y;
     if (ray->isfacingleft == -1)
         check_isfacingleft = 1;
-    while (nextvertinter.x >= 0 &&  nextvertinter.x <= MAPWIDTH * TILE_SIZE && \
-    nextvertinter.y >= 0 && nextvertinter.y <= MAPHEIGHT * TILE_SIZE)
+    while (nextvertinter.x >= 0 &&  nextvertinter.x <= 23 * TILE_SIZE && \
+    nextvertinter.y >= 0 && nextvertinter.y <= 17 * TILE_SIZE)
     {
-      if (haswallat(nextvertinter.x - check_isfacingleft, nextvertinter.y, player))
+      if (haswallat(nextvertinter.x - check_isfacingleft, nextvertinter.y, map))
       {
           getvertwall = true;
           ray->vertwallhit.x =  nextvertinter.x;
@@ -207,16 +207,16 @@ void castingrays(t_collect_data *data)
     
     view_angle_degree = VIEW_ANGLE * 180 / M_PI;
     angle_inc = view_angle_degree * (M_PI / (180 * SCREENWIDTH));
-    ray_angle = player->viewangle - (VIEW_ANGLE / 2);
+    ray_angle = data->player->viewangle - (VIEW_ANGLE / 2);
     count = 0;
     while (count < SCREENWIDTH)
     {
       ray.angle = normangle(ray_angle);
       get_ray_direction(&ray);
-      horz_hitdistance = find_horzintersection(player, &ray);
-      vert_hitdistance = find_vertintersection(player, &ray);
-      get_smallwallhit(&ray, player, horz_hitdistance, vert_hitdistance);
-      draw(player, player->img, &ray, count);
+      horz_hitdistance = find_horzintersection(data->player, &ray, data->map_info->map);
+      vert_hitdistance = find_vertintersection(data->player, &ray, data->map_info->map);
+      get_smallwallhit(&ray, data->player, horz_hitdistance, vert_hitdistance);
+      draw(data, &ray, count);
       ray_angle += angle_inc;
       count++;
     }

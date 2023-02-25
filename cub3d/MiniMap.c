@@ -6,37 +6,13 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:12:51 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 00:38:38 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
 #include"string.h"
 
-void  get_ray_direction(t_ray *ray)
-{
-    if (ray->angle > 0 && ray->angle < M_PI)
-    {
-      ray->isfacingdown = 1;
-      ray->isfacingup = 1;
-    }
-    else
-    {
-      ray->isfacingdown = 0;
-      ray->isfacingup = -1;
-    }
-    if (ray->angle < (M_PI / 2) || ray->angle > (3 * M_PI / 2))
-    {
-      ray->isfacingright = 1;
-      ray->isfacingleft = 1;
-    }
-    else
-    {
-      ray->isfacingright = 0;
-      ray->isfacingleft = -1;
-    }
-    
-}
 void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
 {
 	char	*dst;
