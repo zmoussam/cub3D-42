@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:54:25 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:50:43 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,21 @@ int main()
         return 0;
     init_map(&map_info);
     init_player(&player, map_info.map);
+    
     mlx.mlx = mlx_init();
     mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
     img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+    printf("%s\n", map_info.ea);
+    printf("%s\n", map_info.so);
+    printf("%s\n", map_info.no);
+    printf("%s\n", map_info.we);
     texture = get_texture_data(mlx.mlx, &map_info);
-    
     mlx.img = &img;
     all_data.map_info = &map_info;
     all_data.mlx = &mlx;
     all_data.player = &player;
+    all_data.texture = texture;
     
     mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
     mlx_hook(mlx.mlx_win, 3, 1L << 0, releaskey, all_data.player);

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:47:26 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:41:07 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_cordinates find_vertstep(t_ray *ray)
     return (step);
 }
 
-int haswallat(double x, double y , char **map)
+int haswall_at(double x, double y , char **map)
 {
     if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
         return 1; 
@@ -130,7 +130,7 @@ double find_horzintersection(t_player *player, t_ray *ray, char **map)
     while(nexthorzinter.x >= 0 && nexthorzinter.x <= 23 * TILE_SIZE && \
     nexthorzinter.y >= 0 && nexthorzinter.y <= 17 * TILE_SIZE)
     {
-      if(haswallat(nexthorzinter.x, nexthorzinter.y - check_isfacingup, map))
+      if(haswall_at(nexthorzinter.x, nexthorzinter.y - check_isfacingup, map))
       {
           gethorzwall = true;
           ray->horzwallhit.x = nexthorzinter.x;
@@ -167,7 +167,7 @@ double find_vertintersection(t_player *player, t_ray *ray, char **map)
     while (nextvertinter.x >= 0 &&  nextvertinter.x <= 23 * TILE_SIZE && \
     nextvertinter.y >= 0 && nextvertinter.y <= 17 * TILE_SIZE)
     {
-      if (haswallat(nextvertinter.x - check_isfacingleft, nextvertinter.y, map))
+      if (haswall_at(nextvertinter.x - check_isfacingleft, nextvertinter.y, map))
       {
           getvertwall = true;
           ray->vertwallhit.x =  nextvertinter.x;

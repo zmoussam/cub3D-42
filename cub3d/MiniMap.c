@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:38:38 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:47:56 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void drawline(t_collect_data *data, double x, double y)
     i = 0;
     while (i <= steps)
     {
-       if (data->map_info->map[(int)(yy / (TILE_SIZE * MINI_MAP_FACTOR))][(int)(xx / (TILE_SIZE * MINI_MAP_FACTOR))] == '1')
+       if (check_wall(xx / MINI_MAP_FACTOR , yy / MINI_MAP_FACTOR, data->map_info->map))
           break;
         my_mlx_pixel_put(data->mlx->img, xx, yy, 0x00FF0000);
         xx = xx + xinc;
@@ -61,10 +61,10 @@ void put_player(t_collect_data *data)
   double ray_angle;
   double angle_inc;
   int count;
-  angle_inc = VIEW_ANGLE / 8;
+  angle_inc = VIEW_ANGLE / 5;
   ray_angle = data->player->viewangle - (VIEW_ANGLE / 2);
   count= 0;
-  while (count < 8)
+  while (count < 5)
   {
     ray.angle = ray_angle;
     get_ray_direction(&ray);
@@ -81,13 +81,13 @@ void put_minimap(t_collect_data *data)
   int len;
   int index_x;
   int index_y;
-  while(i < SCREENHEIGHT * MINI_MAP_FACTOR)
+  while(i < 17 * TILE_SIZE * MINI_MAP_FACTOR)
   {
     j = 0;
     index_y = (int)(i / (TILE_SIZE * MINI_MAP_FACTOR));
     len = strlen(data->map_info->map[index_y]);
     index_x = 0;
-    while(j < SCREENWIDTH * MINI_MAP_FACTOR && index_x < len)
+    while(j < 30 * TILE_SIZE * MINI_MAP_FACTOR && index_x < len)
     {
       if (data->map_info->map[index_y][index_x] == '1')
         my_mlx_pixel_put(data->mlx->img, j, i, 0x00458712);

@@ -6,19 +6,21 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:48:08 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:42:09 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
 
-static int check_wals(double x, double y, char **map) 
+int check_wall(double x, double y, char **map) 
 {
     int i = x;
     int j = y;
     int radius;
-
-    radius = 2;
+    
+  //  if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
+  //       return 1;
+    radius = 5;
     while(i < radius + x)
     {
         j = y;
@@ -51,6 +53,7 @@ int releaskey(int keycode, t_player *player)
 }
 
 int presskey(int keycode, t_player *player)
+
 {
   if (keycode == KEY_LEFT)
     player->movesleft_or_right = -1;
@@ -66,6 +69,7 @@ int presskey(int keycode, t_player *player)
       player->turndirection = +1;
   return 0;
 }
+
 int moveplayer(t_collect_data *data)
 {
   int movestep;
@@ -81,14 +85,14 @@ int moveplayer(t_collect_data *data)
   {
     movestep = data->player->movespeed;
     if (data->player->walkdirection == -1)
-      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * 3 * M_PI / 5));
+      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * 3 * M_PI / 4));
     else if (data->player->walkdirection == 1)
       tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
     else
       tmpangle = (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
     next_x = data->player->position.x + (cos(tmpangle) * movestep);
     next_y = data->player->position.y + (sin(tmpangle) * movestep);
-    if (!check_wals(next_x, next_y, data->map_info->map))
+    if (!check_wall(next_x, next_y, data->map_info->map))
     {
       data->player->position.x = next_x; 
       data->player->position.y = next_y;
@@ -99,7 +103,7 @@ int moveplayer(t_collect_data *data)
     movestep = data->player->walkdirection * data->player->movespeed;
     next_x = data->player->position.x + (cos(data->player->viewangle) * movestep);
     next_y = data->player->position.y + (sin(data->player->viewangle) * movestep);
-    if (!check_wals(next_x, next_y, data->map_info->map))
+    if (!check_wall(next_x, next_y, data->map_info->map))
     {
       data->player->position.x = next_x; 
       data->player->position.y = next_y;
@@ -111,7 +115,7 @@ int moveplayer(t_collect_data *data)
     left_or_right_angle = data->player->movesleft_or_right * M_PI / 2;
     next_x = data->player->position.x + (cos(data->player->viewangle + left_or_right_angle) * movestep);
     next_y = data->player->position.y + (sin(data->player->viewangle + left_or_right_angle) * movestep);
-    if (!check_wals(next_x, next_y, data->map_info->map))
+    if (!check_wall(next_x, next_y, data->map_info->map))
     {
         data->player->position.x = next_x;
         data->player->position.y = next_y;
