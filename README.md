@@ -11,7 +11,7 @@ Shooter” in the history of video games.
 Wolfenstein 3D is the ancestor of games like Doom (Id Software, 1993), Doom II
 (Id Software, 1994), Duke Nukem 3D (3D Realm, 1996) and Quake (Id Software, 1996),
 that are additional eternal milestones in the world of video games.
-<br>
+<br> 
 # Goals
 <br>
 This project’s objectives are similar to all this first year’s objectives: Rigor, use of C, use
