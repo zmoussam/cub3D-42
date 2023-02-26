@@ -6,11 +6,11 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:31:14 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/25 16:06:49 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:40:03 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "./include/cub3d.h"
 
 void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
 {
@@ -21,7 +21,7 @@ void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
   }
 }
 
-void draw_wall(t_player_data *player, t_cordinates ofsset, double wallstripheight, int i)
+void draw_wall(t_collect_data *data, t_cordinates ofsset, double wallstripheight, int i)
 {
   double top;
   double bottom;
@@ -37,13 +37,13 @@ void draw_wall(t_player_data *player, t_cordinates ofsset, double wallstripheigh
   while (top < bottom)
   {
     dis = top + (wallstripheight / 2) - (SCREENHEIGHT / 2);
-    ofsset.y = round(dis / wallstripheight * player->texture->_heigth) ;
-    my_mlx_pixel_put(player->img, i, top, player->texture->addr[(int)floor((int)((ofsset.y * player->texture->_width) + ofsset.x))]);
+    ofsset.y = round(dis / wallstripheight * data->texture[1]._heigth) ;
+    my_mlx_pixel_put(data->mlx->img, i, top, data->texture[1].info->int_addr[(int)round((int)((ofsset.y * data->texture[1]._width) + ofsset.x))]);
     top++;  
   }
 }
 
-void draw(t_player_data *player, t_img_data *img, t_ray *ray, int i)
+void draw(t_collect_data *data, t_ray *ray, int i)
 {
   double distance_projection_plane;
   double wallstripheight;
@@ -61,13 +61,13 @@ void draw(t_player_data *player, t_img_data *img, t_ray *ray, int i)
   if (wallbottom > SCREENHEIGHT)
     wallbottom = SCREENHEIGHT;
     
-  drawwallcolumn(img, i, 0, walltop, 0x00002A41);
+  drawwallcolumn(data->mlx->img, i, 0, walltop, 0x00009AFF);
   
   if (ray->wallhitisvert)
-    ofssets.x = fmod(ray->vertwallhit.y, TILE_SIZE) / TILE_SIZE * player->texture->_width;
+    ofssets.x = fmod(ray->vertwallhit.y, TILE_SIZE) / TILE_SIZE * data->texture[0]._width;
   else
-    ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * player->texture->_width;
+    ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * data->texture[0]._width;
   
-  draw_wall(player, ofssets, wallstripheight, i);
-  drawwallcolumn(img, i, wallbottom, SCREENHEIGHT, 0x00909490);
+  draw_wall(data, ofssets, wallstripheight, i);
+  drawwallcolumn(data->mlx->img, i, wallbottom, SCREENHEIGHT, 0x00909490);
 }

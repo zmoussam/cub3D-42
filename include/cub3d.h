@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 16:55:58 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:27:48 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 #define __CUB3D__
 
 #include <math.h>
-#define TILE_SIZE 50
+#define TILE_SIZE 30
 #define ROTATION_SPEED 3 * (M_PI / 180)
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define MINI_MAP_FACTOR 0.2
 #define VIEW_ANGLE 60 * M_PI / 180
-#define WALL_HEIGHT 30
+#define WALL_HEIGHT 20
 #include<mlx.h>
 #include<stdlib.h>
 #include<stdio.h>
@@ -123,5 +123,6 @@ void        castingrays(t_collect_data *data);
 void        get_ray_direction(t_ray *ray);
 void        draw(t_collect_data *data, t_ray *ray, int i);
 int         check_wall(double x, double y, char **map);
+double      normangle(double angle);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 00:16:40 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:22:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void init_player(t_player *player, char **map)
     player->radius = 2;
     player->turndirection = 0;
     player->walkdirection = 0;
-    player->movespeed = (TILE_SIZE * 2) / 50;
+    player->movespeed = (SCREENWIDTH  * 1.5) / 1500;
     player->movesleft_or_right = 0;
     player->rotationspeed = ROTATION_SPEED;
     get_player_position(player, map);

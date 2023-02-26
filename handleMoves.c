@@ -6,23 +6,27 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/25 16:16:21 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:38:18 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "./include/cub3d.h"
 
-int check_wals(double x, double y, t_player_data *player) 
+int check_wall(double x, double y, char **map) 
 {
     int i = x;
     int j = y;
+    int radius;
     
-    while(i < player->radius + x)
+  //  if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
+  //       return 1;
+    radius = 5;
+    while(i < radius + x)
     {
         j = y;
-        while(j < player->radius + y)
+        while(j < radius + y)
         { 
-           if (player->map.map[(int)(j / TILE_SIZE)][(int)(i / TILE_SIZE)] == '1')
+           if (map[(int)(j / TILE_SIZE)][(int)(i / TILE_SIZE)] == '1')
                 return 1;
            j++;
         }
@@ -31,7 +35,7 @@ int check_wals(double x, double y, t_player_data *player)
     return 0;
 }
 
-int releaskey(int keycode, t_player_data *player)
+int releaskey(int keycode, t_player *player)
 {
   if (keycode == KEY_LEFT)
     player->movesleft_or_right = 0;
@@ -48,7 +52,8 @@ int releaskey(int keycode, t_player_data *player)
   return 0;
 }
 
-int presskey(int keycode, t_player_data *player)
+int presskey(int keycode, t_player *player)
+
 {
   if (keycode == KEY_LEFT)
     player->movesleft_or_right = -1;
@@ -62,58 +67,63 @@ int presskey(int keycode, t_player_data *player)
       player->turndirection = -1;
   if (keycode == TURN_RIGHT)
       player->turndirection = +1;
-    return 0;
+  return 0;
 }
 
-int moveplayer(t_player_data *player)
+int moveplayer(t_collect_data *data)
 {
   int movestep;
   double left_or_right_angle;
-  // double tmpangle;
+  double next_x;
+  double next_y;
+  double tmpangle;
 
   left_or_right_angle = 0;
-  player->viewangle += player->turndirection * player->rotationspeed;
+  data->player->viewangle += data->player->turndirection * data->player->rotationspeed;
   
-  // if (player->walkdirection != 0 && player->movesleft_or_right != 0)
-  // {
-  //   movestep = player->movespeed;
-  //   if (player->walkdirection == -1)
-  //     tmpangle = player->walkdirection * (player->viewangle + (player->movesleft_or_right * 3 * PI / 4));
-  //   else if (player->walkdirection == 1)
-  //     tmpangle = player->walkdirection * (player->viewangle + (player->movesleft_or_right  * PI / 4));
-  //   else
-  //     tmpangle =(player->viewangle + (player->movesleft_or_right * PI / 4));
-  //   if (!check_wals(player->position.x + (cos(tmpangle) * movestep), player->position.y +\
-  //   (sin(tmpangle) * movestep), player->radius))
-  //   {
-  //     player->position.x += cos(tmpangle) * movestep; 
-  //     player->position.y += sin(tmpangle) * movestep;
-  //   }
-  // }
-  if (player->walkdirection != 0)
+  if (data->player->walkdirection != 0 && data->player->movesleft_or_right != 0)
   {
-    movestep = player->walkdirection * player->movespeed;
-    if (!check_wals(player->position.x + (cos(player->viewangle) * movestep), player->position.y +\
-    (sin(player->viewangle) * movestep), player))
+    movestep = data->player->movespeed;
+    if (data->player->walkdirection == -1)
+      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * 3 * M_PI / 5));
+    else if (data->player->walkdirection == 1)
+      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
+    else
+      tmpangle = (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
+    next_x = data->player->position.x + (cos(tmpangle) * movestep);
+    next_y = data->player->position.y + (sin(tmpangle) * movestep);
+    if (!check_wall(next_x, next_y, data->map_info->map))
     {
-      player->position.x += (cos(player->viewangle) * movestep); 
-      player->position.y += (sin(player->viewangle) * movestep);
+      data->player->position.x = next_x; 
+      data->player->position.y = next_y;
     }
   }
-  else if (player->movesleft_or_right != 0)
+  if (data->player->walkdirection != 0)
   {
-    movestep = player->movespeed;
-    left_or_right_angle = player->movesleft_or_right * PI / 2;
-     if (!check_wals(player->position.x + (cos(player->viewangle + left_or_right_angle) * movestep), player->position.y +\
-     (sin(player->viewangle + left_or_right_angle) * movestep), player))
-     {
-        player->position.x += (cos(player->viewangle + left_or_right_angle) * movestep); 
-        player->position.y += (sin(player->viewangle + left_or_right_angle) * movestep);
-     }
+    movestep = data->player->walkdirection * data->player->movespeed;
+    next_x = data->player->position.x + (cos(data->player->viewangle) * movestep);
+    next_y = data->player->position.y + (sin(data->player->viewangle) * movestep);
+    if (!check_wall(next_x, next_y, data->map_info->map))
+    {
+      data->player->position.x = next_x; 
+      data->player->position.y = next_y;
+    }
   }
-  mlx_clear_window(player->mlx, player->mlx_win);
-  castingrays(player);
-  put_minimap(player);
-  mlx_put_image_to_window(player->mlx, player->mlx_win, player->img->img, 0, 0);
+  else if (data->player->movesleft_or_right != 0)
+  {
+    movestep = data->player->movespeed;
+    left_or_right_angle = data->player->movesleft_or_right * M_PI / 2;
+    next_x = data->player->position.x + (cos(data->player->viewangle + left_or_right_angle) * movestep);
+    next_y = data->player->position.y + (sin(data->player->viewangle + left_or_right_angle) * movestep);
+    if (!check_wall(next_x, next_y, data->map_info->map))
+    {
+        data->player->position.x = next_x;
+        data->player->position.y = next_y;
+    }
+  }
+  mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
+  castingrays(data);
+  put_minimap(data);
+  mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mlx->img->img, 0, 0);
   return 1;
 }
