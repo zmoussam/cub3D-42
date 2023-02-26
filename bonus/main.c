@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 18:00:39 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 20:37:01 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int main()
     t_img_data img;
     t_texture *texture;
     
-    // map_info.map = (char **)malloc(sizeof(char *) * 18);
-    // if (!map_info.map)
-    //     return 0;
     init_map(&map_info);
     init_player(&player, map_info.map);
     
@@ -31,10 +28,6 @@ int main()
     mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
     img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    printf("%s\n", map_info.ea);
-    printf("%s\n", map_info.so);
-    printf("%s\n", map_info.no);
-    printf("%s\n", map_info.we);
     texture = get_texture_data(mlx.mlx, &map_info);
     mlx.img = &img;
     all_data.map_info = &map_info;

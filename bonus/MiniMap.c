@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 18:31:08 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 20:08:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void put_player(t_collect_data *data)
 
 void put_minimap(t_collect_data *data)
 {
-  int i = 0; 
+  int i = 0 ; 
   int j = 0;
   int len;
   int index_x;
