@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 01:25:22 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 22:57:00 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static void get_first_direction_angle(t_player *player, char **map)
 
 void init_player(t_player *player, char **map)
 {
-    player->radius = 2;
     player->turndirection = 0;
     player->walkdirection = 0;
-    player->movespeed = 1;
+    player->release_mouse = 0;
+    player->movespeed = 2;
     player->movesleft_or_right = 0;
     player->rotationspeed = ROTATION_SPEED;
     get_player_position(player, map);

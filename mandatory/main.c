@@ -6,11 +6,18 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:37:01 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 21:45:02 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
+
+int	esc_hook(t_mlx *mlx)
+{
+	printf("game over!!!\n");
+	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
+	exit(0);
+}
 
 int main()
 {
@@ -37,6 +44,7 @@ int main()
     
     mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
     mlx_hook(mlx.mlx_win, 3, 1L << 0, releaskey, all_data.player);
+    mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
     mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
     mlx_loop(mlx.mlx);
 }

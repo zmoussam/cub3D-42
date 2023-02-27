@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 18:03:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:57:55 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void  get_ray_direction(t_ray *ray)
       ray->isfacingright = 0;
       ray->isfacingleft = -1;
     }
-    
 }
 double normangle(double angle)
 {

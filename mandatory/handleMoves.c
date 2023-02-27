@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:53:07 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:40:23 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,12 @@ int presskey(int keycode, t_player *player)
       player->turndirection = -1;
   if (keycode == TURN_RIGHT)
       player->turndirection = +1;
+  if (keycode == ESC)
+	{
+		printf("game over!!!\n");
+		// mlx_destroy_window(so_long->mlx, so_long->win);
+		exit(-1);
+	}
   return 0;
 }
 

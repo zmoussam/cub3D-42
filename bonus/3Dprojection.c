@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:31:14 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 18:40:03 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:20:56 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void drawwallcolumn(t_img_data *img, double sx, double sy, double dy, int color)
   }
 }
 
-void draw_wall(t_collect_data *data, t_cordinates ofsset, double wallstripheight, int i)
+void draw_wall(t_collect_data *data, t_cordinates ofsset, double wallstripheight, int i, t_ray *ray)
 {
   double top;
   double bottom;
@@ -37,8 +37,36 @@ void draw_wall(t_collect_data *data, t_cordinates ofsset, double wallstripheight
   while (top < bottom)
   {
     dis = top + (wallstripheight / 2) - (SCREENHEIGHT / 2);
-    ofsset.y = round(dis / wallstripheight * data->texture[1]._heigth) ;
-    my_mlx_pixel_put(data->mlx->img, i, top, data->texture[1].info->int_addr[(int)round((int)((ofsset.y * data->texture[1]._width) + ofsset.x))]);
+    if (ray->wallhitisvert)
+    {
+      if (ray->isfacingright)
+      {
+        ofsset.y = round(dis / wallstripheight * data->texture[0]._heigth);
+        my_mlx_pixel_put(data->mlx->img, i, top, \
+        data->texture[0].info->int_addr[(int)round((int)((ofsset.y * data->texture[0]._width) + ofsset.x))]);
+      }
+      else
+      {
+        ofsset.y = round(dis / wallstripheight * data->texture[1]._heigth);
+        my_mlx_pixel_put(data->mlx->img, i, top, \
+        data->texture[1].info->int_addr[(int)round((int)((ofsset.y * data->texture[1]._width) + ofsset.x))]);
+      }
+    }  
+    else
+    {
+      if (ray->isfacingdown)
+      {
+        ofsset.y = round(dis / wallstripheight * data->texture[2]._heigth);
+        my_mlx_pixel_put(data->mlx->img, i, top, \
+        data->texture[2].info->int_addr[(int)round((int)((ofsset.y * data->texture[2]._width) + ofsset.x))]);
+      }
+      else
+      {
+        ofsset.y = round(dis / wallstripheight * data->texture[3]._heigth);
+        my_mlx_pixel_put(data->mlx->img, i, top, \
+        data->texture[3].info->int_addr[(int)round((int)((ofsset.y * data->texture[3]._width) + ofsset.x))]);
+      }
+    }
     top++;  
   }
 }
@@ -61,13 +89,22 @@ void draw(t_collect_data *data, t_ray *ray, int i)
   if (wallbottom > SCREENHEIGHT)
     wallbottom = SCREENHEIGHT;
     
-  drawwallcolumn(data->mlx->img, i, 0, walltop, 0x00009AFF);
+  drawwallcolumn(data->mlx->img, i, 0, walltop, 0x00708090);
   
   if (ray->wallhitisvert)
-    ofssets.x = fmod(ray->vertwallhit.y, TILE_SIZE) / TILE_SIZE * data->texture[0]._width;
+  {
+    if (ray->isfacingright)
+      ofssets.x = fmod(ray->vertwallhit.y, TILE_SIZE) / TILE_SIZE * data->texture[0]._width;
+    else  
+      ofssets.x = fmod(ray->vertwallhit.y, TILE_SIZE) / TILE_SIZE * data->texture[1]._width;
+  }
   else
-    ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * data->texture[0]._width;
-  
-  draw_wall(data, ofssets, wallstripheight, i);
-  drawwallcolumn(data->mlx->img, i, wallbottom, SCREENHEIGHT, 0x00909490);
+  {
+    if (ray->isfacingdown)
+    ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * data->texture[2]._width;
+    else 
+    ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * data->texture[3]._width;   
+  }
+  draw_wall(data, ofssets, wallstripheight, i, ray);
+  drawwallcolumn(data->mlx->img, i, wallbottom, SCREENHEIGHT, 0x00202020);
 }

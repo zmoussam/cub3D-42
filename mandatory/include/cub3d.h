@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:36:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 22:23:11 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_map_info
 typedef struct s_player_data
 {
     t_cordinates position;
-    int radius;
     double movespeed;
     double viewangle;
     double rotationspeed;
@@ -82,6 +81,7 @@ typedef enum keys{
     KEY_RIGHT = 2,
     TURN_LEFT = 123,
     TURN_RIGHT = 124,
+    ESC = 53,
 } t_keys;
 
 typedef struct s_texture

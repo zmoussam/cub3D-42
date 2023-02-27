@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 01:20:04 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 22:56:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 #define __CUB3D__
 
 #include <math.h>
-#define TILE_SIZE 10
+#define TILE_SIZE 30
+#define MINI_MAP_TILE_SIZE 10
 #define ROTATION_SPEED 3 * (M_PI / 180)
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define MINI_MAP_FACTOR 0.2
 #define VIEW_ANGLE 60 * M_PI / 180
-#define WALL_HEIGHT 7
+#define WALL_HEIGHT 20
 #define MINI_MAP_WIDTH SCREENWIDTH * MINI_MAP_FACTOR
 #define MINI_MAP_HEIGHT SCREENHEIGHT * MINI_MAP_FACTOR
 #include<mlx.h>
@@ -67,7 +68,7 @@ typedef struct s_map_info
 typedef struct s_player_data
 {
     t_cordinates position;
-    int radius;
+    int release_mouse;
     double movespeed;
     double viewangle;
     double rotationspeed;
@@ -84,6 +85,7 @@ typedef enum keys{
     KEY_RIGHT = 2,
     TURN_LEFT = 123,
     TURN_RIGHT = 124,
+    ESC = 53,
 } t_keys;
 
 typedef struct s_texture
@@ -111,6 +113,8 @@ typedef struct s_collect_data
     t_map_info *map_info;
     t_texture *texture;
     t_img_data *mini_map;
+    t_texture *shooting_target;
+    t_texture *weapon;
     
 } t_collect_data;
 
@@ -121,7 +125,7 @@ int         presskey(int keycode, t_player *player);
 void        my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
 int         moveplayer(t_collect_data *data);
 void        put_minimap(t_collect_data *data);
-t_texture   *get_texture_data(void* mlx, t_map_info *map_file);
+t_texture   *get_wall_texture(void* mlx, t_map_info *map_file);
 void        castingrays(t_collect_data *data);
 void        get_ray_direction(t_ray *ray);
 void        draw(t_collect_data *data, t_ray *ray, int i);

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 00:31:35 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 23:03:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ int presskey(int keycode, t_player *player)
       player->turndirection = -1;
   if (keycode == TURN_RIGHT)
       player->turndirection = +1;
+  if (keycode == ESC)
+	{
+		printf("game over!!!\n");
+		// mlx_destroy_window(so_long->mlx, so_long->win);
+		exit(-1);
+	}
   return 0;
 }
 
@@ -83,11 +89,11 @@ int moveplayer(t_collect_data *data)
   {
     movestep = data->player->movespeed;
     if (data->player->walkdirection == -1)
-      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * 3 * M_PI / 5));
-    else if (data->player->walkdirection == 1)
-      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
+      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * 3 * M_PI / 4));
     else
-      tmpangle = (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
+      tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
+    // else
+    //   tmpangle = data->player->walkdirection * (data->player->viewangle + (data->player->movesleft_or_right * M_PI / 4));
     next_x = data->player->position.x + (cos(tmpangle) * movestep);
     next_y = data->player->position.y + (sin(tmpangle) * movestep);
     if (!check_wall(next_x, next_y, data->map_info->map))
@@ -96,7 +102,7 @@ int moveplayer(t_collect_data *data)
       data->player->position.y = next_y;
     }
   }
-  if (data->player->walkdirection != 0)
+  else if (data->player->walkdirection != 0)
   {
     movestep = data->player->walkdirection * data->player->movespeed;
     next_x = data->player->position.x + (cos(data->player->viewangle) * movestep);
@@ -119,10 +125,18 @@ int moveplayer(t_collect_data *data)
         data->player->position.y = next_y;
     }
   }
+  if (data->player->release_mouse == 1)
+  {
+    data->player->turndirection = 0;
+    data->player->release_mouse = 0;
+    
+  }
   mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
   castingrays(data); 
   put_minimap(data);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mlx->img->img, 0, 0);
+  mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->shooting_target->info->img, (SCREENWIDTH / 2) - 15, (SCREENHEIGHT / 2) - 15);
+  mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->weapon->info->img, SCREENWIDTH - 150 - data->weapon->_width, SCREENHEIGHT - data->weapon->_heigth);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mini_map->img, \
    10, SCREENHEIGHT - (SCREENHEIGHT * MINI_MAP_FACTOR) - 10);
   
