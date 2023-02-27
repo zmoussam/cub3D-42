@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:36:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 01:20:04 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 #define __CUB3D__
 
 #include <math.h>
-#define TILE_SIZE 30
+#define TILE_SIZE 10
 #define ROTATION_SPEED 3 * (M_PI / 180)
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define MINI_MAP_FACTOR 0.2
 #define VIEW_ANGLE 60 * M_PI / 180
-#define WALL_HEIGHT 20
+#define WALL_HEIGHT 7
+#define MINI_MAP_WIDTH SCREENWIDTH * MINI_MAP_FACTOR
+#define MINI_MAP_HEIGHT SCREENHEIGHT * MINI_MAP_FACTOR
 #include<mlx.h>
 #include<stdlib.h>
 #include<stdio.h>
@@ -108,6 +110,7 @@ typedef struct s_collect_data
     t_mlx *mlx;
     t_map_info *map_info;
     t_texture *texture;
+    t_img_data *mini_map;
     
 } t_collect_data;
 

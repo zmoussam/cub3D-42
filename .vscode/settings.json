@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "chrono": "c"
+        "chrono": "c",
+        "complex": "c"
     }
 }

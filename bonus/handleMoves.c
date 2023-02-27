@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:08:13 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/27 00:31:35 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int check_wall(double x, double y, char **map)
     int j = y;
     int radius;
     
-  //  if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
-  //       return 1;
-    radius = 5;
+    radius = 2;
     while(i < radius + x)
     {
         j = y;
@@ -125,5 +123,8 @@ int moveplayer(t_collect_data *data)
   castingrays(data); 
   put_minimap(data);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mlx->img->img, 0, 0);
+  mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mini_map->img, \
+   10, SCREENHEIGHT - (SCREENHEIGHT * MINI_MAP_FACTOR) - 10);
+  
   return 1;
 }

@@ -6,14 +6,14 @@
 #    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/12 12:25:03 by zmoussam          #+#    #+#              #
-#    Updated: 2023/02/26 00:50:45 by zmoussam         ###   ########.fr        #
+#    Updated: 2023/02/27 01:11:28 by zmoussam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc 
 FLAGS = -Wall -Wextra -Werror 
 SRC = main.c MiniMap.c init_player.c init_map.c handleMoves.c getTextureInfo.c RaysCasting.c 3Dprojection.c
-MFLAGS = -lmlx -framework OpenGL -framework AppKit
+MFLAGS = -lmlx -framework OpenGL -framework AppKit -g -fsanitize=address
 NAME = cub3d
 
 OBJ := ${SRC:.c=.o}

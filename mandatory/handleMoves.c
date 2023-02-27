@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/26 20:08:13 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/26 20:53:07 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,7 @@ int moveplayer(t_collect_data *data)
     }
   }
   mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
-  castingrays(data); 
-  put_minimap(data);
+  castingrays(data);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mlx->img->img, 0, 0);
   return 1;
 }
