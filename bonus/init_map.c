@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:18:56 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 15:36:59 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:22:19 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void init_map(t_map_info *map_info)
 {
     map_info->c_ceiling = create_trgb(0x00, 0x00, 0x2A, 0x41);
     map_info->c_floor = create_trgb(0x00, 0x90, 0x94, 0x90);
-    map_info->ea = ft_strdup("../assets/ea.xpm");
-    map_info->no = ft_strdup("../assets/no.xpm");
-    map_info->so = ft_strdup("../assets/so.xpm");
-    map_info->we = ft_strdup("../assets/we.xpm");
+    map_info->ea = ft_strdup("./assets/ea.xpm");
+    map_info->no = ft_strdup("./assets/no.xpm");
+    map_info->so = ft_strdup("./assets/so.xpm");
+    map_info->we = ft_strdup("./assets/we.xpm");
     map_info->map = (char **)malloc(sizeof(char *) * 35);
     if (!map_info->map)
         return ;

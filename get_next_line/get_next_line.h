@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 22:16:34 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 03:55:35 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/20 00:35:20 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1
 
 char	*ft_strchr2(const char *s, int c);
 size_t	ft_strlen2(const char *str);

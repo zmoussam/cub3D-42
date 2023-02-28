@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/12 12:25:03 by zmoussam          #+#    #+#              #
-#    Updated: 2023/02/28 04:00:32 by zmoussam         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 CC = gcc 
 FLAGS = -Wall -Wextra -Werror 
 SRC = main.c \
@@ -31,7 +19,7 @@ all: ${NAME}
 	$(CC) -c $(FLAGS) ${SRC}
 	
 ${NAME}: ${OBJ}
-	$(CC) $(MFLAGS) ${OBJ} -o ${NAME} 
+	$(CC) $(MFLAGS) $(FLAGS) ${OBJ} -o ../${NAME} 
 	
 clean:
 	rm -rf ${OBJ}

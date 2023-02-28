@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 00:49:02 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:05:48 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	esc_hook(t_mlx *mlx)
 	exit(0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
     t_map_info map_info;
     t_collect_data all_data;
@@ -27,10 +27,10 @@ int main()
     t_mlx mlx;
     t_img_data img;
     t_texture *texture;
-    
-    init_map(&map_info);
+    argc = 0;
+    //int i = 0;
+    base_parsing(argv[1], &map_info);
     init_player(&player, map_info.map);
-    
     mlx.mlx = mlx_init();
     mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
     img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
@@ -48,21 +48,3 @@ int main()
     mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
     mlx_loop(mlx.mlx);
 }
-
-// int handle_mouse(int button, int x, int y, void *param)
-// {
-//     (void)param;
-//     printf("Mouse button %d pressed at (%d, %d)\n", button, x, y);
-//     return (0);
-// }
-
-// int main()
-// {
-//     void *mlx;
-//     void *mlx_win;
-//     int tmp = 0;
-//     mlx = mlx_init();
-//     mlx_win = mlx_new_window(mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
-//     mlx_mouse_hook(mlx_win, handle_mouse, &tmp);
-//     mlx_loop(mlx);
-// }

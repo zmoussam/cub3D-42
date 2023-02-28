@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/11 16:46:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 03:17:33 by zmoussam         ###   ########.fr       */
+/*   Created: 2021/11/04 17:14:35 by zmoussam          #+#    #+#             */
+/*   Updated: 2023/02/28 20:25:25 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/cub3d.h"
+#include <stdlib.h>
 
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strdup(const char *s1)
 {
-	int	i;
+	char	*copy;
+	int		size;
+	int		j;
 
-	i = 0;
-	while (src[i] != '\0')
+	size = 0;
+	while (s1[size])
+		size++;
+	copy = (char *)malloc((size + 1) * sizeof(char));
+	if (copy == NULL)
+		return (copy);
+	j = 0;
+	while (s1[j])
 	{
-		dest[i] = src[i];
-		i++;
+		copy[j] = s1[j];
+		j++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	copy[j] = '\0';
+	return (copy);
 }
