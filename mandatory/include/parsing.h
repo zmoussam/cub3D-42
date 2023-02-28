@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:30:56 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:50:36 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ char 				*onlyspaces(int diff);
 int 				numberofgamma(char *pathcolor);
 int 				checkgamma(char *pathcolor);
 int 				ft_isspace(int c);
-void 				delet_espaces_at_the_end(char* chaine);
+size_t 				delet_espaces_at_the_end(char* chaine);
 char    			*get_str_without_spaces(char* chaine);
 #endif

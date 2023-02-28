@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:40:56 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:28:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:43:32 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int ac, char **av)
 			printf("SO = %s\n", game.so);
 			printf("EA = %s\n", game.ea);
 			printf("we = %s\n", game.we);
-			printf("floor = %d\n", game.floor);
-			printf("ceilling = %d\n", game.ceilling);
+			printf("floor = %d\n", game.c_floor);
+			printf("ceilling = %d\n", game.c_ceilling);
 			printf("max line in map = %zu\n", game.maxlenmap);
 			while (game.map[i])
 				printf("%sfin\n", game.map[i++]);
