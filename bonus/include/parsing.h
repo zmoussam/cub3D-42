@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 00:55:50 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:56:35 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_cordinates
 	double			y;
 }					t_cordinates;
 
-typedef struct s_abtmap
+typedef struct s_map_info
 {
 	char			*no;
 	char			*so;
