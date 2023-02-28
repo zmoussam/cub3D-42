@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 22:57:00 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 06:20:38 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void init_player(t_player *player, char **map)
     player->turndirection = 0;
     player->walkdirection = 0;
     player->release_mouse = 0;
+    player->count_shoot = 100;
+    player->mouse_pos = 0;
+    player->check_shoot = 0;
     player->movespeed = 2;
     player->movesleft_or_right = 0;
     player->rotationspeed = ROTATION_SPEED;

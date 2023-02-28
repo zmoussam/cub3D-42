@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 21:45:02 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 00:49:02 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,21 @@ int main()
     mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
     mlx_loop(mlx.mlx);
 }
+
+// int handle_mouse(int button, int x, int y, void *param)
+// {
+//     (void)param;
+//     printf("Mouse button %d pressed at (%d, %d)\n", button, x, y);
+//     return (0);
+// }
+
+// int main()
+// {
+//     void *mlx;
+//     void *mlx_win;
+//     int tmp = 0;
+//     mlx = mlx_init();
+//     mlx_win = mlx_new_window(mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
+//     mlx_mouse_hook(mlx_win, handle_mouse, &tmp);
+//     mlx_loop(mlx);
+// }

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 22:56:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 06:27:32 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <math.h>
 #define TILE_SIZE 30
 #define MINI_MAP_TILE_SIZE 10
-#define ROTATION_SPEED 3 * (M_PI / 180)
+#define ROTATION_SPEED 4 * (M_PI / 180)
 #define SCREENWIDTH 1500
 #define SCREENHEIGHT 940
 #define MINI_MAP_FACTOR 0.2
@@ -69,6 +69,9 @@ typedef struct s_player_data
 {
     t_cordinates position;
     int release_mouse;
+    int mouse_pos;
+    int check_shoot;
+    int count_shoot;
     double movespeed;
     double viewangle;
     double rotationspeed;
@@ -86,6 +89,7 @@ typedef enum keys{
     TURN_LEFT = 123,
     TURN_RIGHT = 124,
     ESC = 53,
+    SHOOT = 49,
 } t_keys;
 
 typedef struct s_texture
@@ -114,7 +118,9 @@ typedef struct s_collect_data
     t_texture *texture;
     t_img_data *mini_map;
     t_texture *shooting_target;
-    t_texture *weapon;
+    t_texture **weapon;
+    t_texture **digit;
+    t_texture *amo;
     
 } t_collect_data;
 

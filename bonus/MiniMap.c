@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 00:31:18 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 00:45:31 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int get_minimap_collor(char **map, t_cordinates pos)
   if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x / (MINI_MAP_TILE_SIZE))] == '1')
     return (0x00000000);
   else // if space 
-    return (0xA07BADCD);
+    return (0xA0A090A0);
 }
 
 void put_minimap(t_collect_data *data)
@@ -117,7 +117,7 @@ void put_minimap(t_collect_data *data)
         my_mlx_pixel_put(data->mini_map, j, i, collor);
       }
       else 
-        my_mlx_pixel_put(data->mini_map, j, i, 0xC0FF1111);
+        my_mlx_pixel_put(data->mini_map, j, i, 0xA0A00000);
       j++;
       start_minimap.x++;
     }
