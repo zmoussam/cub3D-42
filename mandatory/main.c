@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/01 00:05:48 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:13:55 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	esc_hook(t_mlx *mlx)
 	exit(0);
 }
 
-int main(int argc, char **argv)
+int main()
 {
     t_map_info map_info;
     t_collect_data all_data;
@@ -27,9 +27,10 @@ int main(int argc, char **argv)
     t_mlx mlx;
     t_img_data img;
     t_texture *texture;
-    argc = 0;
+    // argc = 0;
     //int i = 0;
-    base_parsing(argv[1], &map_info);
+    // base_parsing(argv[1], &map_info);
+    init_map(&map_info);
     init_player(&player, map_info.map);
     mlx.mlx = mlx_init();
     mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
