@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 06:40:11 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/02/28 06:44:29 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int presskey(int keycode, t_player *player)
 	}
   return 0;
 }
-void put_weapon(t_mlx *mlx, t_texture **weapon, int *check_shoot)
+void put_weapon(t_mlx *mlx, t_texture **weapon, int *check_shoot, int count_shoot)
 {
     static int r;
     
     r++;
-    if (*check_shoot == 1)
+    if (*check_shoot == 1 && count_shoot > 0)
     {
         if (r == 1)
           mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, weapon[0]->info->img, SCREENWIDTH - 250 - weapon[0]->_width, SCREENHEIGHT - weapon[0]->_heigth);
@@ -183,7 +183,7 @@ int moveplayer(t_collect_data *data)
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mlx->img->img, 0, 0);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->shooting_target->info->img, (SCREENWIDTH / 2) - 15, (SCREENHEIGHT / 2) - 15);
   put_count_amo(data->mlx, data->digit, data->player->count_shoot);
-  put_weapon(data->mlx, data->weapon, &data->player->check_shoot);
+  put_weapon(data->mlx, data->weapon, &data->player->check_shoot, data->player->count_shoot);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->amo->info->img, SCREENWIDTH - 74, SCREENHEIGHT - 84);
   mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, data->mini_map->img, \
    10, SCREENHEIGHT - (SCREENHEIGHT * MINI_MAP_FACTOR) - 10);
