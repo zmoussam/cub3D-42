@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/01 05:17:17 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:46:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int main(int arc, char **arv)
     t_texture *amo;
     arc = 0;
     (void)arv;
+    
     base_parsing(arv[1], &map_info);
     // init_map(&map_info);
     init_player(&player, map_info.map);

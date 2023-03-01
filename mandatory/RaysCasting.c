@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/01 05:37:28 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 06:21:17 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ double find_horzintersection(t_player *player, t_ray *ray, t_map_info *map)
     nexthorzinter.y = intercept.y;
     if (ray->isfacingup == -1)
        check_isfacingup = 1;
-    while(nexthorzinter.x >= 0 && nexthorzinter.x <= map->maxlenmap * TILE_SIZE && \
-    nexthorzinter.y >= 0 && nexthorzinter.y <= map_taill * TILE_SIZE)
+    while(nexthorzinter.x >= 0 && nexthorzinter.x <= (map->maxlenmap - 1) * TILE_SIZE && \
+    nexthorzinter.y >= 0 && nexthorzinter.y <= (map_taill - 1) * TILE_SIZE)
     {
       if(haswall_at(nexthorzinter.x, nexthorzinter.y - check_isfacingup, map))
       {
@@ -172,8 +172,8 @@ double find_vertintersection(t_player *player, t_ray *ray, t_map_info *map)
     nextvertinter.y = intercept.y;
     if (ray->isfacingleft == -1)
         check_isfacingleft = 1;
-    while (nextvertinter.x >= 0 && nextvertinter.x <= map->maxlenmap * TILE_SIZE && \
-    nextvertinter.y >= 0 && nextvertinter.y <= map_taill * TILE_SIZE)
+    while (nextvertinter.x >= 0 && nextvertinter.x <= (map->maxlenmap - 1) * TILE_SIZE && \
+    nextvertinter.y >= 0 && nextvertinter.y <= (map_taill - 1) * TILE_SIZE)
     {
       if (haswall_at(nextvertinter.x - check_isfacingleft, nextvertinter.y, map))
       {
