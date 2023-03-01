@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:30:56 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 03:31:39 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef struct s_map_info
 
 char				*remove_caract(char const *s1, char const *set);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
-void				ft_check_cub(char *filename);
+void				extention(char *filename);
 int					countline(char *file);
 int					ft_reading_maps(t_map_info *jeu, char *file);
 char				**remplir_tableau(void);
-void				initializer(t_map_info *game);
+void				init_map_data(t_map_info *game);
 void				free_tab(char **tab, int size);
 int					check_intern_map(char *clean_ptr, t_map_info *game);
 void				parse_direction(t_map_info *game, char *line);
@@ -89,6 +89,7 @@ char 				*onlyspaces(int diff);
 int 				numberofgamma(char *pathcolor);
 int 				checkgamma(char *pathcolor);
 int 				ft_isspace(int c);
-void 				delet_espaces_at_the_end(char* chaine);
+size_t 				delet_espaces_at_the_end(char* chaine);
 char    			*get_str_without_spaces(char* chaine);
+void				ft_error(char *error_name);
 #endif

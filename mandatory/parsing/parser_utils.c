@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:29:58 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:00:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,17 @@ int	countline(char *file)
 
 	count = 0;
 	fd = open(file, O_RDONLY);
-	while (1)
+	if (fd < 0)
+		return (ft_error("can't oppen file"), 0);
+	line = get_next_line(fd);
+	while (line)
 	{
-		line = get_next_line(fd);
-		if (line == NULL)
-		{
-			close(fd);
-			break ;
-		}
 		tmp = remove_caract(line, " \n");
-		if (ft_strlen(tmp))
+		if (tmp[0])
 			count++;
 		free(tmp);
 		free(line);
+		line = get_next_line(fd);
 	}
 	return (count);
 }
@@ -79,19 +77,18 @@ void findmaxline(t_map_info *game)
 	size_t len;
 
 	i = 0;
+	len  = 0;
 	game->maxlenmap = 0;
 	while (game->map[i])
 	{
-		char* ligne = get_str_without_spaces(game->map[i]);
-        len = strlen(ligne);
-		//len = ft_strlen(game->map[i]) - 1;
+		len = delet_espaces_at_the_end(game->map[i]);
 		if (len > game->maxlenmap)
 			game->maxlenmap = len;
 		i++;
-		free(ligne);
 	}
+	game->maxlenmap += 1;
+	
 }
-
 char *fillwithspace(char *line, t_map_info *game)
 {
 	int i;
@@ -117,7 +114,7 @@ char *onlyspaces(int diff)
 	int i;
 
 	i = 0;
-	str = (char *)malloc(sizeof(char *) * diff + 1);
+	str = (char *)malloc(sizeof(char) * (diff + 1));
 	if(!str)
 		return (NULL);
 	while(i < diff)
@@ -125,5 +122,6 @@ char *onlyspaces(int diff)
 		str[i] = ' ';
 		i++;
 	}
+	str[i] = 0;
 	return(str);
 }

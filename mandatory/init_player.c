@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 22:23:20 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:26:53 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void init_player(t_player *player, char **map)
 {
     player->turndirection = 0;
     player->walkdirection = 0;
-    player->movespeed = 1;
+    player->movespeed = 2;
     player->movesleft_or_right = 0;
     player->rotationspeed = ROTATION_SPEED;
     get_player_position(player, map);

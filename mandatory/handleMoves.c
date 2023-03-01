@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 17:40:23 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:27:53 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int check_wall(double x, double y, char **map)
     int j = y;
     int radius;
     
-  //  if (x < 0 || x > 23 * TILE_SIZE || y < 0 || y > 17 * TILE_SIZE)
-  //       return 1;
     radius = 5;
     while(i < radius + x)
     {
@@ -70,7 +68,6 @@ int presskey(int keycode, t_player *player)
   if (keycode == ESC)
 	{
 		printf("game over!!!\n");
-		// mlx_destroy_window(so_long->mlx, so_long->win);
 		exit(-1);
 	}
   return 0;

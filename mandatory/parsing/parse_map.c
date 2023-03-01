@@ -6,11 +6,18 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:33:48 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:29:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:24:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
+
+void ft_error(char *error_name)
+{
+	printf("\n\033[31m---------------------------[ ERORR ]--------------------------\n\n\033[0m");
+    printf("\033[0;33m=> : %s\033[0m\n\n", error_name);
+    printf("\033[31m--------------------------------------------------------------\n\033[0m");
+}
 
 int	check_valid_map(t_index index, char **map, t_map_info *game, int *counter)
 {
@@ -68,12 +75,11 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 		return (0);
 	game->map[0] = first_line;
 	line = get_next_line(fd);
-	
 	while (i < game->maplines - game->lineindex)
 	{
-		game->map[i++] = ft_strdup(line);
-		free(line);
+		game->map[i] = line;
 		line = get_next_line(fd);
+		i++;
 	}
 	int j;
 	j = 0;
@@ -81,12 +87,13 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 	if (!checkmap(game))
 		return (0);
 	findmaxline(game);
+	
 	while(j < game->maplines - game->lineindex)
 	{
 		char *cleanptr = remove_caract(game->map[j], "\n");
 		if(!cleanptr)
 			return(0);
-		game->map[j] = fillwithspace(cleanptr, game);
+		game->map[j] = cleanptr;
 		j++;
 	}
 	close(fd);

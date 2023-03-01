@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:28:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:02:19 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ int	ft_reading_maps(t_map_info *game, char *file)
 	char	*clean_ptr;
 	int		fd;
 	int		retvalue;
-	int		i;
-
+	
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		write(2, "there is a probleme in operning file", 48);
+		return(ft_error("can't open file"), exit(1), 0);
 	ptr = get_next_line(fd);
-	game->lineindex = 0;
 	if (!ptr)
-		return (0);
+		return (ft_error("empty map file"), exit(1), 0);
+	game->lineindex = 0;
 	game->maplines = countline(file);
+	if (!game->maplines)
+		return (free(ptr), 0);
 	while (ptr)
 	{
 		clean_ptr = remove_caract(ptr, " \n");
-		if (!clean_ptr)
+		if (clean_ptr == NULL)
 			return (0);
 		game->lenghtlines = ft_strlen(clean_ptr);
-		i = 0;
 		if (game->lenghtlines == 0)
 		{
 			free(clean_ptr);
@@ -60,10 +60,7 @@ game->has_no != 1 || game->has_so != 1 || game->has_we != 1)
 
 int base_parsing(char *file, t_map_info *game)
 {
-    int res;
-
-	initializer(game);
-	ft_check_cub(file);
-	res = ft_reading_maps(game, file);
-	return (res);
+	init_map_data(game);
+	extention(file);
+	return (ft_reading_maps(game, file));
 }

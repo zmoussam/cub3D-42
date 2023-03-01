@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:16:13 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 20:15:53 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 03:28:16 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,17 @@ int checkgamma(char *pathcolor)
 
 int ft_isspace(int c) 
 {
-    return (c == ' ' || c == '\t');
+	if (c == ' ')
+		return (1);
+	return (0);
 }
-void delet_espaces_at_the_end(char* chaine) 
-{
-    size_t longueur;
-    int i;
 
-    longueur = ft_strlen(chaine);
-    i = longueur - 1;
-    while ( i >= 0 && ft_isspace(chaine[i])) 
-    {
-        chaine[i] = '\0';
-        i--;
-    }
-}
-char    *get_str_without_spaces(char* chaine)
+size_t delet_espaces_at_the_end(char* chaine) 
 {
-    delet_espaces_at_the_end(chaine);
-    char* nouvelle_chaine = (char*)malloc((strlen(chaine) + 1) * sizeof(char));
-    ft_strcpy(nouvelle_chaine, chaine);
-    return (nouvelle_chaine);
+    size_t i;
+
+    i = ft_strlen(chaine) -1;
+    while (i >= 0 && chaine[i] != '1')
+        i--;
+    return i;
 }

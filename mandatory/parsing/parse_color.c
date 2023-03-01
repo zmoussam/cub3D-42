@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:32:15 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 01:54:51 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	parse_color(t_map_info *game, char *cleanline)
 
 	if (!ft_strncmp(cleanline, "F", 1) && game->has_f == -1)
 	{
-		floor = remove_prefix(cleanline, "F ");
+		char *str;
+
+		str = remove_prefix(cleanline, "F ");
+		floor = remove_caract(str, " ");
 		if (!floor)
 			memory_error();
 		if(!checkgamma(floor))
@@ -34,10 +37,14 @@ void	parse_color(t_map_info *game, char *cleanline)
 		if (!game->c_floor)
 			exit(1);
 		game->has_f = 1;
+		free(str);
 	}
 	else if (!ft_strncmp(cleanline, "C", 1) && game->has_c == -1)
 	{
-		ceilling = remove_prefix(cleanline, "C ");
+		char *str;
+
+		str = remove_prefix(cleanline, "C ");
+		ceilling = remove_caract(str, " ");
 		if (!ceilling)
 			memory_error();
 		if(!checkgamma(ceilling))
@@ -80,7 +87,7 @@ int	isalldigits(const char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (s[i] != ' ' && !ft_isdigit(s[i]))
 			return (0);
 		i++;
 	}

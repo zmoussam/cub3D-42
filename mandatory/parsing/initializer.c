@@ -6,20 +6,14 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:14:58 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/02/28 21:31:48 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 03:40:07 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
 
-void	initializer(t_map_info *game)
+void	init_map_data(t_map_info *game)
 {
-	game->no = NULL;
-	game->so = NULL;
-	game->we = NULL;
-	game->map = NULL;
-	game->ea = NULL;
-	game->map = NULL;
 	game->maplines = 0;
 	game->lenghtlines = 0;
 	game->has_ea = -1;
@@ -32,7 +26,7 @@ void	initializer(t_map_info *game)
 	game->c_ceilling = 0;
 }
 
-void	ft_check_cub(char *filename)
+void	extention(char *filename)
 {
 	int	len;
 
@@ -40,7 +34,7 @@ void	ft_check_cub(char *filename)
 	if (filename[len - 4] != '.' || filename[len - 3] != 'c' || \
 filename[len - 2] != 'u' || filename[len - 1] != 'b')
 	{
-		write(2, "this file's name needs to be ended by .cub\n", 42);
+		ft_error("this file's name needs to be ended by .cub");
 		exit(1);
 	}
 }

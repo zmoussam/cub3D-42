@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 00:45:46 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:49:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_map_info
 	int				c_floor;
 	int				c_ceilling;
 	int				lineindex;
-	size_t				maxlenmap;
+	size_t		    maxlenmap;
 
 }					t_map_info;
 
@@ -89,6 +89,6 @@ char 				*onlyspaces(int diff);
 int 				numberofgamma(char *pathcolor);
 int 				checkgamma(char *pathcolor);
 int 				ft_isspace(int c);
-void 				delet_espaces_at_the_end(char* chaine);
+size_t 				delet_espaces_at_the_end(char* chaine);
 char    			*get_str_without_spaces(char* chaine);
 #endif

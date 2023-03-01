@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 06:27:32 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:51:08 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define WALL_HEIGHT 20
 #define MINI_MAP_WIDTH SCREENWIDTH * MINI_MAP_FACTOR
 #define MINI_MAP_HEIGHT SCREENHEIGHT * MINI_MAP_FACTOR
+#include "parsing.h"
 #include<mlx.h>
 #include<stdlib.h>
 #include<stdio.h>
@@ -53,16 +54,16 @@ typedef struct s_cordinates{
     double y;
 } t_cordinates;
 
-typedef struct s_map_info
-{
-    char *no;
-    char *so;
-    char *we;
-    char *ea;
-    int c_floor;
-    int c_ceiling;
-    char **map;
-} t_map_info;
+// typedef struct s_map_info
+// {
+//     char *no;
+//     char *so;
+//     char *we;
+//     char *ea;
+//     int c_floor;
+//     int c_ceiling;
+//     char **map;
+// } t_map_info;
 
 
 typedef struct s_player_data

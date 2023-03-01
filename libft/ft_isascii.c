@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 09:27:09 by zmoussam          #+#    #+#             */
-/*   Updated: 2021/11/30 15:28:02 by zmoussam         ###   ########.fr       */
+/*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
+/*   Updated: 2023/03/01 00:59:20 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_isascii(int c)
-{
-	return (c >= 0 && c <= 127);
-}
+#ifndef __CUB3D__
+#define __CUB3D__
+    
+#endif

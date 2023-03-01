@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 16:57:55 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:37:28 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ t_cordinates find_vertstep(t_ray *ray)
     return (step);
 }
 
-int haswall_at(double x, double y , char **map)
+int haswall_at(double x, double y , t_map_info *map)
 {
-    if (x < 0 || x > 33 * TILE_SIZE || y < 0 || y > 34 * TILE_SIZE)
+    int map_taill;
+
+    map_taill = map->maplines - map->lineindex;
+    if (x < 0 || x > map->maxlenmap * TILE_SIZE || y < 0 || y > map_taill * TILE_SIZE)
         return 1; 
-    return (map[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == '1');
+    return (map->map[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == '1');
 }
 double get_distance(t_player*player, double x, double y, bool check)
 {
@@ -108,11 +111,14 @@ double get_distance(t_player*player, double x, double y, bool check)
     return (sqrt(((x - player->position.x) * (x - player->position.x)) + \
     ((y - player->position.y) * (y - player->position.y))));
 }
-double find_horzintersection(t_player *player, t_ray *ray, char **map)
+double find_horzintersection(t_player *player, t_ray *ray, t_map_info *map)
 {
     t_cordinates intercept;
     t_cordinates step;
     t_cordinates nexthorzinter;
+     int map_taill;
+
+    map_taill = map->maplines - map->lineindex;
     ray->horzwallhit.x = 0;
     ray->horzwallhit.y = 0;
     short check_isfacingup;
@@ -126,8 +132,8 @@ double find_horzintersection(t_player *player, t_ray *ray, char **map)
     nexthorzinter.y = intercept.y;
     if (ray->isfacingup == -1)
        check_isfacingup = 1;
-    while(nexthorzinter.x >= 0 && nexthorzinter.x <= 32 * TILE_SIZE && \
-    nexthorzinter.y >= 0 && nexthorzinter.y <= 33 * TILE_SIZE)
+    while(nexthorzinter.x >= 0 && nexthorzinter.x <= map->maxlenmap * TILE_SIZE && \
+    nexthorzinter.y >= 0 && nexthorzinter.y <= map_taill * TILE_SIZE)
     {
       if(haswall_at(nexthorzinter.x, nexthorzinter.y - check_isfacingup, map))
       {
@@ -145,11 +151,14 @@ double find_horzintersection(t_player *player, t_ray *ray, char **map)
     return (get_distance(player, ray->horzwallhit.x, ray->horzwallhit.y, gethorzwall));
 }
 
-double find_vertintersection(t_player *player, t_ray *ray, char **map)
+double find_vertintersection(t_player *player, t_ray *ray, t_map_info *map)
 {
     t_cordinates intercept;
     t_cordinates step;
     t_cordinates nextvertinter;
+     int map_taill;
+
+    map_taill = map->maplines - map->lineindex;
     short check_isfacingleft;
     int getvertwall;
      
@@ -163,8 +172,8 @@ double find_vertintersection(t_player *player, t_ray *ray, char **map)
     nextvertinter.y = intercept.y;
     if (ray->isfacingleft == -1)
         check_isfacingleft = 1;
-    while (nextvertinter.x >= 0 &&  nextvertinter.x <= 32 * TILE_SIZE && \
-    nextvertinter.y >= 0 && nextvertinter.y <= 33 * TILE_SIZE)
+    while (nextvertinter.x >= 0 && nextvertinter.x <= map->maxlenmap * TILE_SIZE && \
+    nextvertinter.y >= 0 && nextvertinter.y <= map_taill * TILE_SIZE)
     {
       if (haswall_at(nextvertinter.x - check_isfacingleft, nextvertinter.y, map))
       {
@@ -212,8 +221,8 @@ void castingrays(t_collect_data *data)
     {
       ray.angle = normangle(ray_angle);
       get_ray_direction(&ray);
-      horz_hitdistance = find_horzintersection(data->player, &ray, data->map_info->map);
-      vert_hitdistance = find_vertintersection(data->player, &ray, data->map_info->map);
+      horz_hitdistance = find_horzintersection(data->player, &ray, data->map_info);
+      vert_hitdistance = find_vertintersection(data->player, &ray, data->map_info);
       get_smallwallhit(&ray, data->player, horz_hitdistance, vert_hitdistance);
       draw(data, &ray, count);
       ray_angle += angle_inc;

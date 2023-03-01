@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 21:27:29 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 04:49:25 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ typedef struct s_cordinates{
     double x;
     double y;
 } t_cordinates;
-
-// typedef struct s_map_info
-// {
-//     char *no;
-//     char *so;
-//     char *we;
-//     char *ea;
-//     int c_floor;
-//     int c_ceiling;
-//     char **map;
-// } t_map_info;
-
 
 typedef struct s_player_data
 {
@@ -127,6 +115,7 @@ void        get_ray_direction(t_ray *ray);
 void        draw(t_collect_data *data, t_ray *ray, int i);
 int         check_wall(double x, double y, char **map);
 double      normangle(double angle);
+
 
 
 #endif

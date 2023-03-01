@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/28 21:24:46 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 05:17:17 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_texture **get_digit_texture(t_mlx *mlx)
     
     return (digit);
 }
-int main()
+int main(int arc, char **arv)
 {
     t_map_info map_info;
     t_collect_data all_data;
@@ -88,8 +88,10 @@ int main()
     t_texture *texture;
     t_texture **digit;
     t_texture *amo;
-    
-    init_map(&map_info);
+    arc = 0;
+    (void)arv;
+    base_parsing(arv[1], &map_info);
+    // init_map(&map_info);
     init_player(&player, map_info.map);
     
     mlx.mlx = mlx_init();
