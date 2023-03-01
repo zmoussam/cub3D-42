@@ -5,35 +5,62 @@
 #                                                     +:+ +:+         +:+      #
 #    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/06 16:01:03 by zmoussam          #+#    #+#              #
-#    Updated: 2023/02/06 16:01:12 by zmoussam         ###   ########.fr        #
+#    Created: 2023/02/28 02:08:20 by mmakboub          #+#    #+#              #
+#    Updated: 2023/02/28 21:21:40 by zmoussam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
-SRC = cub3d.c
-OBJ = $(SRC:.c=.o)
+BONUS_NAME = cub3d_bonus
+LIBF = libft/libft.a
+SRC = ./mandatory/3Dprojection.c ./mandatory/getTextureInfo.c \
+	  ./mandatory/handleMoves.c ./mandatory/init_map.c \
+	  ./mandatory/init_player.c ./mandatory/main.c ./mandatory/RaysCasting.c \
+	  ./mandatory/parsing/ft_strcpy.c ./mandatory/parsing/initializer.c \
+	  ./mandatory/parsing/mainparsing.c ./mandatory/parsing/mainparsing2.c  \
+	  ./mandatory/parsing/parse_color.c ./mandatory/parsing/parse_direction.c\
+	  ./mandatory/parsing/parse_map.c ./mandatory/parsing/parser_utils.c\
+	  ./mandatory/parsing/parser_utis2.c  ./mandatory/parsing/validposition.c \
+	  ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
+
+BNS_SRC = ./bonus/3Dprojection.c ./bonus/getTextureInfo.c \
+	  	  ./bonus/handleMoves.c ./bonus/init_map.c ./bonus/MiniMap.c\
+	      ./bonus/init_player.c ./bonus/main.c ./bonus/RaysCasting.c \
+	      ./bonus/parsing/ft_strcpy.c ./bonus/parsing/initializer.c \
+	      ./bonus/parsing/mainparsing.c ./bonus/parsing/mainparsing2.c  \
+	      ./bonus/parsing/parse_color.c ./bonus/parsing/parse_direction.c\
+	      ./bonus/parsing/parse_map.c ./bonus/parsing/parser_utils.c\
+	      ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c\
+	      ./bonus/parsing/parser_utis2.c  ./bonus/parsing/validposition.c \
+		  
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-MLX = -lmlx -framework OpenGL -framework Appkit
 RM = rm -f
-LIBFT = libft/libft.a
+CFLAGS = -Wall -Werror -Wextra 
+MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+INCLUDE = ./mandatory/include/cub3d.h ./mandatory/include/parsing.h ./get_next_line/get_next_line.h
+BNS_INCLUDE = ./bonus/include/cub3d.h ./bonus/include/parsing.h ./get_next_line/get_next_line.h
 
-all: $(NAME)
+OBJS = $(SRC:.c=.o)
+OBJB = ${BNS_SRC:.c=.o}
 
-$(NAME) : $(OBJ)
-	$(CC) -o $(NAME) $(MLX) $(OBJ) $(LIBFT)
-	$(RM) $(OBJ)
+all : $(LIBF) $(NAME)
+		
+	
+$(LIBF):
+	make -C libft
 
-%.o: %.c cub3d.h
-	$(CC) -c $< -o $@
+$(NAME) :$(OBJS) $(LIBF) $(INCLUDE)
+	$(CC) $(MLX_FLAGS) $(OBJS) -o $(NAME)  -Llibft -lft 
 
-clean : 
-	$(RM) $(OBJ)
+bonus: $(LIBF) $(BONUS_NAME) 
+
+$(BONUS_NAME) : $(OBJB) $(LIBF) $(BNS_INCLUDE)
+	$(CC) $(MLX_FLAGS) $(OBJB) -o $(BONUS_NAME)  -Llibft -lft
+
+clean:
+	$(RM) $(OBJS) $(OBJB)
+	 make clean -C libft 
 
 fclean : clean
-	$(RM) $(NAME)
-
-re : fclean all
-
-.PHONY: fclean clean all re
+	$(RM) $(NAME) $(BONUS_NAME) $(LIBF)
+re: fclean all

@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 15:58:36 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/06 16:00:25 by zmoussam         ###   ########.fr       */
+/*   Created: 2021/11/04 17:06:54 by zmoussam          #+#    #+#             */
+/*   Updated: 2021/11/28 23:33:51 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __PARSING__
-#define __PARSING__
+#include "libft.h"
 
-typedef struct data
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-    char *ea;
-    char *no;
-    char *so;
-    char *we;
-    
-};
+	unsigned int	j;
+	unsigned int	len;
 
-#endif
+	len = ft_strlen(src);
+	j = 0;
+	if (dstsize != 0)
+	{
+		while (src[j] && j < (dstsize - 1))
+		{
+			dst[j] = src[j];
+			j++;
+		}
+		dst[j] = '\0';
+	}
+	return (len);
+}
