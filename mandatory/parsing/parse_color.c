@@ -6,9 +6,10 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 01:54:51 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:40:35 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/parsing.h"
 
@@ -30,11 +31,11 @@ void	parse_color(t_map_info *game, char *cleanline)
 		str = remove_prefix(cleanline, "F ");
 		floor = remove_caract(str, " ");
 		if (!floor)
-			memory_error();
+			return (ft_error("memory was not allocated!!"));
 		if(!checkgamma(floor))
 			return(printf("path should contain 2 gamma\n"), exit(1), (void)0);
 		game->c_floor = receive_rgb_color(floor);
-		if (!game->c_floor)
+		if (game->c_floor == -1)
 			exit(1);
 		game->has_f = 1;
 		free(str);
@@ -50,7 +51,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 		if(!checkgamma(ceilling))
 			return(printf("path should contain 2 gamma\n"), exit(1), (void)0);
 		game->c_ceilling = receive_rgb_color(ceilling);
-		if (!game->c_ceilling)
+		if (game->c_ceilling == -1)
 			exit(1);
 		game->has_c = 1;
 	}
@@ -75,8 +76,8 @@ int	receive_rgb_color(char *color)
 		exit(0);
 	}
 	decrgb = rgb_converter(rgbclr);
-	if (!decrgb)
-		return (write(2, "Error : RGB colors are not available \n", 39), 0);
+	if (decrgb == -1)
+		return (write(2, "Error : RGB colors are not available \n", 39), -1);
 	return (decrgb);
 }
 
@@ -103,14 +104,14 @@ int	rgb_converter(char **rgbclr)
 	while (rgbclr[i])
 	{
 		if (!isalldigits(rgbclr[i]))
-			return (0);
+			return (-1);
 		i++;
 	}
 	i = 0;
 	while (i < 3)
 	{
 		if (ft_atoi(rgbclr[i]) < 0 || ft_atoi(rgbclr[i]) > 255)
-			return (0);
+			return (-1);
 		i++;
 	}
 	color = ft_atoi(rgbclr[0]) << 16 | ft_atoi(rgbclr[1]) << \

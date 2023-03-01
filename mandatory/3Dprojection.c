@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:31:14 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/02/27 21:04:30 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:57:28 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void draw(t_collect_data *data, t_ray *ray, int i)
   if (wallbottom > SCREENHEIGHT)
     wallbottom = SCREENHEIGHT;
     
-  drawwallcolumn(data->mlx->img, i, 0, walltop, 0x00708090);
+  drawwallcolumn(data->mlx->img, i, 0, walltop, data->map_info->c_ceilling);
   
   if (ray->wallhitisvert)
   {
@@ -116,5 +116,5 @@ void draw(t_collect_data *data, t_ray *ray, int i)
     ofssets.x = fmod(ray->horzwallhit.x, TILE_SIZE) / TILE_SIZE * data->texture[3]._width;   
   }
   draw_wall(data, ofssets, wallstripheight, i, ray);
-  drawwallcolumn(data->mlx->img, i, wallbottom, SCREENHEIGHT, 0x00000000);
+  drawwallcolumn(data->mlx->img, i, wallbottom, SCREENHEIGHT, data->map_info->c_floor);
 }

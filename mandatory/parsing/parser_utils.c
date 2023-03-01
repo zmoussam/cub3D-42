@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 04:00:14 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:19:38 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ char	*remove_prefix(char *line, char *prefix)
 	char	*substring;
 	size_t	len_prefix;
 
-	len_prefix = strlen(prefix);
+	len_prefix = ft_strlen(prefix);
 	substring = malloc(sizeof(char) * (ft_strlen(line) - len_prefix + 1));
 	if (!substring)
 		return (NULL);
-	if (strncmp(line, prefix, len_prefix) == 0)
+	if (ft_strncmp(line, prefix, len_prefix) == 0)
 		return (ft_strcpy(substring, line + len_prefix));
 	else
 		return (ft_strcpy(substring, line));
@@ -57,7 +57,7 @@ int	countline(char *file)
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (ft_error("can't oppen file"), 0);
+		return(ft_error("can't open file!"), 0);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -68,6 +68,7 @@ int	countline(char *file)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	return (count);
 }
 

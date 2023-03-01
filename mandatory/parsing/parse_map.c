@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:33:48 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 04:24:52 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:42:09 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 		return (0);
 	game->map[0] = first_line;
 	line = get_next_line(fd);
+	
 	while (i < game->maplines - game->lineindex)
 	{
-		game->map[i] = line;
+		game->map[i++] = ft_strdup(line);
+		free(line);
 		line = get_next_line(fd);
-		i++;
 	}
 	int j;
 	j = 0;
@@ -93,7 +94,7 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 		char *cleanptr = remove_caract(game->map[j], "\n");
 		if(!cleanptr)
 			return(0);
-		game->map[j] = cleanptr;
+		game->map[j] = fillwithspace(cleanptr, game);
 		j++;
 	}
 	close(fd);

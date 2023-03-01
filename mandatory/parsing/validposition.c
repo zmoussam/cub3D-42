@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:08:10 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 02:44:41 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/01 21:29:44 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	valid_n(char **map, size_t i, size_t j)
 {
 	if (i == 0 || map[i - 1][j] == ' ')
 		return (0);
-	else if (ft_strlen(map[i - 1]) - 1 <= j)
+	else if (ft_strlen(map[i - 1]) <= j + 1)
 	{
 		return (0);
 	}
@@ -38,7 +38,7 @@ int	valid_s(char **map, size_t i, size_t j, t_map_info *game)
 		return (0);
 	else if (map[i + 1][j] == '\0' || map[i + 1][j] == ' ')
 		return (0);
-	else if (ft_strlen(map[i + 1]) - 1 <= j)
+	else if (ft_strlen(map[i + 1]) <= j + 1)
 		return (0);
 	return (1);
 }
