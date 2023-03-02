@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 01:40:05 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 05:35:37 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:23:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	no_direct(t_map_info *game, char *line)
 	str = remove_prefix(line, "NO");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);
-	game->no = remove_caract(str, " ");
+	game->no = ft_strtrim(str, " ");
 	if (!game->no)
 		return (ft_error("can't allocat memory"), exit(1), 0);
 	game->has_no++;
@@ -34,7 +34,7 @@ int	we_direct(t_map_info *game, char *line)
 	str = remove_prefix(line, "WE");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);
-	game->we = remove_caract(str, " ");
+	game->we = ft_strtrim(str, " ");
 	if (!game->we)
 		return (ft_error("can't allocat memory"), exit(1), 0);
 	game->has_we++;
@@ -49,7 +49,7 @@ int	so_direct(t_map_info *game, char *line)
 	str = remove_prefix(line, "SO");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);
-	game->so = remove_caract(str, " ");
+	game->so = ft_strtrim(str, " ");
 	if (!game->so)
 		return (ft_error("can't allocat memory"), exit(1), 0);
 	game->has_so++;
@@ -64,7 +64,7 @@ int	ea_direct(t_map_info *game, char *line)
 	str = remove_prefix(line, "EA");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);
-	game->ea = remove_caract(str, " ");
+	game->ea = ft_strtrim(str, " ");
 	if (!game->ea)
 		return (ft_error("can't allocat memory"), exit(1), 0);
 	game->has_ea++;

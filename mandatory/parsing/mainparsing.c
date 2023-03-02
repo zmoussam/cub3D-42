@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 08:13:37 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:19:45 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	ft_reading_maps(t_map_info *game, char *file)
 	char	*clean_line;
 	int		fd;
 
-	fd = open(file, O_RDONLY);
+	game->maplines = countline(file);
+	fd = open(file, O_RDWR);
 	if (fd < 0)
 		return (ft_error("can't open file"), exit(1));
 	line = get_next_line(fd);
 	if (!line)
 		return (ft_error("memory was not allocated!"), exit(1));
 	game->lineindex = 0;
-	game->maplines = countline(file);
 	while (line)
 	{
 		clean_line = ft_strtrim(line, " \n");

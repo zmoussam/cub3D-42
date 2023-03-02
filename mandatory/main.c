@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 08:11:31 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:40:45 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	esc_hook(t_mlx *mlx)
 {
-	printf("game over!!!\n");
+	write(1,"game over!!!\n", 13);
 	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
 	exit(0);
 }
@@ -29,14 +29,15 @@ int main(int argc, char **argv)
     t_texture *texture;
     int i ;
     i = 0;
-    (void)argv;
     if (argc == 2)
     {
             base_parsing(argv[1], &map_info);
             init_player(&player, map_info.map);
             mlx.mlx = mlx_init();
-            mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
+            mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB3D!");
             img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
+            if (!img.img)
+                return (ft_error("img not found!!"), exit(1), 0);
             img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
             texture = get_texture_data(mlx.mlx, &map_info);
             mlx.img = &img;

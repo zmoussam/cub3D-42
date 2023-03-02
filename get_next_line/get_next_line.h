@@ -6,25 +6,27 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 22:16:34 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 08:07:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:07:04 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# define BUFFER_SIZE 1
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
-# include <fcntl.h>
+# include <fcntl.h> 
 # include <unistd.h>
-# define BUFFER_SIZE 1
 
-char	*ft_strchr2(const char *s, int c);
-size_t	ft_strlen2(const char *str);
-char	*ft_substr2(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin2(char *s1, const char *s2);
-char	*get_line(char *rest);
-char	*rest_line(char *rest);
+char	*read_filles(int rd, char *rest, int fd, char *buffer);
+char	*get_new_line(char *rest);
+char	*get_new_rest(char *rest);
 char	*get_next_line(int fd);
-char	*ft_strdup2(const char *s1);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s1);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin2(char *s1, char *s2);
 #endif

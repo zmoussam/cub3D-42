@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:14:58 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 01:09:35 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:57:25 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	initializer(t_map_info *game)
 	game->has_f = 0;
 	game->c_floor = 0;
 	game->c_ceilling = 0;
+	game->lineindex = 0;
+	game->maxlenmap = 0;
+	game->ea = NULL;
+	game->so = NULL;
+	game->no = NULL;
+	game->we = NULL;
 }
 
 void	ft_check_cub(char *filename)

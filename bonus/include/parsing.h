@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 05:51:00 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:21:24 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	parse_color(t_map_info *game, char *cleanline);
 int		receive_rgb_color(char *color);
 int		isalldigits(const char *s);
 int		rgb_converter(char **rgbclr);
-int		parse_map(t_map_info *game, char *first_line, int fd);
+int		_parse_map(t_map_info *game, char *first_line, int fd);
 int		valid_n(char **map, size_t i, size_t j);
 int		valid_e(char **map, size_t i, size_t j);
 int		valid_s(char **map, size_t i, size_t j, t_map_info *game);

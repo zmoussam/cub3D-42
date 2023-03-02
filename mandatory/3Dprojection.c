@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:31:14 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 07:16:46 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:17:58 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,30 @@ void draw_wall(t_collect_data *data, t_cordinates ofsset, double wallstripheight
     {
       if (ray->isfacingright)
       {
-        ofsset.y = round(dis / wallstripheight * data->texture[0]._heigth);
+        ofsset.y = floor(dis / wallstripheight * data->texture[0]._heigth);
         my_mlx_pixel_put(data->mlx->img, i, top, \
-        data->texture[0].info->int_addr[(int)round((int)((ofsset.y * data->texture[0]._width) + ofsset.x))]);
+        data->texture[0].info->int_addr[(int)((ofsset.y * data->texture[0]._width) + ofsset.x)]);
       }
       else
       {
-        ofsset.y = round(dis / wallstripheight * data->texture[1]._heigth);
+        ofsset.y = floor(dis / wallstripheight * data->texture[1]._heigth);
         my_mlx_pixel_put(data->mlx->img, i, top, \
-        data->texture[1].info->int_addr[(int)round((int)((ofsset.y * data->texture[1]._width) + ofsset.x))]);
+        data->texture[1].info->int_addr[(int)((ofsset.y * data->texture[1]._width) + ofsset.x)]);
       }
     }  
     else
     {
       if (ray->isfacingdown)
       {
-        ofsset.y = round(dis / wallstripheight * data->texture[2]._heigth);
+        ofsset.y = floor(dis / wallstripheight * data->texture[2]._heigth);
         my_mlx_pixel_put(data->mlx->img, i, top, \
-        data->texture[2].info->int_addr[(int)round((int)((ofsset.y * data->texture[2]._width) + ofsset.x))]);
+        data->texture[2].info->int_addr[(int)((ofsset.y * data->texture[2]._width) + ofsset.x)]);
       }
       else
       {
-        ofsset.y = round(dis / wallstripheight * data->texture[3]._heigth);
+        ofsset.y = floor(dis / wallstripheight * data->texture[3]._heigth);
         my_mlx_pixel_put(data->mlx->img, i, top, \
-        data->texture[3].info->int_addr[(int)round((int)((ofsset.y * data->texture[3]._width) + ofsset.x))]);
+        data->texture[3].info->int_addr[(int)((ofsset.y * data->texture[3]._width) + ofsset.x)]);
       }
     }
     top++;  

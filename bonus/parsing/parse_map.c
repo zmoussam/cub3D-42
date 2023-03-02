@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:33:48 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 05:39:57 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:05:32 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	checkmap(t_map_info *game)
 	return (1);
 }
 
-int	parse_map(t_map_info *game, char *first_line, int fd)
+int	_parse_map(t_map_info *game, char *first_line, int fd)
 {
 	int		i;
 	char	*line;
-	char	*clean_line;
+	char	*clean_line = NULL;
 
 	i = 1;
 	game->maplines = game->maplines - game->lineindex;
@@ -77,10 +77,11 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 		return (ft_error("memory was not allocated!!"), exit(1), 0);
 	game->map[0] = first_line;
 	line = get_next_line(fd);
-	while (i < game->maplines && line)
+	while (i < game->maplines)
 	{
-		game->map[i++] = line;
+		game->map[i] = line;
 		line = get_next_line(fd);
+		i++;
 	}
 	game->map[i] = NULL;
 	if (!checkmap(game))
@@ -89,7 +90,7 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 	i = 0;
 	while(i < game->maplines && game->map[i])
 	{
-		clean_line = remove_caract(game->map[i], "\n");
+		clean_line = ft_strtrim(game->map[i], "\n");
 		if (!clean_line)
 			return(ft_error("memory was not allocated!!"), exit(1), 0);
 		free(game->map[i]);

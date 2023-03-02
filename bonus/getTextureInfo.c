@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 18:02:59 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 06:05:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:47:16 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_texture *get_wall_texture(void* mlx, t_map_info *map_file)
         if (!texture[i].info)
              return (ft_error("memory was not allocated"), exit(1), NULL);
         texture[i].info->img = mlx_xpm_file_to_image(mlx, texture_files[i], &texture[i]._width, &texture[i]._heigth);
+        if (!texture[i].info->img)
+            return (ft_error("texture not found!!"), exit(1), NULL);
         texture[i].info->int_addr = (int *)mlx_get_data_addr(texture[i].info->img, \
         &(texture[i].info->bits_per_pixel), &(texture[i].info->line_length), &(texture[i].info->line_length));
         i++;

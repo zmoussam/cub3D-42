@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 05:26:50 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:22:51 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 	if (cleanline[0] == 'F')
 	{
 		str = remove_prefix(cleanline, "F ");
-		floor = remove_caract(str, " ");
+		floor = ft_strtrim(str, " ");
 		if (!floor)
 			return (ft_error("memory was not allocated!!"), exit(1));
 		if (!checkgamma(floor))
@@ -37,7 +37,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 	else if (cleanline[0] == 'C')
 	{
 		str = remove_prefix(cleanline, "C ");
-		ceilling = remove_caract(str, " ");
+		ceilling = ft_strtrim(str, " ");
 		if (!ceilling)
 			return (ft_error("memory was not allocated!!"), exit(1));
 		if (!checkgamma(ceilling))

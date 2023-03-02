@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 06:38:52 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:24:10 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ int	countline(char *file)
 	char	*tmp;
 
 	count = 0;
-	fd = open(file, O_RDONLY);
+	fd = open(file, O_RDWR);
 	if (fd < 0)
 		return(ft_error("can't open file!"), exit(1), 0);
 	line = get_next_line(fd);
 	while (line)
 	{
-		tmp = remove_caract(line, " \n");
-		if (tmp[0])
+		tmp = ft_strtrim(line, " \n");
+		if (ft_strlen(tmp) != 0)
 			count++;
 		free(tmp);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 04:05:38 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:25:49 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,11 @@ t_cordinates find_vertstep(t_ray *ray)
 int haswall_at(double x, double y , t_map_info *map)
 {
     if (x < 0 || x > map->maxlenmap * TILE_SIZE || y < 0 || y > map->maplines * TILE_SIZE)
-        return 1; 
+        return 1;
+    if ((int)(x / TILE_SIZE) >= (int)ft_strlen(map->map[(int)(y / TILE_SIZE)]) )
+    {
+      return (1);
+    }
     return (map->map[(int)(y / TILE_SIZE)][(int)(x / TILE_SIZE)] == '1');
 }
 

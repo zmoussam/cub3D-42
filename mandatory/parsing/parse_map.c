@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:33:48 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 08:24:25 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 20:05:32 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ int	_parse_map(t_map_info *game, char *first_line, int fd)
 	while (i < game->maplines)
 	{
 		game->map[i] = line;
-		printf("s%s", game->map[i]);
 		line = get_next_line(fd);
 		i++;
 	}
-	// printf("\ngame %d\n", game->maplines);
 	game->map[i] = NULL;
 	if (!checkmap(game))
 		return (0);
@@ -92,8 +90,7 @@ int	_parse_map(t_map_info *game, char *first_line, int fd)
 	i = 0;
 	while(i < game->maplines && game->map[i])
 	{
-		// printf("%s\n", clean_line);
-		clean_line = remove_caract(game->map[i], "\n");
+		clean_line = ft_strtrim(game->map[i], "\n");
 		if (!clean_line)
 			return(ft_error("memory was not allocated!!"), exit(1), 0);
 		free(game->map[i]);
