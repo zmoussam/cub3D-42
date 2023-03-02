@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 03:44:56 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 06:38:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	countline(char *file)
 	count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return(ft_error("can't open file!"), 0);
+		return(ft_error("can't open file!"), exit(1), 0);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -72,10 +72,10 @@ int	countline(char *file)
 	return (count);
 }
 
-void findmaxline(t_map_info *game)
+void	findmaxline(t_map_info *game)
 {
-	int i;
-	size_t len;
+	int		i;
+	size_t	len;
 
 	i = 0;
 	len  = 0;

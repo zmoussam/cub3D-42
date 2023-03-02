@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:08:10 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 03:33:32 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 05:47:17 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	valid_n(char **map, size_t i, size_t j)
 {
-	if (i == 0 || map[i - 1][j] == ' ' || map[i - 1][j] == '\n' || ft_strlen(map[i - 1]) <= j)
+	if (i == 0 || map[i - 1][j] == ' ' || \
+		map[i - 1][j] == '\n' || ft_strlen(map[i - 1]) <= j)
 		return (0);
 	return (1);
 }
@@ -29,7 +30,7 @@ int	valid_e(char **map, size_t i, size_t j)
 int	valid_s(char **map, size_t i, size_t j, t_map_info *game)
 {
 	int	lastline;
-	
+
 	lastline = game->maplines - 1;
 	if ((int)i == lastline)
 		return (0);

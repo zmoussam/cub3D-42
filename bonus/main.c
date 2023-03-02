@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/01 19:12:58 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 06:21:40 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,41 +112,42 @@ int main(int arc, char **arv)
     t_texture *texture;
     t_texture **digit;
     t_texture *amo;
-    arc = 0;
-    (void)arv;
-    
-    base_parsing(arv[1], &map_info);
-    init_player(&player, map_info.map);
-    
-    mlx.mlx = mlx_init();
-    mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
-    img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-    mini_map.addr = mlx_get_data_addr(mini_map.img, &mini_map.bits_per_pixel, &mini_map.line_length, &mini_map.endian);
-    texture = get_wall_texture(mlx.mlx, &map_info);
-    shooting_target = get_texture(&mlx, "./assets/shooting_target.xpm");
-    weapon = get_weapon_texture(&mlx);
-    digit = get_digit_texture(&mlx);
-    amo = get_texture(&mlx, "./assets/amo.xpm");
-    mlx.img = &img;
-    all_data.map_info = &map_info;
-    all_data.mlx = &mlx;
-    all_data.player = &player;
-    all_data.texture = get_wall_texture(mlx.mlx, &map_info);
-    all_data.mini_map = &mini_map;
-    all_data.shooting_target = shooting_target;
-    all_data.weapon = weapon;
-    all_data.digit = digit;
-    all_data.amo = amo;
-    
-    mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
-    mlx_hook(mlx.mlx_win, 3, 1L << 1, releaskey, all_data.player);
-    mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
-    // mlx_hook(mlx.mlx_win, 6, 1 << 6 , handle_mouse, &all_data);
-    mlx_hook(mlx.mlx_win, 4, 1L << 8, mouse_press, &all_data);
-	mlx_hook(mlx.mlx_win, 5, 1L << 8, mouse_release, &all_data);
-	mlx_hook(mlx.mlx_win, 6, 1L << 6, handle_mouse, &all_data);
-    mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
-    mlx_loop(mlx.mlx);
+    if (arc == 2)
+    {
+        base_parsing(arv[1], &map_info);
+        init_player(&player, map_info.map);
+        
+        mlx.mlx = mlx_init();
+        mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
+        img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
+        img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+        mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
+        mini_map.addr = mlx_get_data_addr(mini_map.img, &mini_map.bits_per_pixel, &mini_map.line_length, &mini_map.endian);
+        texture = get_wall_texture(mlx.mlx, &map_info);
+        shooting_target = get_texture(&mlx, "./assets/shooting_target.xpm");
+        weapon = get_weapon_texture(&mlx);
+        digit = get_digit_texture(&mlx);
+        amo = get_texture(&mlx, "./assets/amo.xpm");
+        mlx.img = &img;
+        all_data.map_info = &map_info;
+        all_data.mlx = &mlx;
+        all_data.player = &player;
+        all_data.texture = get_wall_texture(mlx.mlx, &map_info);
+        all_data.mini_map = &mini_map;
+        all_data.shooting_target = shooting_target;
+        all_data.weapon = weapon;
+        all_data.digit = digit;
+        all_data.amo = amo;
+        
+        mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
+        mlx_hook(mlx.mlx_win, 3, 1L << 1, releaskey, all_data.player);
+        mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
+        mlx_hook(mlx.mlx_win, 4, 1L << 8, mouse_press, &all_data);
+        mlx_hook(mlx.mlx_win, 5, 1L << 8, mouse_release, &all_data);
+        mlx_hook(mlx.mlx_win, 6, 1L << 6, handle_mouse, &all_data);
+        mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
+        mlx_loop(mlx.mlx);
+    }
+    else 
+        ft_error("invalid argument!!");
 }

@@ -6,7 +6,7 @@
 #    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 02:08:20 by mmakboub          #+#    #+#              #
-#    Updated: 2023/03/02 04:38:19 by zmoussam         ###   ########.fr        #
+#    Updated: 2023/03/02 08:23:19 by zmoussam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BONUS_NAME = cub3d_bonus
 LIBF = libft/libft.a
 SRC = ./mandatory/3Dprojection.c ./mandatory/getTextureInfo.c \
 	  ./mandatory/handleMoves.c \
-	  ./mandatory/init_player.c ./mandatory/main.c ./mandatory/RaysCasting.c \
+	  ./mandatory/initPlayer.c ./mandatory/main.c ./mandatory/RaysCasting.c \
 	  ./mandatory/parsing/ft_strcpy.c ./mandatory/parsing/initializer.c \
 	  ./mandatory/parsing/mainparsing.c ./mandatory/parsing/mainparsing2.c  \
 	  ./mandatory/parsing/parse_color.c ./mandatory/parsing/parse_direction.c\
@@ -25,7 +25,7 @@ SRC = ./mandatory/3Dprojection.c ./mandatory/getTextureInfo.c \
 
 BNS_SRC = ./bonus/3Dprojection.c ./bonus/getTextureInfo.c \
 	  	  ./bonus/handleMoves.c ./bonus/MiniMap.c\
-	      ./bonus/init_player.c ./bonus/main.c ./bonus/RaysCasting.c \
+	      ./bonus/initPlayer.c ./bonus/main.c ./bonus/RaysCasting.c \
 	      ./bonus/parsing/ft_strcpy.c ./bonus/parsing/initializer.c \
 	      ./bonus/parsing/mainparsing.c ./bonus/parsing/mainparsing2.c  \
 	      ./bonus/parsing/parse_color.c ./bonus/parsing/parse_direction.c\
@@ -35,8 +35,8 @@ BNS_SRC = ./bonus/3Dprojection.c ./bonus/getTextureInfo.c \
 		  
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra  
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit 
+CFLAGS = -Wall -Werror -Wextra 
+MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
 INCLUDE = ./mandatory/include/cub3d.h ./mandatory/include/parsing.h ./get_next_line/get_next_line.h
 BNS_INCLUDE = ./bonus/include/cub3d.h ./bonus/include/parsing.h ./get_next_line/get_next_line.h
 

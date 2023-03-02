@@ -6,13 +6,12 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 04:45:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 05:26:50 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/parsing.h"
-
 
 void	parse_color(t_map_info *game, char *cleanline)
 {
@@ -26,8 +25,8 @@ void	parse_color(t_map_info *game, char *cleanline)
 		floor = remove_caract(str, " ");
 		if (!floor)
 			return (ft_error("memory was not allocated!!"), exit(1));
-		if(!checkgamma(floor))
-			return(ft_error("color should contain 2 gamma"), exit(1));
+		if (!checkgamma(floor))
+			return (ft_error("color should contain 2 gamma"), exit(1));
 		game->c_floor = receive_rgb_color(floor);
 		if (game->c_floor == -1)
 			exit(1);
@@ -41,7 +40,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 		ceilling = remove_caract(str, " ");
 		if (!ceilling)
 			return (ft_error("memory was not allocated!!"), exit(1));
-		if(!checkgamma(ceilling))
+		if (!checkgamma(ceilling))
 			return(ft_error("color should contain 2 gamma\n"), exit(1));
 		game->c_ceilling = receive_rgb_color(ceilling);
 		if (game->c_ceilling == -1)
@@ -52,15 +51,17 @@ void	parse_color(t_map_info *game, char *cleanline)
 	}
 	free(cleanline);
 }
-void free_color(char **color)
+
+void	free_color(char **color)
 {
-	int i;
+	int	i;
 	i = 0;
-	
-	while(color[i])
+
+	while (color[i])
 		free(color[i++]);
 	free(color);
 }
+
 int	receive_rgb_color(char *color)
 {
 	char	**rgbclr;
@@ -76,13 +77,13 @@ int	receive_rgb_color(char *color)
 	if (i != 3)
 	{
 		free_color(rgbclr);
-		printf("error: there are more or less than 3 numbers!! \n");
+		ft_error("there are more or less than 3 numbers!!");
 		exit(0);
 	}
 	decrgb = rgb_converter(rgbclr);
 	free_color(rgbclr);
 	if (decrgb == -1)
-		return (write(2, "Error : RGB colors are not available \n", 39), -1);
+		return (ft_error("RGB colors are not available"), -1);
 	return (decrgb);
 }
 

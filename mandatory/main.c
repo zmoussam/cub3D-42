@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 02:20:15 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 08:11:31 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int main(int argc, char **argv)
     (void)argv;
     if (argc == 2)
     {
-        if (base_parsing(argv[1], &map_info))
-        {
+            base_parsing(argv[1], &map_info);
             init_player(&player, map_info.map);
             mlx.mlx = mlx_init();
             mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
@@ -51,7 +50,6 @@ int main(int argc, char **argv)
             mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
             mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
             mlx_loop(mlx.mlx);
-        }
     }
     else
        ft_error("invalid argument!!");
