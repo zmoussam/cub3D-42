@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 02:16:15 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:42:26 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ int	ft_reading_maps(t_map_info *game, char *file)
 		if (game->lenghtlines == 0)
 		{
 			free(clean_line);
+			free(line);
 			line = get_next_line(fd);
 			continue ;
 		}
 		if (check_line(clean_line, game) == 2)
+		{
+			
 			break ;
+		}
 		free(line);
 		line = get_next_line(fd);
 		game->lineindex++;

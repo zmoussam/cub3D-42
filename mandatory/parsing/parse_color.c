@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 03:58:39 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:45:33 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 		free(str);
 		free(ceilling);
 	}
+	free(cleanline);
 }
 void free_color(char **color)
 {

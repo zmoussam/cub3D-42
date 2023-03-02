@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 00:00:35 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 01:02:41 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:47:29 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_line(char *clean_line, t_map_info *game)
 		if (ft_strncmp(clean_line, tab[i], ft_strlen(tab[i])) == 0)
 		{
 			if (i == 2)
-				return (2);
+				return (free(clean_line), 2);
 			else
 				return (parse_color(game, clean_line), 3);
 		}

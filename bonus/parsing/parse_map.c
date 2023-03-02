@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 22:33:48 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 03:10:07 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:41:19 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	parse_map(t_map_info *game, char *first_line, int fd)
 	{
 		clean_line = remove_caract(game->map[i], "\n");
 		if(!clean_line)
-			return(ft_error("memory was not allocated!!"), 0);
+			return(ft_error("memory was not allocated!!"), exit(1), 0);
 		free(game->map[i]);
 		game->map[i] = clean_line;
 		i++;

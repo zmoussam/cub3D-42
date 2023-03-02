@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 01:40:05 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 01:08:49 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 04:36:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	parse_direction(t_map_info *game, char *line)
 		ea_direct(game, line);
 	else if (ft_strnstr(line, "WE", 2))
 		we_direct(game, line);
+	free(line);
 }
