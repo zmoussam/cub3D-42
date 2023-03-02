@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:16:13 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 18:41:40 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:21:37 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,13 @@ int numberofgamma(char *pathcolor)
 int checkgamma(char *pathcolor)
 {
     int nbrofgamma;
+    
     nbrofgamma = numberofgamma(pathcolor);
     if(nbrofgamma == 2)
         return(1);
     return(0);
 }
 
-int ft_isspace(int c) 
-{
-	if (c == ' ')
-		return (1);
-	return (0);
-}
 
 size_t delet_espaces_at_the_end(char* chaine) 
 {

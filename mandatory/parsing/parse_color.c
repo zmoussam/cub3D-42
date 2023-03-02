@@ -6,54 +6,49 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 00:40:35 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:20:53 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/parsing.h"
 
-void	memory_error(void)
-{
-	write(2, "error : memory wasn't allocated\n", 20);
-	exit(1);
-}
 
 void	parse_color(t_map_info *game, char *cleanline)
 {
 	char	*floor;
 	char	*ceilling;
+	char	*str;
 
-	if (!ft_strncmp(cleanline, "F", 1) && game->has_f == -1)
+	if (cleanline[0] == 'F')
 	{
-		char *str;
-
 		str = remove_prefix(cleanline, "F ");
 		floor = remove_caract(str, " ");
 		if (!floor)
-			return (ft_error("memory was not allocated!!"));
+			return (ft_error("memory was not allocated!!"), exit(1));
 		if(!checkgamma(floor))
-			return(printf("path should contain 2 gamma\n"), exit(1), (void)0);
+			return(ft_error("color should contain 2 gamma"), exit(1));
 		game->c_floor = receive_rgb_color(floor);
 		if (game->c_floor == -1)
 			exit(1);
-		game->has_f = 1;
+		game->has_f++;
+		free(floor);
 		free(str);
 	}
-	else if (!ft_strncmp(cleanline, "C", 1) && game->has_c == -1)
+	else if (cleanline[0] == 'C')
 	{
-		char *str;
-
 		str = remove_prefix(cleanline, "C ");
 		ceilling = remove_caract(str, " ");
 		if (!ceilling)
-			memory_error();
+			return (ft_error("memory was not allocated!!"), exit(1));
 		if(!checkgamma(ceilling))
-			return(printf("path should contain 2 gamma\n"), exit(1), (void)0);
+			return(ft_error("color should contain 2 gamma\n"), exit(1));
 		game->c_ceilling = receive_rgb_color(ceilling);
 		if (game->c_ceilling == -1)
 			exit(1);
-		game->has_c = 1;
+		game->has_c++;
+		free(str);
+		free(ceilling);
 	}
 }
 
@@ -66,7 +61,7 @@ int	receive_rgb_color(char *color)
 	i = 0;
 	rgbclr = ft_split(color, ',');
 	if (!rgbclr)
-		memory_error();
+		return (ft_error("memory was not allocated!!"), exit(1), -1);
 	while (rgbclr[i])
 		i++;
 	if (i != 3)

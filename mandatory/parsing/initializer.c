@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:14:58 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/01 23:58:09 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:09:35 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	initializer(t_map_info *game)
 {
 	game->maplines = 0;
 	game->lenghtlines = 0;
-	game->has_ea = -1;
-	game->has_no = -1;
-	game->has_we = -1;
-	game->has_so = -1;
-	game->has_c = -1;
-	game->has_f = -1;
+	game->has_ea = 0;
+	game->has_no = 0;
+	game->has_we = 0;
+	game->has_so = 0;
+	game->has_c = 0;
+	game->has_f = 0;
 	game->c_floor = 0;
 	game->c_ceilling = 0;
 }

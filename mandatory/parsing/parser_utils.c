@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 00:19:38 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 02:05:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,39 +90,39 @@ void findmaxline(t_map_info *game)
 	game->maxlenmap += 1;
 	
 }
-char *fillwithspace(char *line, t_map_info *game)
-{
-	int i;
-	char *tab;
-	char *strspaces;
+// char *fillwithspace(char *line, t_map_info *game)
+// {
+// 	int i;
+// 	char *tab;
+// 	char *strspaces;
 
-	tab = NULL;
-	i = 0;
-	if(ft_strlen(line) < game->maxlenmap)
-	{
-		int diff = game->maxlenmap - ft_strlen(line);
-		strspaces = onlyspaces(diff);
-		tab = ft_strjoin(line, strspaces);
-	}
-	else if(ft_strlen(line) == game->maxlenmap)
-		return(line);
-	return(tab);
-}
+// 	tab = NULL;
+// 	i = 0;
+// 	if(ft_strlen(line) < game->maxlenmap)
+// 	{
+// 		int diff = game->maxlenmap - ft_strlen(line);
+// 		strspaces = onlyspaces(diff);
+// 		tab = ft_strjoin(line, strspaces);
+// 	}
+// 	else if(ft_strlen(line) == game->maxlenmap)
+// 		return(line);
+// 	return(tab);
+// }
 
-char *onlyspaces(int diff)
-{
-	char *str;
-	int i;
+// char *onlyspaces(int diff)
+// {
+// 	char *str;
+// 	int i;
 
-	i = 0;
-	str = (char *)malloc(sizeof(char) * (diff + 1));
-	if(!str)
-		return (NULL);
-	while(i < diff)
-	{
-		str[i] = ' ';
-		i++;
-	}
-	str[i] = 0;
-	return(str);
-}
+// 	i = 0;
+// 	str = (char *)malloc(sizeof(char) * (diff + 1));
+// 	if(!str)
+// 		return (NULL);
+// 	while(i < diff)
+// 	{
+// 		str[i] = ' ';
+// 		i++;
+// 	}
+// 	str[i] = 0;
+// 	return(str);
+// }

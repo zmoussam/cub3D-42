@@ -6,36 +6,36 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 00:00:35 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 00:32:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:02:41 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
 
-int	check_line(char *clean_ptr, t_map_info *game)
+int	check_line(char *clean_line, t_map_info *game)
 {
 	char	*tab[3];
-	int		j;
+	int		i;
 
 	tab[0] = "F ";
 	tab[1] = "C ";
 	tab[2] = "1";
-	if (check_texture(game, clean_ptr))
-		return (parse_direction(game, clean_ptr), 1);
-	j = 0;
-	while (j < 3)
+	if (check_texture(game, clean_line))
+		return (parse_direction(game, clean_line), 1);
+	i = 0;
+	while (i < 3)
 	{
-		if (ft_strncmp(clean_ptr, tab[j], ft_strlen(tab[j])) == 0)
+		if (ft_strncmp(clean_line, tab[i], ft_strlen(tab[i])) == 0)
 		{
-			if (j == 2)
+			if (i == 2)
 				return (2);
 			else
-				return (parse_color(game, clean_ptr), 3);
+				return (parse_color(game, clean_line), 3);
 		}
-		j++;
+		i++;
 	}
-	free(clean_ptr);
-	return (ft_error("invalid map!!"), 0);
+	free(clean_line);
+	return (ft_error("invalid map!!"), exit(0), 0);
 }
 
 int	check_texture(t_map_info *game, char *cleanline)

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 00:38:06 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/02 02:16:15 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_reading_maps(t_map_info *game, char *file)
 game->has_no != 1 || game->has_so != 1 || game->has_we != 1)
 		return (ft_error("invalide map's cart!!"), 0);
 	if (!parse_map(game, line, fd))
-		return (exit(1), 0);
+		return (ft_error("invalid map!!"), exit(1), 0);
 	return (1);
 }
 
