@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 16:30:25 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:59:42 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,8 @@ void		findmaxline(t_map_info *game);
 int			checkgamma(char *pathcolor);
 size_t		delet_espaces_at_the_end(char *chaine);
 void		ft_error(char *error_name);
+void 		_parse_map2(t_map_info *game);
+void 		parse_color_for_floor(t_map_info *game, char *cleanline, char *str);
+void 		parse_color_for_ceilling(t_map_info *game, char *cleanline, char *str);
+void		free_color(char **color);
 #endif

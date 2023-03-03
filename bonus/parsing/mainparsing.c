@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 17:10:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:15:52 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_reading_maps(t_map_info *game, char *file)
 	char	*line;
 	char	*clean_line;
 	int		fd;
-
+	
 	line = __start_read(game, file, &fd);
 	while (line)
 	{

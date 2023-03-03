@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:16:13 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 01:18:13 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:58:08 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,28 @@ size_t	delet_espaces_at_the_end(char *chaine)
 	while (i >= 0 && chaine[i] != '1')
 		i--;
 	return (i);
+}
+
+int	isalldigits(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != ' ' && !ft_isdigit(s[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	free_color(char **color)
+{
+	int	i;
+
+	i = 0;
+	while (color[i])
+		free(color[i++]);
+	free(color);
 }

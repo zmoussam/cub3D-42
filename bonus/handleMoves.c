@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handleMoves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:45:03 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:14:00 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,7 @@ int	presskey(int keycode, t_collect_data *data)
 			data->player->count_shoot--;
 	}
 	if (keycode == ESC)
-	{
-		write(1, "game over!!!\n", 13);
-		ft_free_data(data);
-		mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
-		exit(-1);
-	}
+		esc_hook(data);
 	return (0);
 }
 void	put_weapon(t_mlx *mlx, t_texture **weapon, int *check_shoot,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handleMoves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:32:47 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:16:05 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,7 @@ int	presskey(int keycode, t_collect_data *data)
 	if (keycode == TURN_RIGHT)
 		data->player->turndirection = +1;
 	if (keycode == ESC)
-	{
-		write(1, "game over!!!\n", 13);
-		ft_free_data(data);
-		exit(-1);
-	}
+		esc_hook(data);
 	return (0);
 }
 

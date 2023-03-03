@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:34:12 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:15:39 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void				draw(t_collect_data *data, t_ray *ray, int i);
 int					check_wall(double x, double y, char **map);
 double				normangle(double angle);
 void				ft_free_data(t_collect_data *data);
+int					esc_hook(t_collect_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniMap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 16:18:12 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:23:01 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,28 @@ void	my_mlx_pixel_put(t_img_data *data, int x, int y, int color)
 void	drawline(t_collect_data *data, t_cordinates player_pos,
 		t_cordinates ray_limit)
 {
-	int		dx;
-	int		dy;
+	t_cordinates dest;
+	t_cordinates pos;
+	t_cordinates inc;
 	int		steps;
 	int		i;
-	double	xx;
-	double	yy;
-	double	xinc;
-	double	yinc;
 
-	dx = (ray_limit.x - player_pos.x);
-	dy = (ray_limit.y - player_pos.y);
-	if (abs(dx) > abs(dy))
-		steps = abs(dx);
+	dest.x = (ray_limit.x - player_pos.x);
+	dest.y = (ray_limit.y - player_pos.y);
+	if (fabs(dest.x) > fabs(dest.y))
+		steps = fabs(dest.x);
 	else
-		steps = abs(dy);
-	xinc = dx / (float)steps;
-	yinc = dy / (float)steps;
-	xx = player_pos.x;
-	yy = player_pos.y;
+		steps = fabs(dest.y);
+	inc.x = dest.x / (float)steps;
+	inc.y = dest.y / (float)steps;
+	pos.x = player_pos.x;
+	pos.y = player_pos.y;
 	i = 0;
 	while (i <= steps)
 	{
-		my_mlx_pixel_put(data->mini_map, xx, yy, 0x00FF0000);
-		xx = xx + xinc;
-		yy = yy + yinc;
+		my_mlx_pixel_put(data->mini_map, pos.x, pos.y, 0x00FF0000);
+		pos.x = pos.x + inc.x;
+		pos.y = pos.y + inc.y;
 		i++;
 	}
 }

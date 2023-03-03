@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:43:33 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:13:50 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ t_texture			*get_texture(t_mlx *mlx, char *file_name);
 t_texture			**get_weapon_texture(t_mlx *mlx);
 t_texture			**get_digit_texture(t_mlx *mlx);
 void				ft_free_data(t_collect_data *data);
+int					esc_hook(t_collect_data *data);
 
 #endif
