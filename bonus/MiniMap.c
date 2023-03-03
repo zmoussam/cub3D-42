@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:15:52 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:37:28 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	drawline(t_collect_data *data, t_cordinates player_pos,
 		i++;
 	}
 }
+
 void	put_player(t_collect_data *data)
 {
 	t_cordinates	player_pos;
@@ -80,6 +81,7 @@ void	put_player(t_collect_data *data)
 		count++;
 	}
 }
+
 int	get_minimap_collor(char **map, t_cordinates pos)
 {
 	if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x

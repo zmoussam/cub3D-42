@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:14:36 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 05:26:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 # define __CUB3D__
 
 # include <math.h>
-# define TILE_SIZE 30
-# define ROTATION_SPEED 3 * (M_PI / 180)
-# define SCREENWIDTH 1500
-# define SCREENHEIGHT 940
-# define MINI_MAP_FACTOR 0.2
-# define VIEW_ANGLE 60 * M_PI / 180
-# define WALL_HEIGHT 20
 # include "parsing.h"
 # include <fcntl.h>
 # include <limits.h>
@@ -28,6 +21,13 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# define TILE_SIZE 30
+# define ROTATION_SPEED 3 * (M_PI / 180)
+# define SCREENWIDTH 1500
+# define SCREENHEIGHT 940
+# define MINI_MAP_FACTOR 0.2
+# define VIEW_ANGLE 60 * M_PI / 180
+# define WALL_HEIGHT 20
 
 typedef struct s_img_data
 {
@@ -61,7 +61,6 @@ typedef struct s_player_data
 	int				movesleft_or_right;
 	int				turndirection;
 	int				walkdirection;
-
 }					t_player;
 
 typedef enum keys
@@ -93,13 +92,15 @@ typedef struct s_ray
 	t_cordinates	horzwallhit;
 	t_cordinates	vertwallhit;
 	bool			wallhitisvert;
+	double			wallstripheight;
 }					t_ray;
+
 typedef struct s_collect_data
 {
 	t_player		*player;
 	t_mlx			*mlx;
 	t_map_info		*map_info;
-	t_texture		*texture;
+	t_texture		*wall;
 
 }					t_collect_data;
 

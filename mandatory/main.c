@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:14:16 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 04:57:07 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int	esc_hook(t_mlx *mlx)
 	exit(0);
 }
 
+void cub3d_loop(t_collect_data *data)
+{
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 3, 1L << 0, releaskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data->mlx);
+	mlx_loop_hook(data->mlx->mlx, moveplayer, data);
+	mlx_loop(data->mlx->mlx);
+}
+
 int	main(int argc, char **argv)
 {
 	t_map_info map_info;
@@ -26,34 +35,24 @@ int	main(int argc, char **argv)
 	t_player player;
 	t_mlx mlx;
 	t_img_data img;
-	t_texture *texture;
-	int i;
-	i = 0;
+	
 	if (argc == 2)
 	{
 		base_parsing(argv[1], &map_info);
 		init_player(&player, map_info.map);
 		mlx.mlx = mlx_init();
-		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT,
-				"CUB3D!");
+		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB3D!");
 		img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
 		if (!img.img)
 			return (ft_error("img not found!!"), exit(1), 0);
 		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 				&img.line_length, &img.endian);
-		texture = get_texture_data(mlx.mlx, &map_info);
+		all_data.wall = get_texture_data(mlx.mlx, &map_info);
 		mlx.img = &img;
 		all_data.map_info = &map_info;
 		all_data.mlx = &mlx;
 		all_data.player = &player;
-		all_data.texture = texture;
-
-		mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
-		mlx_hook(mlx.mlx_win, 3, 1L << 0, releaskey, all_data.player);
-		mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
-		mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
-		mlx_loop(mlx.mlx);
+		cub3d_loop(&all_data);
 	}
-	else
-		ft_error("invalid argument!!");
+	ft_error("invalid argument!!");
 }

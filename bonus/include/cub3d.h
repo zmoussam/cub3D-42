@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:17:26 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 05:26:45 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define __CUB3D__
 
 # include <math.h>
+# include "parsing.h"
+# include <limits.h>
+# include <mlx.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
 # define TILE_SIZE 30
 # define MINI_MAP_TILE_SIZE 10
 # define ROTATION_SPEED 4 * (M_PI / 180)
@@ -24,12 +30,6 @@
 # define WALL_HEIGHT 20
 # define MINI_MAP_WIDTH SCREENWIDTH *MINI_MAP_FACTOR
 # define MINI_MAP_HEIGHT SCREENHEIGHT *MINI_MAP_FACTOR
-# include "parsing.h"
-# include <limits.h>
-# include <mlx.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 typedef struct s_img_data
 {
@@ -100,6 +100,7 @@ typedef struct s_ray
 	t_cordinates	horzwallhit;
 	t_cordinates	vertwallhit;
 	bool			wallhitisvert;
+	double			wallstripheight;
 }					t_ray;
 
 typedef struct s_collect_data

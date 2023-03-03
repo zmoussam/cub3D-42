@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RaysCasting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:14:23 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 04:23:58 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,86 +114,59 @@ double	get_distance(t_player *player, double x, double y, bool check)
 					((y - player->position.y) * (y - player->position.y))));
 }
 
-double	find_horzintersection(t_player *player, t_ray *ray, t_map_info *map)
+double	find_horzintersection(t_player *player, t_ray *ray, t_map_info *map, bool gethorzwall)
 {
-	t_cordinates	intercept;
 	t_cordinates	step;
-	t_cordinates	nexthorzinter;
 	short			check_isfacingup;
-	bool			gethorzwall;
 
-	ray->horzwallhit.x = 0;
-	ray->horzwallhit.y = 0;
-	gethorzwall = false;
 	check_isfacingup = 0;
-	intercept = find_horzintercept(player, ray);
+	ray->horzwallhit = find_horzintercept(player, ray);
 	step = find_horzstep(ray);
-	nexthorzinter.x = intercept.x;
-	nexthorzinter.y = intercept.y;
 	if (ray->isfacingup == -1)
 		check_isfacingup = 1;
-	while (nexthorzinter.x >= 0 && nexthorzinter.x <= (map->maxlenmap - 1)
-		* TILE_SIZE &&
-			nexthorzinter.y >= 0 && nexthorzinter.y <= (map->maplines - 1)
-				* TILE_SIZE)
+	while (ray->horzwallhit.x >= 0 && ray->horzwallhit.x <= (map->maxlenmap - 1) * \
+	TILE_SIZE && ray->horzwallhit.y >= 0 && ray->horzwallhit.y <= (map->maplines - 1) * TILE_SIZE)
 	{
-		if (haswall_at(nexthorzinter.x, nexthorzinter.y - check_isfacingup,
-				map))
+		if (haswall_at(ray->horzwallhit.x, ray->horzwallhit.y - check_isfacingup, map))
 		{
 			gethorzwall = true;
-			ray->horzwallhit.x = nexthorzinter.x;
-			ray->horzwallhit.y = nexthorzinter.y;
 			break ;
 		}
 		else
 		{
-			nexthorzinter.x += step.x;
-			nexthorzinter.y += step.y;
+			ray->horzwallhit.x += step.x;
+			ray->horzwallhit.y += step.y;
 		}
 	}
-	return (get_distance(player, ray->horzwallhit.x, ray->horzwallhit.y,
-			gethorzwall));
+	return (get_distance(player, ray->horzwallhit.x, ray->horzwallhit.y, gethorzwall));
 }
 
-double	find_vertintersection(t_player *player, t_ray *ray, t_map_info *map)
+double	find_vertintersection(t_player *player, t_ray *ray, t_map_info *map, \
+	bool getvertwall)
 {
-	t_cordinates	intercept;
 	t_cordinates	step;
-	t_cordinates	nextvertinter;
 	short			check_isfacingleft;
-	int				getvertwall;
-
-	getvertwall = false;
+	
 	check_isfacingleft = 0;
-	ray->vertwallhit.x = 0;
-	ray->vertwallhit.y = 0;
-	intercept = find_vertintercept(player, ray);
+	ray->vertwallhit = find_vertintercept(player, ray);
 	step = find_vertstep(ray);
-	nextvertinter.x = intercept.x;
-	nextvertinter.y = intercept.y;
 	if (ray->isfacingleft == -1)
 		check_isfacingleft = 1;
-	while (nextvertinter.x >= 0 && nextvertinter.x <= (map->maxlenmap - 1)
-		* TILE_SIZE &&
-			nextvertinter.y >= 0 && nextvertinter.y <= (map->maplines - 1)
-				* TILE_SIZE)
+	while (ray->vertwallhit.x >= 0 && ray->vertwallhit.x < (map->maxlenmap - 1) * \
+	TILE_SIZE && ray->vertwallhit.y >= 0 && ray->vertwallhit.y <= (map->maplines - 1) * TILE_SIZE)
 	{
-		if (haswall_at(nextvertinter.x - check_isfacingleft, nextvertinter.y,
-				map))
+		if (haswall_at(ray->vertwallhit.x - check_isfacingleft, ray->vertwallhit.y, map))
 		{
 			getvertwall = true;
-			ray->vertwallhit.x = nextvertinter.x;
-			ray->vertwallhit.y = nextvertinter.y;
 			break ;
 		}
 		else
 		{
-			nextvertinter.x += step.x;
-			nextvertinter.y += step.y;
+			ray->vertwallhit.x += step.x;
+			ray->vertwallhit.y += step.y;
 		}
 	}
-	return (get_distance(player, ray->vertwallhit.x, ray->vertwallhit.y,
-			getvertwall));
+	return (get_distance(player, ray->vertwallhit.x, ray->vertwallhit.y, getvertwall));
 }
 
 void	get_smallwallhit(t_ray *ray, t_player *player, double horzdistance,
@@ -201,13 +174,11 @@ void	get_smallwallhit(t_ray *ray, t_player *player, double horzdistance,
 {
 	ray->wallhitisvert = false;
 	if (horzdistance <= vertdistance)
-		ray->distancetowall = horzdistance * cos(ray->angle
-				- player->viewangle);
+		ray->distancetowall = horzdistance * cos(ray->angle - player->viewangle);
 	else if (horzdistance > vertdistance)
 	{
 		ray->wallhitisvert = true;
-		ray->distancetowall = vertdistance * cos(ray->angle
-				- player->viewangle);
+		ray->distancetowall = vertdistance * cos(ray->angle - player->viewangle);
 	}
 }
 
@@ -216,8 +187,6 @@ void	castingrays(t_collect_data *data)
 	double	ray_angle;
 	double	angle_inc;
 	int		view_angle_degree;
-	double	horz_hitdistance;
-	double	vert_hitdistance;
 	int		count;
 	t_ray	ray;
 
@@ -229,12 +198,9 @@ void	castingrays(t_collect_data *data)
 	{
 		ray.angle = normangle(ray_angle);
 		get_ray_direction(&ray);
-		horz_hitdistance = find_horzintersection(data->player, &ray,
-				data->map_info);
-		vert_hitdistance = find_vertintersection(data->player, &ray,
-				data->map_info);
-		get_smallwallhit(&ray, data->player, horz_hitdistance,
-				vert_hitdistance);
+		get_smallwallhit(&ray, data->player, \
+		find_horzintersection(data->player, &ray, data->map_info, false), \
+		find_vertintersection(data->player, &ray, data->map_info, false));
 		draw(data, &ray, count);
 		ray_angle += angle_inc;
 		count++;

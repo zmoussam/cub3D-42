@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:15:49 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 05:22:29 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,26 @@ int	mouse_release(int key, int x, int y, t_collect_data *data)
 	}
 	return (0);
 }
+void cub3d_loop(t_collect_data *data)
+{
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 3, 1L << 1, releaskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data->mlx);
+	mlx_hook(data->mlx->mlx_win, 4, 1L << 8, mouse_press, data);
+	mlx_hook(data->mlx->mlx_win, 5, 1L << 8, mouse_release, data);
+	mlx_hook(data->mlx->mlx_win, 6, 1L << 6, handle_mouse, data);
+	mlx_loop_hook(data->mlx->mlx, moveplayer, data);
+	mlx_loop(data->mlx->mlx);
+}
+
+void collect_all_texture(t_collect_data *data)
+{
+	data->texture = get_wall_texture(data->mlx->mlx, data->map_info);
+	data->shooting_target = get_texture(data->mlx, "./assets/shooting_target.xpm");
+	data->weapon = get_weapon_texture(data->mlx);
+	data->digit = get_digit_texture(data->mlx);
+	data->amo = get_texture(data->mlx, "./assets/amo.xpm");
+}
 
 int	main(int arc, char **arv)
 {
@@ -64,51 +84,27 @@ int	main(int arc, char **arv)
 	t_mlx mlx;
 	t_img_data img;
 	t_img_data mini_map;
-	t_texture *shooting_target;
-	t_texture **weapon;
-	t_texture *texture;
-	t_texture **digit;
-	t_texture *amo;
+	
 	if (arc == 2)
 	{
 		base_parsing(arv[1], &map_info);
 		init_player(&player, map_info.map);
 
 		mlx.mlx = mlx_init();
-		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT,
-				"Awesome cub3d!");
+		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
 		img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-				&img.line_length, &img.endian);
+		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 		mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-		mini_map.addr = mlx_get_data_addr(mini_map.img,
-											&mini_map.bits_per_pixel,
-											&mini_map.line_length,
-											&mini_map.endian);
-		texture = get_wall_texture(mlx.mlx, &map_info);
-		shooting_target = get_texture(&mlx, "./assets/shooting_target.xpm");
-		weapon = get_weapon_texture(&mlx);
-		digit = get_digit_texture(&mlx);
-		amo = get_texture(&mlx, "./assets/amo.xpm");
+		mini_map.addr = mlx_get_data_addr(mini_map.img, &mini_map.bits_per_pixel, &mini_map.line_length, &mini_map.endian);
+		
 		mlx.img = &img;
 		all_data.map_info = &map_info;
 		all_data.mlx = &mlx;
 		all_data.player = &player;
-		all_data.texture = get_wall_texture(mlx.mlx, &map_info);
 		all_data.mini_map = &mini_map;
-		all_data.shooting_target = shooting_target;
-		all_data.weapon = weapon;
-		all_data.digit = digit;
-		all_data.amo = amo;
-
-		mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
-		mlx_hook(mlx.mlx_win, 3, 1L << 1, releaskey, all_data.player);
-		mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
-		mlx_hook(mlx.mlx_win, 4, 1L << 8, mouse_press, &all_data);
-		mlx_hook(mlx.mlx_win, 5, 1L << 8, mouse_release, &all_data);
-		mlx_hook(mlx.mlx_win, 6, 1L << 6, handle_mouse, &all_data);
-		mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
-		mlx_loop(mlx.mlx);
+		
+		collect_all_texture(&all_data);
+		cub3d_loop(&all_data);
 	}
 	else
 		ft_error("invalid argument!!");

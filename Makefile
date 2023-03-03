@@ -6,7 +6,7 @@
 #    By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/28 02:08:20 by mmakboub          #+#    #+#              #
-#    Updated: 2023/03/03 00:35:52 by zmoussam         ###   ########.fr        #
+#    Updated: 2023/03/03 03:46:44 by zmoussam         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ BNS_SRC = ./bonus/3Dprojection.c ./bonus/getTextureInfo.c \
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra 
-MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit 
 INCLUDE = ./mandatory/include/cub3d.h ./mandatory/include/parsing.h ./get_next_line/get_next_line.h ./libft/libft.h
 BNS_INCLUDE = ./bonus/include/cub3d.h ./bonus/include/parsing.h ./get_next_line/get_next_line.h ./libft/libft.h
 

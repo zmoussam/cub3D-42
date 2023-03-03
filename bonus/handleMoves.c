@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handleMoves.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:15:16 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 05:07:14 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,7 @@ void	put_weapon(t_mlx *mlx, t_texture **weapon, int *check_shoot,
 	if (*check_shoot == 1 && count_shoot > 0)
 	{
 		if (r == 1)
-			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
-					weapon[0]->info->img, SCREENWIDTH - 250 - weapon[0]->_width,
-					SCREENHEIGHT - weapon[0]->_heigth);
+			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win, weapon[0]->info->img, SCREENWIDTH - 250 - weapon[0]->_width, SCREENHEIGHT - weapon[0]->_heigth);
 		else if (r == 2)
 			mlx_put_image_to_window(mlx->mlx, mlx->mlx_win,
 					weapon[1]->info->img, SCREENWIDTH - 250 - weapon[1]->_width,
@@ -137,80 +135,95 @@ void	put_count_amo(t_mlx *mlx, t_texture **digit, int count_shoot)
 				- 148);
 }
 
+void diagonale_move(t_collect_data *data)
+{
+	int movestep;
+	double tmpangle;
+	double next_x;
+	double next_y;
+	
+	movestep = data->player->movespeed;
+	if (data->player->walkdirection == -1)
+		tmpangle = data->player->viewangle + \
+		(data->player->movesleft_or_right * M_PI / 2);
+	else 
+		tmpangle = data->player->walkdirection * (data->player->viewangle + \
+		(data->player->movesleft_or_right * M_PI / 4));
+	next_x = data->player->position.x + (cos(tmpangle) * movestep);
+	next_y = data->player->position.y + (sin(tmpangle) * movestep);
+	if (!check_wall(next_x, next_y, data->map_info->map))
+	{
+		data->player->position.x = next_x;
+		data->player->position.y = next_y;
+	}
+}
+
+void direct_move(t_collect_data *data)
+{
+	int movestep;
+	double next_x;
+	double next_y;
+	
+	movestep = data->player->walkdirection * data->player->movespeed;
+	next_x = data->player->position.x + \
+	(cos(data->player->viewangle) * movestep);
+	next_y = data->player->position.y + \
+	(sin(data->player->viewangle) * movestep);
+	if (!check_wall(next_x, next_y, data->map_info->map))
+	{
+		data->player->position.x = next_x;
+		data->player->position.y = next_y;
+	}
+}
+
+void neutre_move(t_collect_data *data)
+{
+	int movestep;
+	double next_x;
+	double next_y;
+	double left_or_right_angle;
+	
+	left_or_right_angle = 0;
+	movestep = data->player->movespeed;
+	left_or_right_angle = data->player->movesleft_or_right * M_PI / 2;
+	next_x = data->player->position.x + (cos(data->player->viewangle + \
+	left_or_right_angle) * movestep);
+	next_y = data->player->position.y + (sin(data->player->viewangle + \
+	left_or_right_angle) * movestep);
+	if (!check_wall(next_x, next_y, data->map_info->map))
+	{
+		data->player->position.x = next_x;
+		data->player->position.y = next_y;
+	}
+}
+void put_all_texture(t_collect_data *data)
+{
+	put_minimap(data);
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,\
+	 data->mlx->img->img, 0, 0);
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
+	data->shooting_target->info->img, \
+	(SCREENWIDTH / 2) - 15, (SCREENHEIGHT / 2) - 15);
+	put_count_amo(data->mlx, data->digit, data->player->count_shoot);
+	put_weapon(data->mlx, data->weapon, &data->player->check_shoot, \
+	data->player->count_shoot);
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
+	data->amo->info->img, SCREENWIDTH - 74, SCREENHEIGHT - 84);
+	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
+	data->mini_map->img, 10, SCREENHEIGHT - \
+	(SCREENHEIGHT * MINI_MAP_FACTOR) - 10);
+}
 int	moveplayer(t_collect_data *data)
 {
-	int		movestep;
-	double	left_or_right_angle;
-	double	next_x;
-	double	next_y;
-	double	tmpangle;
-
-	left_or_right_angle = 0;
-	data->player->viewangle += data->player->turndirection
-		* data->player->rotationspeed;
-	if (data->player->walkdirection != 0
-		&& data->player->movesleft_or_right != 0)
-	{
-		movestep = data->player->movespeed;
-		if (data->player->walkdirection == -1)
-			tmpangle = data->player->walkdirection * (data->player->viewangle
-					+ (data->player->movesleft_or_right * 3 * M_PI / 4));
-		else if (data->player->walkdirection == 1)
-			tmpangle = data->player->walkdirection * (data->player->viewangle
-					+ (data->player->movesleft_or_right * M_PI / 4));
-		else
-			tmpangle = data->player->walkdirection * (data->player->viewangle
-					+ (data->player->movesleft_or_right * M_PI / 4));
-		next_x = data->player->position.x + (cos(tmpangle) * movestep);
-		next_y = data->player->position.y + (sin(tmpangle) * movestep);
-		if (!check_wall(next_x, next_y, data->map_info->map))
-		{
-			data->player->position.x = next_x;
-			data->player->position.y = next_y;
-		}
-	}
-	if (data->player->walkdirection != 0)
-	{
-		movestep = data->player->walkdirection * data->player->movespeed;
-		next_x = data->player->position.x + (cos(data->player->viewangle)
-				* movestep);
-		next_y = data->player->position.y + (sin(data->player->viewangle)
-				* movestep);
-		if (!check_wall(next_x, next_y, data->map_info->map))
-		{
-			data->player->position.x = next_x;
-			data->player->position.y = next_y;
-		}
-	}
+	data->player->viewangle += data->player->turndirection * data->player->rotationspeed;
+	if (data->player->walkdirection != 0 && data->player->movesleft_or_right != 0)
+		diagonale_move(data);
+	else if (data->player->walkdirection != 0)
+		direct_move(data);
 	else if (data->player->movesleft_or_right != 0)
-	{
-		movestep = data->player->movespeed;
-		left_or_right_angle = data->player->movesleft_or_right * M_PI / 2;
-		next_x = data->player->position.x + (cos(data->player->viewangle
-					+ left_or_right_angle) * movestep);
-		next_y = data->player->position.y + (sin(data->player->viewangle
-					+ left_or_right_angle) * movestep);
-		if (!check_wall(next_x, next_y, data->map_info->map))
-		{
-			data->player->position.x = next_x;
-			data->player->position.y = next_y;
-		}
-	}
+		neutre_move(data);
 	mlx_clear_window(data->mlx->mlx, data->mlx->mlx_win);
 	castingrays(data);
-	put_minimap(data);
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,
-			data->mlx->img->img, 0, 0);
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,
-			data->shooting_target->info->img, (SCREENWIDTH / 2) - 15,
-			(SCREENHEIGHT / 2) - 15);
-	put_count_amo(data->mlx, data->digit, data->player->count_shoot);
-	put_weapon(data->mlx, data->weapon, &data->player->check_shoot,
-			data->player->count_shoot);
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,
-			data->amo->info->img, SCREENWIDTH - 74, SCREENHEIGHT - 84);
-	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,
-			data->mini_map->img, 10, SCREENHEIGHT - (SCREENHEIGHT
-				* MINI_MAP_FACTOR) - 10);
+	put_all_texture(data);
 	return (1);
 }

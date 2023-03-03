@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initPlayer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:14:11 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:38:01 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	get_player_position(t_player *player, char **map)
 		i++;
 	}
 }
+
 static void	get_first_direction_angle(t_player *player, char **map)
 {
 	int	direction;
