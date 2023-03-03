@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 04:03:37 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:53:16 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,6 @@ void put_minimap(t_collect_data *data)
   int collor;
   t_cordinates player_pos;
   t_cordinates start_minimap;
-  // int map_taill;
-
-  // map_taill = data->map_info->maplines - data->map_info->lineindex;
   
   player_pos = data->player->position;
   start_minimap.x = round((player_pos.x / TILE_SIZE * MINI_MAP_TILE_SIZE) - (SCREENWIDTH * MINI_MAP_FACTOR / 2));

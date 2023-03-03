@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 00:32:30 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:58:03 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,6 @@ typedef struct s_cordinates{
     double y;
 } t_cordinates;
 
-// typedef struct s_map_info
-// {
-//     char *no;
-//     char *so;
-//     char *we;
-//     char *ea;
-//     int c_floor;
-//     int c_ceiling;
-//     char **map;
-// } t_map_info;
-
-
 typedef struct s_player_data
 {
     t_cordinates position;
@@ -111,6 +99,7 @@ typedef struct s_ray{
     t_cordinates vertwallhit;
     bool wallhitisvert;
 }t_ray;
+
 typedef struct s_collect_data
 {
     t_player *player;
@@ -139,5 +128,8 @@ void        get_ray_direction(t_ray *ray);
 void        draw(t_collect_data *data, t_ray *ray, int i);
 int         check_wall(double x, double y, char **map);
 double      normangle(double angle);
+t_texture   *get_texture(t_mlx *mlx, char *file_name);
+t_texture   **get_weapon_texture(t_mlx *mlx);
+t_texture   **get_digit_texture(t_mlx *mlx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/02 06:21:40 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:55:41 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ int	esc_hook(t_mlx *mlx)
 	exit(0);
 }
 
-t_texture *get_texture(t_mlx *mlx, char *file_name)
-{
-    t_texture *texture;
+// t_texture *get_texture(t_mlx *mlx, char *file_name)
+// {
+//     t_texture *texture;
     
-    texture = (t_texture *)malloc(sizeof(t_texture));
-    texture->info = (t_img_data *)malloc(sizeof(t_img_data));
-    texture->info->img = mlx_xpm_file_to_image(mlx->mlx, file_name, \
-    &texture->_width, &texture->_heigth);
-    return (texture);
-}
+//     texture = (t_texture *)malloc(sizeof(t_texture));
+//     texture->info = (t_img_data *)malloc(sizeof(t_img_data));
+//     texture->info->img = mlx_xpm_file_to_image(mlx->mlx, file_name, \
+//     &texture->_width, &texture->_heigth);
+//     return (texture);
+// }
 int handle_mouse(int x, int y, t_collect_data *data)
 {
     (void)y;
@@ -42,38 +42,38 @@ int handle_mouse(int x, int y, t_collect_data *data)
     }
     return (0);
 }
-t_texture **get_weapon_texture(t_mlx *mlx)
-{
-    t_texture **weapon;
+// t_texture **get_weapon_texture(t_mlx *mlx)
+// {
+//     t_texture **weapon;
 
-    weapon = (t_texture **)malloc(sizeof(t_texture *) * 3);
-    if (!weapon)
-        return (NULL);
-    weapon[0] = get_texture(mlx, "./assets/weapon_1.xpm");
-    weapon[1] = get_texture(mlx, "./assets/weapon_2.xpm");
-    weapon[2] = get_texture(mlx, "./assets/weapon_3.xpm");
-    return (weapon);
-}
-t_texture **get_digit_texture(t_mlx *mlx)
-{
-    t_texture **digit;
+//     weapon = (t_texture **)malloc(sizeof(t_texture *) * 3);
+//     if (!weapon)
+//         return (NULL);
+//     weapon[0] = get_texture(mlx, "./assets/weapon_1.xpm");
+//     weapon[1] = get_texture(mlx, "./assets/weapon_2.xpm");
+//     weapon[2] = get_texture(mlx, "./assets/weapon_3.xpm");
+//     return (weapon);
+// }
+// t_texture **get_digit_texture(t_mlx *mlx)
+// {
+//     t_texture **digit;
 
-    digit = (t_texture **)malloc(sizeof(t_texture *) * 10);
-    if (!digit)
-        return (NULL);
-    digit[0] = get_texture(mlx, "./assets/0.xpm");
-    digit[1] = get_texture(mlx, "./assets/1.xpm");
-    digit[2] = get_texture(mlx, "./assets/2.xpm");
-    digit[3] = get_texture(mlx, "./assets/3.xpm");
-    digit[4] = get_texture(mlx, "./assets/4.xpm");
-    digit[5] = get_texture(mlx, "./assets/5.xpm");
-    digit[6] = get_texture(mlx, "./assets/6.xpm");
-    digit[7] = get_texture(mlx, "./assets/7.xpm");
-    digit[8] = get_texture(mlx, "./assets/8.xpm");
-    digit[9] = get_texture(mlx, "./assets/9.xpm");
+//     digit = (t_texture **)malloc(sizeof(t_texture *) * 10);
+//     if (!digit)
+//         return (NULL);
+//     digit[0] = get_texture(mlx, "./assets/0.xpm");
+//     digit[1] = get_texture(mlx, "./assets/1.xpm");
+//     digit[2] = get_texture(mlx, "./assets/2.xpm");
+//     digit[3] = get_texture(mlx, "./assets/3.xpm");
+//     digit[4] = get_texture(mlx, "./assets/4.xpm");
+//     digit[5] = get_texture(mlx, "./assets/5.xpm");
+//     digit[6] = get_texture(mlx, "./assets/6.xpm");
+//     digit[7] = get_texture(mlx, "./assets/7.xpm");
+//     digit[8] = get_texture(mlx, "./assets/8.xpm");
+//     digit[9] = get_texture(mlx, "./assets/9.xpm");
     
-    return (digit);
-}
+//     return (digit);
+// }
 
 int mouse_press(int  key, int x, int y, t_collect_data *data)
 {
