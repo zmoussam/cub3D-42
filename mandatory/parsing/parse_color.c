@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 20:35:41 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 18:22:51 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:17:56 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/parsing.h"
 
@@ -41,7 +40,7 @@ void	parse_color(t_map_info *game, char *cleanline)
 		if (!ceilling)
 			return (ft_error("memory was not allocated!!"), exit(1));
 		if (!checkgamma(ceilling))
-			return(ft_error("color should contain 2 gamma\n"), exit(1));
+			return (ft_error("color should contain 2 gamma\n"), exit(1));
 		game->c_ceilling = receive_rgb_color(ceilling);
 		if (game->c_ceilling == -1)
 			exit(1);
@@ -55,8 +54,8 @@ void	parse_color(t_map_info *game, char *cleanline)
 void	free_color(char **color)
 {
 	int	i;
-	i = 0;
 
+	i = 0;
 	while (color[i])
 		free(color[i++]);
 	free(color);

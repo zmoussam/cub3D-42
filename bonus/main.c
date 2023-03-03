@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 00:55:41 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:15:49 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,135 +19,97 @@ int	esc_hook(t_mlx *mlx)
 	exit(0);
 }
 
-// t_texture *get_texture(t_mlx *mlx, char *file_name)
-// {
-//     t_texture *texture;
-    
-//     texture = (t_texture *)malloc(sizeof(t_texture));
-//     texture->info = (t_img_data *)malloc(sizeof(t_img_data));
-//     texture->info->img = mlx_xpm_file_to_image(mlx->mlx, file_name, \
-//     &texture->_width, &texture->_heigth);
-//     return (texture);
-// }
-int handle_mouse(int x, int y, t_collect_data *data)
+int	handle_mouse(int x, int y, t_collect_data *data)
 {
-    (void)y;
-    if (data->player->release_mouse)
-    {
-        if (x > data->mouse_pos)
-            data->player->turndirection = 1;
-        else if (x < data->mouse_pos)
-            data->player->turndirection = -1;
-        data->mouse_pos = x;
-    }
-    return (0);
-}
-// t_texture **get_weapon_texture(t_mlx *mlx)
-// {
-//     t_texture **weapon;
-
-//     weapon = (t_texture **)malloc(sizeof(t_texture *) * 3);
-//     if (!weapon)
-//         return (NULL);
-//     weapon[0] = get_texture(mlx, "./assets/weapon_1.xpm");
-//     weapon[1] = get_texture(mlx, "./assets/weapon_2.xpm");
-//     weapon[2] = get_texture(mlx, "./assets/weapon_3.xpm");
-//     return (weapon);
-// }
-// t_texture **get_digit_texture(t_mlx *mlx)
-// {
-//     t_texture **digit;
-
-//     digit = (t_texture **)malloc(sizeof(t_texture *) * 10);
-//     if (!digit)
-//         return (NULL);
-//     digit[0] = get_texture(mlx, "./assets/0.xpm");
-//     digit[1] = get_texture(mlx, "./assets/1.xpm");
-//     digit[2] = get_texture(mlx, "./assets/2.xpm");
-//     digit[3] = get_texture(mlx, "./assets/3.xpm");
-//     digit[4] = get_texture(mlx, "./assets/4.xpm");
-//     digit[5] = get_texture(mlx, "./assets/5.xpm");
-//     digit[6] = get_texture(mlx, "./assets/6.xpm");
-//     digit[7] = get_texture(mlx, "./assets/7.xpm");
-//     digit[8] = get_texture(mlx, "./assets/8.xpm");
-//     digit[9] = get_texture(mlx, "./assets/9.xpm");
-    
-//     return (digit);
-// }
-
-int mouse_press(int  key, int x, int y, t_collect_data *data)
-{
-    if(key == 1 && x >=0 && x <= SCREENWIDTH && y >=0 && y <= SCREENHEIGHT)
-    {
-        data->mouse_pos = x;
-        data->player->release_mouse = 1;
-    }
-    return (0);
+	(void)y;
+	if (data->player->release_mouse)
+	{
+		if (x > data->mouse_pos)
+			data->player->turndirection = 1;
+		else if (x < data->mouse_pos)
+			data->player->turndirection = -1;
+		data->mouse_pos = x;
+	}
+	return (0);
 }
 
-int mouse_release(int  key, int x, int y, t_collect_data *data)
+int	mouse_press(int key, int x, int y, t_collect_data *data)
 {
-    (void)key;
-    (void)x;
-    (void)y;
-    if(key == 1)
-    {
-        data->player->release_mouse = 0;
-        data->player->turndirection = 0;
-    }
-    return (0);
+	if (key == 1 && x >= 0 && x <= SCREENWIDTH && y >= 0 && y <= SCREENHEIGHT)
+	{
+		data->mouse_pos = x;
+		data->player->release_mouse = 1;
+	}
+	return (0);
 }
 
-
-int main(int arc, char **arv)
+int	mouse_release(int key, int x, int y, t_collect_data *data)
 {
-    t_map_info map_info;
-    t_collect_data all_data;
-    t_player player;
-    t_mlx mlx;
-    t_img_data img;
-    t_img_data mini_map;
-    t_texture *shooting_target;
-    t_texture **weapon;
-    t_texture *texture;
-    t_texture **digit;
-    t_texture *amo;
-    if (arc == 2)
-    {
-        base_parsing(arv[1], &map_info);
-        init_player(&player, map_info.map);
-        
-        mlx.mlx = mlx_init();
-        mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
-        img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
-        img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-        mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-        mini_map.addr = mlx_get_data_addr(mini_map.img, &mini_map.bits_per_pixel, &mini_map.line_length, &mini_map.endian);
-        texture = get_wall_texture(mlx.mlx, &map_info);
-        shooting_target = get_texture(&mlx, "./assets/shooting_target.xpm");
-        weapon = get_weapon_texture(&mlx);
-        digit = get_digit_texture(&mlx);
-        amo = get_texture(&mlx, "./assets/amo.xpm");
-        mlx.img = &img;
-        all_data.map_info = &map_info;
-        all_data.mlx = &mlx;
-        all_data.player = &player;
-        all_data.texture = get_wall_texture(mlx.mlx, &map_info);
-        all_data.mini_map = &mini_map;
-        all_data.shooting_target = shooting_target;
-        all_data.weapon = weapon;
-        all_data.digit = digit;
-        all_data.amo = amo;
-        
-        mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
-        mlx_hook(mlx.mlx_win, 3, 1L << 1, releaskey, all_data.player);
-        mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
-        mlx_hook(mlx.mlx_win, 4, 1L << 8, mouse_press, &all_data);
-        mlx_hook(mlx.mlx_win, 5, 1L << 8, mouse_release, &all_data);
-        mlx_hook(mlx.mlx_win, 6, 1L << 6, handle_mouse, &all_data);
-        mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
-        mlx_loop(mlx.mlx);
-    }
-    else 
-        ft_error("invalid argument!!");
+	(void)key;
+	(void)x;
+	(void)y;
+	if (key == 1)
+	{
+		data->player->release_mouse = 0;
+		data->player->turndirection = 0;
+	}
+	return (0);
+}
+
+int	main(int arc, char **arv)
+{
+	t_map_info map_info;
+	t_collect_data all_data;
+	t_player player;
+	t_mlx mlx;
+	t_img_data img;
+	t_img_data mini_map;
+	t_texture *shooting_target;
+	t_texture **weapon;
+	t_texture *texture;
+	t_texture **digit;
+	t_texture *amo;
+	if (arc == 2)
+	{
+		base_parsing(arv[1], &map_info);
+		init_player(&player, map_info.map);
+
+		mlx.mlx = mlx_init();
+		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT,
+				"Awesome cub3d!");
+		img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
+		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+				&img.line_length, &img.endian);
+		mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
+		mini_map.addr = mlx_get_data_addr(mini_map.img,
+											&mini_map.bits_per_pixel,
+											&mini_map.line_length,
+											&mini_map.endian);
+		texture = get_wall_texture(mlx.mlx, &map_info);
+		shooting_target = get_texture(&mlx, "./assets/shooting_target.xpm");
+		weapon = get_weapon_texture(&mlx);
+		digit = get_digit_texture(&mlx);
+		amo = get_texture(&mlx, "./assets/amo.xpm");
+		mlx.img = &img;
+		all_data.map_info = &map_info;
+		all_data.mlx = &mlx;
+		all_data.player = &player;
+		all_data.texture = get_wall_texture(mlx.mlx, &map_info);
+		all_data.mini_map = &mini_map;
+		all_data.shooting_target = shooting_target;
+		all_data.weapon = weapon;
+		all_data.digit = digit;
+		all_data.amo = amo;
+
+		mlx_hook(mlx.mlx_win, 2, 1L << 0, presskey, all_data.player);
+		mlx_hook(mlx.mlx_win, 3, 1L << 1, releaskey, all_data.player);
+		mlx_hook(mlx.mlx_win, 17, 1L, esc_hook, &mlx);
+		mlx_hook(mlx.mlx_win, 4, 1L << 8, mouse_press, &all_data);
+		mlx_hook(mlx.mlx_win, 5, 1L << 8, mouse_release, &all_data);
+		mlx_hook(mlx.mlx_win, 6, 1L << 6, handle_mouse, &all_data);
+		mlx_loop_hook(mlx.mlx, moveplayer, &all_data);
+		mlx_loop(mlx.mlx);
+	}
+	else
+		ft_error("invalid argument!!");
 }

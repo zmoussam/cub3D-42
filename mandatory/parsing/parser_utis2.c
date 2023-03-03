@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utis2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:16:13 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 05:45:27 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:18:13 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parsing.h"
 
-int numberofgamma(char *pathcolor)
+int	numberofgamma(char *pathcolor)
 {
 	int	i;
-    int	j;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -25,7 +25,7 @@ int numberofgamma(char *pathcolor)
 			j++;
 		i++;
 	}
-	return(j);
+	return (j);
 }
 
 int	checkgamma(char *pathcolor)
@@ -34,11 +34,11 @@ int	checkgamma(char *pathcolor)
 
 	nbrofgamma = numberofgamma(pathcolor);
 	if (nbrofgamma == 2)
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
-size_t	delet_espaces_at_the_end(char* chaine)
+size_t	delet_espaces_at_the_end(char *chaine)
 {
 	size_t	i;
 

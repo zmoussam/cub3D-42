@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:15:36 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 18:24:10 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:16:37 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	countline(char *file)
 	count = 0;
 	fd = open(file, O_RDWR);
 	if (fd < 0)
-		return(ft_error("can't open file!"), exit(1), 0);
+		return (ft_error("can't open file!"), exit(1), 0);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -78,7 +78,7 @@ void	findmaxline(t_map_info *game)
 	size_t	len;
 
 	i = 0;
-	len  = 0;
+	len = 0;
 	game->maxlenmap = 0;
 	while (game->map[i])
 	{

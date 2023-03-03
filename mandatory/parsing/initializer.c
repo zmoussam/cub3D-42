@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 23:14:58 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 18:57:25 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:17:46 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_check_cub(char *filename)
 	int	len;
 
 	len = ft_strlen(filename);
-	if (filename[len - 4] != '.' || filename[len - 3] != 'c' || \
-filename[len - 2] != 'u' || filename[len - 1] != 'b')
+	if (filename[len - 4] != '.' || filename[len - 3] != 'c' ||
+		filename[len - 2] != 'u' || filename[len - 1] != 'b')
 	{
 		write(2, "this file's name needs to be ended by .cub\n", 42);
 		exit(1);

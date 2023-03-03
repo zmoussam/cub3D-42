@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_direction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 01:40:05 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 18:23:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:18:02 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	no_direct(t_map_info *game, char *line)
 {
-	char *str;
+	char	*str;
 
 	str = remove_prefix(line, "NO");
 	if (!str)
@@ -44,8 +44,8 @@ int	we_direct(t_map_info *game, char *line)
 
 int	so_direct(t_map_info *game, char *line)
 {
-	char *str;
-	
+	char	*str;
+
 	str = remove_prefix(line, "SO");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);
@@ -59,8 +59,8 @@ int	so_direct(t_map_info *game, char *line)
 
 int	ea_direct(t_map_info *game, char *line)
 {
-	char *str;
-	
+	char	*str;
+
 	str = remove_prefix(line, "EA");
 	if (!str)
 		return (ft_error("can't allocat memory"), exit(1), 0);

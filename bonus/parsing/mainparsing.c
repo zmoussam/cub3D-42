@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainparsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/02 18:19:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 01:16:18 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_reading_maps(t_map_info *game, char *file)
 		line = get_next_line(fd);
 		game->lineindex++;
 	}
-	if (game->has_c != 1 || game->has_we != 1 || game->has_f != 1 || \
+	if (game->has_c != 1 || game->has_we != 1 || game->has_f != 1 ||
 		game->has_no != 1 || game->has_so != 1 || game->has_we != 1)
 		return (ft_error("invalide map's cart!!"), exit(1));
 	if (!_parse_map(game, line, fd))
