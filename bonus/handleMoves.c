@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 16:44:27 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:45:03 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,32 @@ int	releaskey(int keycode, t_player *player)
 	return (0);
 }
 
-int	presskey(int keycode, t_player *player)
+int	presskey(int keycode, t_collect_data *data)
 
 {
 	if (keycode == KEY_LEFT)
-		player->movesleft_or_right = -1;
+		data->player->movesleft_or_right = -1;
 	if (keycode == KEY_RIGHT)
-		player->movesleft_or_right = +1;
+		data->player->movesleft_or_right = +1;
 	if (keycode == KEY_DOWN)
-		player->walkdirection = -1;
+		data->player->walkdirection = -1;
 	if (keycode == KEY_UP)
-		player->walkdirection = +1;
+		data->player->walkdirection = +1;
 	if (keycode == TURN_LEFT)
-		player->turndirection = -1;
+		data->player->turndirection = -1;
 	if (keycode == TURN_RIGHT)
-		player->turndirection = +1;
+		data->player->turndirection = +1;
 	if (keycode == SHOOT)
 	{
-		player->check_shoot = 1;
-		if (player->count_shoot > 0)
-			player->count_shoot--;
+		data->player->check_shoot = 1;
+		if (data->player->count_shoot > 0)
+			data->player->count_shoot--;
 	}
 	if (keycode == ESC)
 	{
-		printf("game over!!!\n");
-		// mlx_destroy_window(so_long->mlx, so_long->win);
+		write(1, "game over!!!\n", 13);
+		ft_free_data(data);
+		mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
 		exit(-1);
 	}
 	return (0);

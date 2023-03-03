@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 16:27:00 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:43:33 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_collect_data
 	t_player		*player;
 	t_mlx			*mlx;
 	t_map_info		*map_info;
-	t_texture		*texture;
+	t_texture		*wall;
 	t_img_data		*mini_map;
 	t_texture		*shoot_target;
 	t_texture		**weapon;
@@ -121,7 +121,7 @@ typedef struct s_collect_data
 void				init_player(t_player *player, char **map);
 void				init_map(t_map_info *map_file);
 int					releaskey(int keycode, t_player *player);
-int					presskey(int keycode, t_player *player);
+int					presskey(int keycode, t_collect_data *data);
 void				my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
 int					moveplayer(t_collect_data *data);
 void				put_minimap(t_collect_data *data);
@@ -134,5 +134,6 @@ double				normangle(double angle);
 t_texture			*get_texture(t_mlx *mlx, char *file_name);
 t_texture			**get_weapon_texture(t_mlx *mlx);
 t_texture			**get_digit_texture(t_mlx *mlx);
+void				ft_free_data(t_collect_data *data);
 
 #endif

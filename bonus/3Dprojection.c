@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 21:31:14 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 03:34:13 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:42:39 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	put_west_east_texture(t_collect_data *data, t_cordinates offsset, \
 	if (ray->isfacingright)
 	{
 		offsset.y = floor(dis / ray->wallstripheight * \
-			data->texture[0]._heigth);
+			data->wall[0]._heigth);
 		my_mlx_pixel_put(data->mlx->img, cordinates.x, cordinates.y, \
-			data->texture[0].info->int_addr[(int)((offsset.y \
-			* data->texture[0]._width) + offsset.x)]);
+			data->wall[0].info->int_addr[(int)((offsset.y \
+			* data->wall[0]._width) + offsset.x)]);
 	}
 	else
 	{
 		offsset.y = floor(dis / ray->wallstripheight * \
-			data->texture[1]._heigth);
+			data->wall[1]._heigth);
 		my_mlx_pixel_put(data->mlx->img, cordinates.x, cordinates.y, \
-			data->texture[1].info->int_addr[(int)((offsset.y \
-			* data->texture[1]._width) + offsset.x)]);
+			data->wall[1].info->int_addr[(int)((offsset.y \
+			* data->wall[1]._width) + offsset.x)]);
 	}
 }
 
@@ -54,18 +54,18 @@ void	put_north_south_texture(t_collect_data *data, t_cordinates \
 	if (ray->isfacingdown)
 	{
 		offsset.y = floor(dis / ray->wallstripheight \
-			* data->texture[2]._heigth);
+			* data->wall[2]._heigth);
 		my_mlx_pixel_put(data->mlx->img, cordinates.x, cordinates.y, \
-			data->texture[2].info->int_addr[(int)((offsset.y \
-			* data->texture[2]._width) + offsset.x)]);
+			data->wall[2].info->int_addr[(int)((offsset.y \
+			* data->wall[2]._width) + offsset.x)]);
 	}
 	else
 	{
 		offsset.y = floor(dis / ray->wallstripheight \
-			* data->texture[3]._heigth);
+			* data->wall[3]._heigth);
 		my_mlx_pixel_put(data->mlx->img, cordinates.x, cordinates.y, \
-			data->texture[3].info->int_addr[(int)((offsset.y \
-			* data->texture[3]._width) + offsset.x)]);
+			data->wall[3].info->int_addr[(int)((offsset.y \
+			* data->wall[3]._width) + offsset.x)]);
 	}
 }
 
@@ -143,7 +143,7 @@ void	draw(t_collect_data *data, t_ray *ray, int i)
 	_draw_pos.x = i;
 	_draw_pos.y = 0;
 	drawwallcolumn(data->mlx->img, _draw_pos, walltop, data->map_info->c_ceilling);
-	ofssets.x = get_ofssets_x(data->texture, ray);
+	ofssets.x = get_ofssets_x(data->wall, ray);
 	draw_wall(data, ofssets, i, ray);
 	_draw_pos.y = wallbottom;
 	drawwallcolumn(data->mlx->img, _draw_pos, SCREENHEIGHT, data->map_info->c_floor);

@@ -6,16 +6,56 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 16:43:38 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:59:53 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
 
-int	esc_hook(t_mlx *mlx)
+void __free_data(t_collect_data *data)
+{
+	free(data->wall);
+	free(data->map_info->ea);
+	free(data->map_info->so);
+	free(data->map_info->we);
+	free(data->map_info->no);
+	free(data->shoot_target->info);
+	free(data->shoot_target);
+	free(data->weapon);
+	free(data->amo->info);
+	free(data->amo);
+	free(data->digit);
+}
+
+void ft_free_data(t_collect_data *data)
+{
+	int i;
+	
+	i = -1;
+	while (++i < 10)
+	{
+		if (i < 4)
+			free(data->wall[i].info);
+		if (i < 3)
+		{
+			free(data->weapon[i]->info);
+			free(data->weapon[i]);
+		}
+		free(data->digit[i]->info);
+		free(data->digit[i]);
+	}
+	__free_data(data);
+	i = -1;
+	while(data->map_info->map[++i])
+		free(data->map_info->map[i]);
+	free(data->map_info->map);
+}
+
+int	esc_hook(t_collect_data *data)
 {
 	printf("game over!!!\n");
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
+	ft_free_data(data);
+	mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
 	exit(0);
 }
 
@@ -56,9 +96,9 @@ int	mouse_release(int key, int x, int y, t_collect_data *data)
 }
 void cub3d_loop(t_collect_data *data)
 {
-	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data);
 	mlx_hook(data->mlx->mlx_win, 3, 1L << 1, releaskey, data->player);
-	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data->mlx);
+	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data);
 	mlx_hook(data->mlx->mlx_win, 4, 1L << 8, mouse_press, data);
 	mlx_hook(data->mlx->mlx_win, 5, 1L << 8, mouse_release, data);
 	mlx_hook(data->mlx->mlx_win, 6, 1L << 6, handle_mouse, data);
@@ -68,7 +108,7 @@ void cub3d_loop(t_collect_data *data)
 
 void collect_all_texture(t_collect_data *data)
 {
-	data->texture = get_wall_texture(data->mlx->mlx, data->map_info);
+	data->wall = get_wall_texture(data->mlx->mlx, data->map_info);
 	data->shoot_target = get_texture(data->mlx, "./assets/shooting_target.xpm");
 	data->weapon = get_weapon_texture(data->mlx);
 	data->digit = get_digit_texture(data->mlx);

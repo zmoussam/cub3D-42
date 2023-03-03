@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 05:26:36 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:34:12 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_collect_data
 void				init_player(t_player *player, char **map);
 void				init_map(t_map_info *map_file);
 int					releaskey(int keycode, t_player *player);
-int					presskey(int keycode, t_player *player);
+int					presskey(int keycode, t_collect_data *data);
 void				my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
 int					moveplayer(t_collect_data *data);
 void				put_minimap(t_collect_data *data);
@@ -117,5 +117,6 @@ void				get_ray_direction(t_ray *ray);
 void				draw(t_collect_data *data, t_ray *ray, int i);
 int					check_wall(double x, double y, char **map);
 double				normangle(double angle);
+void				ft_free_data(t_collect_data *data);
 
 #endif

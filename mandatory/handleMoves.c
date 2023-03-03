@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 03:29:44 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:32:47 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,25 @@ int	releaskey(int keycode, t_player *player)
 	return (0);
 }
 
-int	presskey(int keycode, t_player *player)
+int	presskey(int keycode, t_collect_data *data)
 
 {
 	if (keycode == KEY_LEFT)
-		player->movesleft_or_right = -1;
+		data->player->movesleft_or_right = -1;
 	if (keycode == KEY_RIGHT)
-		player->movesleft_or_right = +1;
+		data->player->movesleft_or_right = +1;
 	if (keycode == KEY_DOWN)
-		player->walkdirection = -1;
+		data->player->walkdirection = -1;
 	if (keycode == KEY_UP)
-		player->walkdirection = +1;
+		data->player->walkdirection = +1;
 	if (keycode == TURN_LEFT)
-		player->turndirection = -1;
+		data->player->turndirection = -1;
 	if (keycode == TURN_RIGHT)
-		player->turndirection = +1;
+		data->player->turndirection = +1;
 	if (keycode == ESC)
 	{
-		printf("game over!!!\n");
+		write(1, "game over!!!\n", 13);
+		ft_free_data(data);
 		exit(-1);
 	}
 	return (0);

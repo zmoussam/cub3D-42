@@ -6,24 +6,43 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 16:30:11 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 17:38:20 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
 
-int	esc_hook(t_mlx *mlx)
+void ft_free_data(t_collect_data *data)
+{
+	int i;
+	
+	i = -1;
+	while (++i < 4)
+		free(data->wall[i].info);
+	free(data->wall);
+	free(data->map_info->ea);
+	free(data->map_info->so);
+	free(data->map_info->we);
+	free(data->map_info->no);
+	i = -1;
+	while(data->map_info->map[++i])
+		free(data->map_info->map[i]);
+	free(data->map_info->map);
+}
+
+int	esc_hook(t_collect_data *data)
 {
 	write(1, "game over!!!\n", 13);
-	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
+	ft_free_data(data);
+	mlx_destroy_window(data->mlx->mlx, data->mlx->mlx_win);
 	exit(0);
 }
 
 void cub3d_loop(t_collect_data *data)
 {
-	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data->player);
+	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data);
 	mlx_hook(data->mlx->mlx_win, 3, 1L << 0, releaskey, data->player);
-	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data->mlx);
+	mlx_hook(data->mlx->mlx_win, 17, 1L, esc_hook, data);
 	mlx_loop_hook(data->mlx->mlx, moveplayer, data);
 	mlx_loop(data->mlx->mlx);
 }
