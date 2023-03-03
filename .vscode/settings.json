@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "chrono": "c",
-        "complex": "c"
+        "complex": "c",
+        "cub3d.h": "c"
     }
 }

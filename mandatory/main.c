@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 17:38:20 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:27:22 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/cub3d.h"
 
-void ft_free_data(t_collect_data *data)
+void	ft_free_data(t_collect_data *data)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < 4)
 		free(data->wall[i].info);
@@ -25,7 +25,7 @@ void ft_free_data(t_collect_data *data)
 	free(data->map_info->we);
 	free(data->map_info->no);
 	i = -1;
-	while(data->map_info->map[++i])
+	while (data->map_info->map[++i])
 		free(data->map_info->map[i]);
 	free(data->map_info->map);
 }
@@ -38,7 +38,7 @@ int	esc_hook(t_collect_data *data)
 	exit(0);
 }
 
-void cub3d_loop(t_collect_data *data)
+void	cub3d_loop(t_collect_data *data)
 {
 	mlx_hook(data->mlx->mlx_win, 2, 1L << 0, presskey, data);
 	mlx_hook(data->mlx->mlx_win, 3, 1L << 0, releaskey, data->player);
@@ -49,18 +49,18 @@ void cub3d_loop(t_collect_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_collect_data all_data;
-	t_map_info map_info;
-	t_player player;
-	t_mlx mlx;
-	t_img_data img;
-	
+	t_collect_data	all_data;
+	t_map_info		map_info;
+	t_player		player;
+	t_mlx			mlx;
+	t_img_data		img;
+
 	if (argc == 2)
 	{
 		_parsing(argv[1], &map_info);
 		init_player(&player, map_info.map);
 		mlx.mlx = mlx_init();
-		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB3D!");
+		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB");
 		img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
 		if (!img.img)
 			return (ft_error("img not found!!"), exit(1), 0);

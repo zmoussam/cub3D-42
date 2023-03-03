@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:38:01 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 20:28:14 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	get_first_direction_angle(t_player *player, char **map)
 {
 	int	direction;
 
-	direction = (int)map[(int)player->position.y / TILE_SIZE]
-						[(int)player->position.x / TILE_SIZE];
+	direction = (int)map[(int)player->position.y / \
+				TILE_SIZE][(int)player->position.x / TILE_SIZE];
 	if (direction == 83)
 		player->viewangle = M_PI / 2;
 	if (direction == 69)

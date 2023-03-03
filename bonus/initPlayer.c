@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 17:00:42 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:15:19 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 21:40:02 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ static void	get_player_position(t_player *player, char **map)
 		i++;
 	}
 }
+
 static void	get_first_direction_angle(t_player *player, char **map)
 {
 	int	direction;
 
-	direction = (int)map[(int)player->position.y / TILE_SIZE]
-						[(int)player->position.x / TILE_SIZE];
+	direction = (int)map[(int)player->position.y / \
+		TILE_SIZE][(int)player->position.x / TILE_SIZE];
 	if (direction == 83)
 		player->viewangle = M_PI / 2;
 	if (direction == 69)

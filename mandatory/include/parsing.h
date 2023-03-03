@@ -6,23 +6,23 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 16:59:42 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 19:07:30 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __PARSING_H
-# define __PARSING_H
+#ifndef PARSING_H
+# define PARSING_H
 
-#include "../../get_next_line/get_next_line.h"
-#include "../../libft/libft.h"
-#include <fcntl.h>
-#include <limits.h>
-#include <math.h>
-#include <mlx.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include "../../get_next_line/get_next_line.h"
+# include "../../libft/libft.h"
+# include <fcntl.h>
+# include <limits.h>
+# include <math.h>
+# include <mlx.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_index
 {
@@ -74,7 +74,8 @@ int			valid_n(char **map, size_t i, size_t j);
 int			valid_e(char **map, size_t i, size_t j);
 int			valid_s(char **map, size_t i, size_t j, t_map_info *game);
 int			valid_w(char **map, size_t i, size_t j);
-int			check_valid_map(t_index index, char **map, t_map_info *game, int *counter);
+int			check_valid_map(t_index index, char **map, t_map_info *game, \
+		int *counter);
 int			checkmap(t_map_info *game);
 int			check_texture(t_map_info *game, char *cleanline);
 void		_parsing(char *file, t_map_info *game);
@@ -82,8 +83,9 @@ void		findmaxline(t_map_info *game);
 int			checkgamma(char *pathcolor);
 size_t		delet_espaces_at_the_end(char *chaine);
 void		ft_error(char *error_name);
-void 		_parse_map2(t_map_info *game);
-void 		parse_color_for_floor(t_map_info *game, char *cleanline, char *str);
-void 		parse_color_for_ceilling(t_map_info *game, char *cleanline, char *str);
+void		_parse_map2(t_map_info *game);
+void		parse_color_for_floor(t_map_info *game, char *cleanline, char *str);
+void		parse_color_for_ceilling(t_map_info *game, char *cleanline, \
+	char *str);
 void		free_color(char **color);
 #endif
