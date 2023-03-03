@@ -6,12 +6,11 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:13:48 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 22:35:04 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:33:36 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
 
 t_cordinates	find_horzstep(t_ray *ray)
 {

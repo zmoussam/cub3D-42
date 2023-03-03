@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 23:15:23 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:32:45 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,37 +142,33 @@ int					haswall_at(double x, double y, t_map_info *map);
 double				getdis(t_player *player, double x, double y, bool check);
 t_cordinates		find_horzstep(t_ray *ray);
 t_cordinates		find_vertstep(t_ray *ray);
-void				get_smallwallhit(t_ray *ray, t_player *player,
-						double horzdistance, double vertdistance);
+void				get_smallwallhit(t_ray *ray, t_player *player, \
+		double horzdistance, double vertdistance);
 void				castingrays(t_collect_data *data);
 t_cordinates		find_vertintercept(t_player *player, t_ray *ray);
 t_cordinates		find_horzintercept(t_player *player, t_ray *ray);
-double				find_horzintersection(t_player *player, t_ray *ray,
-						t_map_info *map, bool gethorzwall);
-double				find_vertintersection(t_player *player, t_ray *ray,
-						t_map_info *map, bool getvertwall);
-void				put_west_east_texture(t_collect_data *data,
-						t_cordinates offsset, t_ray *ray,
-						t_cordinates cordinates);
-void				put_north_south_texture(t_collect_data *data,
-						t_cordinates offsset, t_ray *ray,
-						t_cordinates cordinates);
-void	_put_pixel_from_texture_to_wall(t_collect_data *data,
-										t_cordinates offsset,
-										t_ray *ray,
-										t_cordinates cordinates);
+double				find_horzintersection(t_player *player, t_ray *ray, \
+		t_map_info *map, bool gethorzwall);
+double				find_vertintersection(t_player *player, t_ray *ray, \
+		t_map_info *map, bool getvertwall);
+void				put_west_east_texture(t_collect_data *data, \
+		t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
+void				put_north_south_texture(t_collect_data *data, \
+		t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
+void				_put_pixel_from_texture_to_wall(t_collect_data *data, \
+		t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
 double				get_ofssets_x(t_texture *texture, t_ray *ray);
-void				drawwallcolumn(t_img_data *img, t_cordinates _pos,
-						double dy, int clr);
-void				draw_wall(t_collect_data *data, t_cordinates offsset, int i,
-						t_ray *ray);
+void				drawwallcolumn(t_img_data *img, t_cordinates _pos, \
+		double dy, int clr);
+void				draw_wall(t_collect_data *data, t_cordinates offsset, \
+		int i, t_ray *ray);
 void				draw(t_collect_data *data, t_ray *ray, int i);
 int					releaskey(int keycode, t_player *player);
 int					presskey(int keycode, t_collect_data *data);
-void				put_weapon(t_mlx *mlx, t_texture **weapon, int *check_shoot,
-						int count_shoot);
-void				put_count_amo(t_mlx *mlx, t_texture **digit,
-						int count_shoot);
+void				put_weapon(t_mlx *mlx, t_texture **weapon, \
+		int *check_shoot, int count_shoot);
+void				put_count_amo(t_mlx *mlx, t_texture **digit, \
+		int count_shoot);
 void				put_all_texture(t_collect_data *data);
 int					handle_mouse(int x, int y, t_collect_data *data);
 int					mouse_press(int key, int x, int y, t_collect_data *data);
@@ -180,12 +176,12 @@ int					mouse_release(int key, int x, int y, t_collect_data *data);
 void				collect_all_texture(t_collect_data *data);
 void				__free_data(t_collect_data *data);
 void				ft_free_data(t_collect_data *data);
-void	drawline(t_collect_data *data, t_cordinates player_pos,
+void				drawline(t_collect_data *data, t_cordinates player_pos, \
 		t_cordinates ray_limit);
-		void	put_player(t_collect_data *data);
-		int	get_minimap_collor(char **map, t_cordinates pos);
-		void	draw_minimap(t_collect_data *data, t_cordinates minimap_pos, \
-	int i, int j);
-	void	put_minimap(t_collect_data *data);
+void				put_player(t_collect_data *data);
+int					get_minimap_collor(char **map, t_cordinates pos);
+void				draw_minimap(t_collect_data *data, \
+		t_cordinates minimap_pos, int i, int j);
+void				put_minimap(t_collect_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 23:11:05 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 23:27:30 by mmakboub         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,32 +124,28 @@ double				normangle(double angle);
 double				getdis(t_player *player, double x, double y, bool check);
 t_cordinates		find_horzstep(t_ray *ray);
 t_cordinates		find_vertstep(t_ray *ray);
-void				get_smallwallhit(t_ray *ray, t_player *player,
-						double horzdistance, double vertdistance);
+void				get_smallwallhit(t_ray *ray, t_player *player, \
+		double horzdistance, double vertdistance);
 void				castingrays(t_collect_data *data);
 int					haswall_at(double x, double y, t_map_info *map);
 t_cordinates		find_vertintercept(t_player *player, t_ray *ray);
 t_cordinates		find_horzintercept(t_player *player, t_ray *ray);
-double				find_horzintersection(t_player *player, t_ray *ray,
-						t_map_info *map, bool gethorhit);
-double				find_vertintersection(t_player *player, t_ray *ray,
-						t_map_info *map, bool getverthit);
+double				find_horzintersection(t_player *player, t_ray *ray, \
+		t_map_info *map, bool gethorhit);
+double				find_vertintersection(t_player *player, t_ray *ray, \
+		t_map_info *map, bool getverthit);
 void				draw(t_collect_data *data, t_ray *ray, int i);
-void				draw_wall(t_collect_data *data, t_cordinates offsset, int i,
-						t_ray *ray);
-void				drawwallcolumn(t_img_data *img, t_cordinates _pos,
-						double dy, int clr);
+void				draw_wall(t_collect_data *data, t_cordinates offsset, \
+		int i, t_ray *ray);
+void				drawwallcolumn(t_img_data *img, t_cordinates _pos, \
+		double dy, int clr);
 void				my_mlx_pixel_put(t_img_data *data, int x, int y, int color);
-void				put_west_east_texture(t_collect_data *data,
-						t_cordinates offsset, t_ray *ray,
-						t_cordinates cordinates);
-void				put_north_south_texture(t_collect_data *data,
-						t_cordinates offsset, t_ray *ray,
-						t_cordinates cordinates);
-void	_put_pixel_from_texture_to_wall(t_collect_data *data,
-										t_cordinates offsset,
-										t_ray *ray,
-										t_cordinates cordinates);
+void				put_west_east_texture(t_collect_data *data, \
+		t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
+void				put_north_south_texture(t_collect_data *data, \
+					t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
+void				_put_pixel_from_texture_to_wall(t_collect_data *data, \
+		t_cordinates offsset, t_ray *ray, t_cordinates cordinates);
 double				get_ofssets_x(t_texture *texture, t_ray *ray);
 int					releaskey(int keycode, t_player *player);
 int					presskey(int keycode, t_collect_data *data);
