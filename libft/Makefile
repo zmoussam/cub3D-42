@@ -1,4 +1,4 @@
-CC = gcc
+CC = cc
 FLAGS =  -Wall -Werror -Wextra
 CFILES = ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_strcmp.c\
 			    ft_isprint.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_strlcpy.c ft_strlcat.c ft_strnstr.c \
@@ -13,14 +13,14 @@ INC = libft.h
 all : ${NAME}
 
 ${NAME} : ${OFILES}
-	ar -rc ${NAME} ${OFILES}
+	@ar -rc ${NAME} ${OFILES}
 
 %.o:%.c ${INC}
-	${CC} -c ${FLAGS} $<
+	@${CC} -c ${FLAGS} $<
 clean :
-	rm -f ${OFILES} ${BONUSO}
+	@rm -f ${OFILES} ${BONUSO}
 
 fclean : clean
-	rm -f ${NAME}
+	@rm -f ${NAME}
 
 re : fclean all
