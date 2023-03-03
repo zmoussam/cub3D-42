@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:13 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 05:26:45 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:27:00 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_collect_data
 	t_map_info		*map_info;
 	t_texture		*texture;
 	t_img_data		*mini_map;
-	t_texture		*shooting_target;
+	t_texture		*shoot_target;
 	t_texture		**weapon;
 	t_texture		**digit;
 	t_texture		*amo;

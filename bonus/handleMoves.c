@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 22:35:38 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 05:07:14 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:44:27 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void put_all_texture(t_collect_data *data)
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win,\
 	 data->mlx->img->img, 0, 0);
 	mlx_put_image_to_window(data->mlx->mlx, data->mlx->mlx_win, \
-	data->shooting_target->info->img, \
+	data->shoot_target->info->img, \
 	(SCREENWIDTH / 2) - 15, (SCREENHEIGHT / 2) - 15);
 	put_count_amo(data->mlx, data->digit, data->player->count_shoot);
 	put_weapon(data->mlx, data->weapon, &data->player->check_shoot, \

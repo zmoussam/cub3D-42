@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MiniMap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 19:05:41 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 01:37:28 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:18:12 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,56 +84,48 @@ void	put_player(t_collect_data *data)
 
 int	get_minimap_collor(char **map, t_cordinates pos)
 {
-	if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x
-			/ (MINI_MAP_TILE_SIZE))] == '1')
+	if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x / (MINI_MAP_TILE_SIZE))] == '1')
 		return (0x00000000);
-	else if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x
-				/ (MINI_MAP_TILE_SIZE))] == ' ')
+	else if (map[(int)(pos.y / (MINI_MAP_TILE_SIZE))][(int)(pos.x / (MINI_MAP_TILE_SIZE))] == ' ')
 		return (0xA0A00000);
 	return (0xA0A090A0);
 }
-
+void draw_minimap(t_collect_data *data, t_cordinates minimap_pos, int i, int j)
+{
+	if ((minimap_pos.x > 0 && minimap_pos.x < data->map_info->maxlenmap * \
+	MINI_MAP_TILE_SIZE && minimap_pos.y > 0 && minimap_pos.y < \
+	data->map_info->maplines  * MINI_MAP_TILE_SIZE) && \
+	(minimap_pos.x / MINI_MAP_TILE_SIZE) < ft_strlen(data->map_info->map\
+	[(int)(minimap_pos.y / MINI_MAP_TILE_SIZE)]))
+		my_mlx_pixel_put(data->mini_map, j, i, \
+		get_minimap_collor(data->map_info->map, minimap_pos));
+	else
+		my_mlx_pixel_put(data->mini_map, j, i, 0xA0A00000);
+}
 void	put_minimap(t_collect_data *data)
 {
 	int				i;
 	int				j;
-	int				collor;
-	t_cordinates	player_pos;
+	t_cordinates	p_pos;
 	t_cordinates	start_minimap;
 
-	player_pos = data->player->position;
-	start_minimap.x = round((player_pos.x / TILE_SIZE * MINI_MAP_TILE_SIZE)
-			- (SCREENWIDTH * MINI_MAP_FACTOR / 2));
-	start_minimap.y = round((player_pos.y / TILE_SIZE * MINI_MAP_TILE_SIZE)
-			- (SCREENHEIGHT * MINI_MAP_FACTOR / 2));
-	i = 0;
-	j = 0;
-	while (i < MINI_MAP_HEIGHT)
+	p_pos = data->player->position;
+	start_minimap.x = round((p_pos.x / TILE_SIZE * MINI_MAP_TILE_SIZE) \
+	- (SCREENWIDTH * MINI_MAP_FACTOR / 2));
+	start_minimap.y = round((p_pos.y / TILE_SIZE * MINI_MAP_TILE_SIZE) \
+	- (SCREENHEIGHT * MINI_MAP_FACTOR / 2));
+	i = -1;
+	while (++i < MINI_MAP_HEIGHT)
 	{
-		j = 0;
-		start_minimap.x = round((player_pos.x / TILE_SIZE * MINI_MAP_TILE_SIZE)
-				- (SCREENWIDTH * MINI_MAP_FACTOR / 2));
-		while (j < MINI_MAP_WIDTH)
+		j = -1;
+		start_minimap.x = round((p_pos.x / TILE_SIZE * MINI_MAP_TILE_SIZE) \
+		- (SCREENWIDTH * MINI_MAP_FACTOR / 2));
+		while (++j < MINI_MAP_WIDTH)
 		{
-			if ((start_minimap.x > 0
-					&& start_minimap.x < data->map_info->maxlenmap
-					* MINI_MAP_TILE_SIZE && start_minimap.y > 0 &&
-					start_minimap.y < data->map_info->maplines
-						* MINI_MAP_TILE_SIZE) &&
-				(start_minimap.x
-						/ MINI_MAP_TILE_SIZE) < ft_strlen(data->map_info->map[(int)(start_minimap.y
-							/ MINI_MAP_TILE_SIZE)]))
-			{
-				collor = get_minimap_collor(data->map_info->map, start_minimap);
-				my_mlx_pixel_put(data->mini_map, j, i, collor);
-			}
-			else
-				my_mlx_pixel_put(data->mini_map, j, i, 0xA0A00000);
-			j++;
+			draw_minimap(data, start_minimap, i , j);
 			start_minimap.x++;
 		}
 		start_minimap.y++;
-		i++;
 	}
 	put_player(data);
 }

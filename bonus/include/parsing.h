@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 17:01:19 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 01:17:30 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:29:45 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			check_valid_map(t_index index, char **map, t_map_info *game,
 				int *counter);
 int			checkmap(t_map_info *game);
 int			check_texture(t_map_info *game, char *cleanline);
-void		base_parsing(char *file, t_map_info *game);
+void		_parsing(char *file, t_map_info *game);
 void		findmaxline(t_map_info *game);
 char		*fillwithspace(char *line, t_map_info *game);
 char		*onlyspaces(int diff);

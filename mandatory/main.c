@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 04:57:07 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:30:11 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void cub3d_loop(t_collect_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_map_info map_info;
 	t_collect_data all_data;
+	t_map_info map_info;
 	t_player player;
 	t_mlx mlx;
 	t_img_data img;
 	
 	if (argc == 2)
 	{
-		base_parsing(argv[1], &map_info);
+		_parsing(argv[1], &map_info);
 		init_player(&player, map_info.map);
 		mlx.mlx = mlx_init();
 		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "CUB3D!");

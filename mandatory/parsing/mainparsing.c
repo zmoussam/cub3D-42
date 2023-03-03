@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mainparsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmakboub <mmakboub@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 18:18:20 by mmakboub          #+#    #+#             */
-/*   Updated: 2023/03/03 01:17:49 by mmakboub         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:30:36 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_reading_maps(t_map_info *game, char *file)
 		return (ft_error("invalid map!!"), exit(1));
 }
 
-void	base_parsing(char *file, t_map_info *game)
+void	_parsing(char *file, t_map_info *game)
 {
 	initializer(game);
 	ft_check_cub(file);

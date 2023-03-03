@@ -6,7 +6,7 @@
 /*   By: zmoussam <zmoussam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:56:11 by zmoussam          #+#    #+#             */
-/*   Updated: 2023/03/03 05:22:29 by zmoussam         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:43:38 by zmoussam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	esc_hook(t_mlx *mlx)
 
 int	handle_mouse(int x, int y, t_collect_data *data)
 {
-	(void)y;
+	y = 0;
 	if (data->player->release_mouse)
 	{
 		if (x > data->mouse_pos)
@@ -45,7 +45,6 @@ int	mouse_press(int key, int x, int y, t_collect_data *data)
 
 int	mouse_release(int key, int x, int y, t_collect_data *data)
 {
-	(void)key;
 	(void)x;
 	(void)y;
 	if (key == 1)
@@ -70,10 +69,20 @@ void cub3d_loop(t_collect_data *data)
 void collect_all_texture(t_collect_data *data)
 {
 	data->texture = get_wall_texture(data->mlx->mlx, data->map_info);
-	data->shooting_target = get_texture(data->mlx, "./assets/shooting_target.xpm");
+	data->shoot_target = get_texture(data->mlx, "./assets/shooting_target.xpm");
 	data->weapon = get_weapon_texture(data->mlx);
 	data->digit = get_digit_texture(data->mlx);
 	data->amo = get_texture(data->mlx, "./assets/amo.xpm");
+}
+void init_mlx(t_mlx *mlx)
+{
+	mlx->img = (t_img_data *)malloc(sizeof(t_img_data));
+	if(!mlx->img)
+		return (ft_error("memory was not allocated!!"), exit(1));
+	mlx->mlx = mlx_init();
+	mlx->mlx_win = mlx_new_window(mlx->mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
+	mlx->img->img = mlx_new_image(mlx->mlx, SCREENWIDTH, SCREENHEIGHT);
+	mlx->img->addr = mlx_get_data_addr(mlx->img->img, &mlx->img->bits_per_pixel, &mlx->img->line_length, &mlx->img->endian);
 }
 
 int	main(int arc, char **arv)
@@ -82,22 +91,15 @@ int	main(int arc, char **arv)
 	t_collect_data all_data;
 	t_player player;
 	t_mlx mlx;
-	t_img_data img;
 	t_img_data mini_map;
 	
 	if (arc == 2)
 	{
-		base_parsing(arv[1], &map_info);
+		_parsing(arv[1], &map_info);
 		init_player(&player, map_info.map);
-
-		mlx.mlx = mlx_init();
-		mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Awesome cub3d!");
-		img.img = mlx_new_image(mlx.mlx, SCREENWIDTH, SCREENHEIGHT);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+		init_mlx(&mlx);
 		mini_map.img = mlx_new_image(mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
 		mini_map.addr = mlx_get_data_addr(mini_map.img, &mini_map.bits_per_pixel, &mini_map.line_length, &mini_map.endian);
-		
-		mlx.img = &img;
 		all_data.map_info = &map_info;
 		all_data.mlx = &mlx;
 		all_data.player = &player;
