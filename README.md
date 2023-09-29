@@ -49,24 +49,51 @@ cub3D is a first-person perspective maze exploration game inspired by the iconic
 
    ```bash
    git clone https://github.com/yourusername/cub3D.git
-   ```
+   s```
 
-4.Compile the project:
+4. Compile the project:
  
   ```bash
-  make && make bounus
+  make && make bonus
   ```
-5.Run the game with a scene description file (e.g, `maps/map.cub`):
+5. Run the game with a scene description file (e.g, `maps/map.cub`):
   
   ```bash
   ./cub3D_bonus maps/map.cub
   ```
 
-##
+# Scene Description File
 
+<br>
+Create a scene description file (e.g., example.cub) with the following elements:
 
+Textures for North, South, East, and West walls.
+Floor and ceiling colors.
+Map layout (0 for empty space, 1 for a wall, N/S/E/W for player start position).
+Example:
 
+  ```bash
+  NO ./path_to_the_north_texture
+  SO ./path_to_the_south_texture
+  WE ./path_to_the_west_texture
+  EA ./path_to_the_east_texture
+  F 220,100,0
+  C 225,30,0
+  1111111111111111111111111
+  1000000000110000000000001
+  1011000001110000000000001
+  1001000000000000000000001
+  111111111011000001110000000000001
+  100000000011000001110111111111111
+  11110111111111011100000010001
+  ...
+```
+<br>
+
+# Bonus Features
+<br>
+
+In addition to the mandatory features, this project includes various bonus features such as wall collisions, a minimap system, doors, animated sprites, and mouse-based point of view rotation.
+<br>
   
-
-
 https://user-images.githubusercontent.com/90983110/222911803-cf19f3d0-4acf-4f57-a01f-11fe9533e010.mov
